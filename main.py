@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-#asljdbhavbhabvcasd
 
 
 class Ui_MainWindow(object):
