@@ -6,70 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>714</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>40</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Usuario</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>200</y>
-     <width>381</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Registrar venta de entradas</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_8">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>320</y>
-     <width>381</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Gestionar entradas</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>20</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Nombre sede</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>230</y>
+     <x>180</x>
+     <y>150</y>
      <width>381</width>
      <height>23</height>
     </rect>
@@ -78,37 +26,11 @@
     <string>Consultar precio de entradas</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>260</y>
-     <width>381</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Generar Ranking de venta de entradas</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_5">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cerrar sesión</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>290</y>
+     <x>180</x>
+     <y>210</y>
      <width>381</width>
      <height>23</height>
     </rect>
@@ -117,11 +39,76 @@
     <string>Consultar venta de entrada</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>180</y>
+     <width>381</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Generar Ranking de venta de entradas</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_8">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>240</y>
+     <width>381</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Gestionar entradas</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>120</y>
+     <width>381</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Registrar venta de entradas</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>30</y>
+     <width>47</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Usuario</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>10</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nombre sede</string>
+   </property>
+  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>710</x>
-     <y>60</y>
+     <x>640</x>
+     <y>50</y>
      <width>71</width>
      <height>16</height>
     </rect>
@@ -130,7 +117,50 @@
     <string>Fecha y hora</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>290</y>
+     <width>381</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cerrar sesión</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>270</y>
+     <width>381</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-132</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
