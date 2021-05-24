@@ -6,7 +6,7 @@ class Sede():
     exposicionesVigentes = []
     nombre = ''
     reservaVisita = ''
-    tarifasVigentes = 0 #Cambiar a booleano
+    tarifasVigentes = False #Cambiar a booleano
 
     def __init__(self, cantidadMaximaPorGuia, cantidadMaximaVisitantes,
     duracionExposicionesVigentes,exposicionesVigentes,nombre,reservaVisita, tarifasVigentes):
