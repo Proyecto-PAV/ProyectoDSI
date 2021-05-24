@@ -1,6 +1,6 @@
 
 
-class Exposicion:
+class Exposicion():
 
     detalleExposicion = []
     fechaFin = 00/00/00

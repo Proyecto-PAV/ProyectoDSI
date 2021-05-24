@@ -1,4 +1,4 @@
-class ReservaVisita:
+class ReservaVisita():
 
     cantidadAlumnos = 0
     cantidadAlumnosConfirmada = 0
