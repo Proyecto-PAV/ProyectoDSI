@@ -1,0 +1,126 @@
+[33mcommit 153c1f8b21572c6be7e9db52a2d3d2ffb77e0db5[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: Luciano Guzman <lucianoguzman24@gmail.com>
+Date:   Sun May 23 20:38:48 2021 -0300
+
+    Delete clases.txt
+
+[33mcommit 2c684596993f81865668c09880e41cbbd104fd12[m
+Author: belen yammal <belentammal@gmail.com>
+Date:   Sun May 23 20:36:53 2021 -0300
+
+    archivos creados del modelo
+
+[33mcommit eb0030026e9d65ff39f2163fe088ed74c46cf328[m
+Author: Felipe Arias <felipe2arias@hotmail.com>
+Date:   Sun May 23 20:22:20 2021 -0300
+
+    Delete prototipo.py
+
+[33mcommit 11ce1f4be197543c5c1e94300368e51bf7e0446b[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Sun May 23 20:21:33 2021 -0300
+
+    interfaces listas
+
+[33mcommit 0d74c758f10e5246f00c60174adf1657eaf80e19[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mgit-pull[m[33m)[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Sun May 23 18:04:50 2021 -0300
+
+    proyecto organizado
+
+[33mcommit 29ad28ba9753134f9696d92875be8b0d814b31fa[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Sun May 23 18:03:50 2021 -0300
+
+    proyecto organizado
+
+[33mcommit 0add3aaa637c0a5766e99c818e00a191dde6caa5[m
+Author: Nahuel Manero <80863427+NahuAM1@users.noreply.github.com>
+Date:   Fri May 21 19:46:52 2021 -0300
+
+    Update README.md
+
+[33mcommit 31ae0d6625ee75f738cee2cdda31950a3150ab62[m
+Author: Felipe Arias <felipe2arias@hotmail.com>
+Date:   Fri May 21 19:27:11 2021 -0300
+
+    Update README.md
+
+[33mcommit e24eec9e03eca7ce677e7899aed671a39d8c96ab[m
+Author: Felipe Arias <felipe2arias@hotmail.com>
+Date:   Fri May 21 18:10:52 2021 -0300
+
+    Update README.md
+
+[33mcommit 047c77cd0c0741e02636e827b7e701a8f6aa5bb1[m
+Author: Luciano Guzman <lucianoguzman24@gmail.com>
+Date:   Fri May 21 17:57:07 2021 -0300
+
+    Borrado
+    
+    Borrado test
+
+[33mcommit 579d91faeb40cc59ef78d77ae2cecef54830e065[m
+Author: Luciano Guzman <lucianoguzman24@gmail.com>
+Date:   Fri May 21 17:54:29 2021 -0300
+
+    asda
+    
+    asd
+
+[33mcommit fe036c76bf403b72df30b45cb6cfcaea3fd0b4ff[m
+Author: Nahuel Manero <nahuam00@gmail.com>
+Date:   Fri May 21 17:50:39 2021 -0300
+
+    Ya aprendi y corregi todoo
+    
+    Saque el asdsadgshbv
+
+[33mcommit 466f8fd844176097d7f6d3bc760ad13f4df968ef[m
+Merge: 503bb35 f44b51d
+Author: Nahuel Manero <nahuam00@gmail.com>
+Date:   Fri May 21 17:48:28 2021 -0300
+
+    Merge branch 'main' of https://github.com/Proyecto-PAV/ProyectoDSI into main
+
+[33mcommit 503bb351ee3fbb9008e132473935c5beb12de10f[m
+Author: Nahuel Manero <nahuam00@gmail.com>
+Date:   Fri May 21 17:48:01 2021 -0300
+
+    Update main.py
+
+[33mcommit f44b51d8b9e8e9251e0c79273ea4c0e4267c8b45[m
+Author: Genaro Lambertucci <83099@sistemas.frc.utn.edu.ar>
+Date:   Fri May 21 17:41:44 2021 -0300
+
+    Update main.py
+
+[33mcommit 8d68b89894862591939c861a2c70d7e1d39703a9[m
+Author: Luciano Guzman <lucianoguzman24@gmail.com>
+Date:   Thu May 20 19:36:11 2021 -0300
+
+    Prueba
+
+[33mcommit 4158b50bb5f1af5696377af26c89775a3cae34f8[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Wed May 19 20:07:48 2021 -0300
+
+    archivo de db
+
+[33mcommit 3fcad2dca1e899b4d32353a7e0a85b0f731969e1[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Sat May 1 14:04:13 2021 -0300
+
+    readme actualizado
+
+[33mcommit 506139eb16c8e481a514b0c2aefc26a27a812583[m
+Author: felipearias2024 <felipe2arias@hotmail.com>
+Date:   Sat May 1 14:02:15 2021 -0300
+
+    creado el archivo de interfaz y el main.py
+
+[33mcommit 10d2794496de989d72bab0608e31ac6006aa83dc[m
+Author: Felipe Arias <felipe2arias@hotmail.com>
+Date:   Sat May 1 12:16:51 2021 -0300
+
+    Initial commit
