@@ -2,11 +2,11 @@ class Sede():
     
     cantidadMaximaPorGuia = 0
     cantidadMaximaVisitantes = 0
-    duracionExposicionesVigentes = 0
-    exposicionesVigentes = ''
+    duracionExposicionesVigentes = 0 
+    exposicionesVigentes = []
     nombre = ''
     reservaVisita = ''
-    tarifasVigentes = 0
+    tarifasVigentes = 0 #Cambiar a booleano
 
     def __init__(self, cantidadMaximaPorGuia, cantidadMaximaVisitantes,
     duracionExposicionesVigentes,exposicionesVigentes,nombre,reservaVisita, tarifasVigentes):
