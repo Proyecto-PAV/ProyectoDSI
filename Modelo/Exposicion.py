@@ -3,10 +3,10 @@
 class Exposicion():
 
     detalleExposicion = []
-    fechaFin = 00/00/00
-    fechaFinReplanificada = 00/00/00
-    fechaInicio = 00/00/00
-    fechaInicioReplanificada = 00/00/00
+    fechaFin = ""
+    fechaFinReplanificada = ""
+    fechaInicio = ""
+    fechaInicioReplanificada = ""
     horaApertura = 0
     horaCierre = 0
     nombre = ""

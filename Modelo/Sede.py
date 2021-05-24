@@ -29,15 +29,15 @@ class Sede():
 
         pass
     
-    def conocerColeccion():
+    def conocerColeccion(self):
         pass
-    def conocerDeposito():
+    def conocerDeposito(self):
         pass
-    def conocerEmpleado():
+    def conocerEmpleado(self):
         pass
-    def conocerExposicion():
+    def conocerExposicion(self):
         pass
-    def conocerHorario():
+    def conocerHorario(self):
         pass
     #Se sigue con los def
 

@@ -1,7 +1,7 @@
 class Entrada():
 
-    fechaVenta = 00/00/0000
-    horaVenta = 0000
+    fechaVenta = ""
+    horaVenta = ""
     monto = 0
     numero = 0
     

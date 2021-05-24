@@ -6,7 +6,7 @@ class Empleado():
     cuit = 00000000000
     dni = 00000000
     domicilio = ""
-    fechaDeIngreso = 00/00/0000
+    fechaDeIngreso = ""
     mail = ""
     sedeDondeTrabaja = ""
     sexo = ""

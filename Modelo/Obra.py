@@ -26,48 +26,48 @@ class Obra():
         self.peso = peso
         self.valuacion = valuacion
    
-    def conocerArtista():
+    def conocerArtista(self):
         pass
     
-    def conocerCambioEstado():
+    def conocerCambioEstado(self):
         pass
     
-    def conocerCompra():
+    def conocerCompra(self):
         pass
     
-    def conocerDonacion():
+    def conocerDonacion(self):
         pass
     
-    def conocerEmpleado():
+    def conocerEmpleado(self):
         pass
     
-    def conocerEstilo():
+    def conocerEstilo(self):
         pass
     
-    def conocerPrestamo():
+    def conocerPrestamo(self):
         pass
     
-    def conocerPrestamoAMuseo():
+    def conocerPrestamoAMuseo(self):
         pass
     
-    def conocerRestauracion():
+    def conocerRestauracion(self):
         pass
     
-    def conocerSectorAsignado():
+    def conocerSectorAsignado(self):
         pass
     
-    def conocerTecnica():
+    def conocerTecnica(self):
         pass
     
-    def conocerTematica():
+    def conocerTematica(self):
         pass
     
-    def conocerTipoIngreso():
+    def conocerTipoIngreso(self):
         pass
     
-    def crearCambioEstado():
+    def crearCambioEstado(self):
         pass
     
-    def getDuracionResumida():
+    def getDuracionResumida(self):
         pass
     
