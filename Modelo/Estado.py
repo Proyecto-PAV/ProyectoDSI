@@ -3,7 +3,7 @@ class estado():
 
     ambito = ''
     descripcion = ''
-    estadoReserva = 0
+    estadoReserva = ''
     nombre = ''
 
     def __init__(self, ambito, descripcion, estadoReserva, nombre):

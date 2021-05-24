@@ -4,7 +4,7 @@ class usuario():
     caducidad = ''
     contraseña = ''
     nombre = ''
-    usuarioLogueado = 0
+    usuarioLogueado = False
 
     def __init__(self, caducidad, contraseña, nombre, usuarioLogueado):
         self.caducidad = caducidad
