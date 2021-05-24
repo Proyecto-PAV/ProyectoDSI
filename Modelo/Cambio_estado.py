@@ -1,8 +1,8 @@
 
 class Cambio_Estado():
     estado = ""
-    fechaHoraFin = 00/00/0000
-    fechaHoraInicio = 00/00/0000
+    fechaHoraFin = ""
+    fechaHoraInicio = ""
 
     def __init__(self, estado, fechaHoraFin, fechaHoraInicio):
         self.estado = estado
