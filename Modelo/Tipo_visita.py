@@ -3,7 +3,7 @@
 class TipoVisita():
 
     nombre = ""
-    tipoVisita = []
+    tipoVisita = 0
 
     def __init__(self, nombre, tipoVisita):
         self.nombre = nombre

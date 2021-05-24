@@ -2,7 +2,7 @@
 class TipoEntrada():
 
     nombre = ""
-    tipoEntrada = []
+    tipoEntrada = 0
 
     def __init__(self, nombre, tipoEntrada):
         self.nombre = nombre,

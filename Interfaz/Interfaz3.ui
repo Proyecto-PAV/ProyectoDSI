@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>RegistrarVentaDeEntradas</class>
+ <widget class="QDialog" name="RegistrarVentaDeEntradas">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>857</width>
-    <height>300</height>
+    <width>1050</width>
+    <height>310</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
+  <property name="minimumSize">
+   <size>
+    <width>1050</width>
+    <height>310</height>
+   </size>
   </property>
-  <widget class="QComboBox" name="ComboBox">
+  <property name="maximumSize">
+   <size>
+    <width>1050</width>
+    <height>310</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Registrar venta de entradas</string>
+  </property>
+  <widget class="QComboBox" name="CB_tipo_entrada">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -48,7 +63,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lbl_tipo_entrada">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -61,7 +76,7 @@
     <string>Seleccionar tipo de entrada:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="lbl_tipo_visita">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -74,7 +89,7 @@
     <string>Seleccionar tipo de visita:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="ComboBox_2">
+  <widget class="QComboBox" name="CB_tipo_visita">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -94,7 +109,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
+  <widget class="QRadioButton" name="RB_con_guia">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -107,7 +122,7 @@
     <string>Con guía</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_2">
+  <widget class="QRadioButton" name="RB_sin_guia">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -122,19 +137,22 @@
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>340</x>
      <y>30</y>
-     <width>531</width>
-     <height>192</height>
+     <width>681</width>
+     <height>211</height>
     </rect>
    </property>
    <row>
     <property name="text">
-     <string>1</string>
+     <string>Total</string>
+    </property>
+    <property name="textAlignment">
+     <set>AlignLeading|AlignBottom</set>
     </property>
    </row>
    <column>
@@ -162,33 +180,13 @@
      <string>Precio</string>
     </property>
    </column>
-   <item row="0" column="0">
+   <column>
     <property name="text">
-     <string>General</string>
+     <string>Eliminar</string>
     </property>
-   </item>
-   <item row="0" column="1">
-    <property name="text">
-     <string>Completa</string>
-    </property>
-   </item>
-   <item row="0" column="2">
-    <property name="text">
-     <string>no</string>
-    </property>
-   </item>
-   <item row="0" column="3">
-    <property name="text">
-     <string>1</string>
-    </property>
-   </item>
-   <item row="0" column="4">
-    <property name="text">
-     <string>123</string>
-    </property>
-   </item>
+   </column>
   </widget>
-  <widget class="QSpinBox" name="spinBox">
+  <widget class="QSpinBox" name="SB_cantidad">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -201,7 +199,7 @@
     <number>1000</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="lbl_cantidad">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -214,7 +212,7 @@
     <string>Cantidad:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btn_agregar">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -227,11 +225,11 @@
     <string>Agregar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btn_confirmar">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>240</y>
+     <x>620</x>
+     <y>260</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -240,11 +238,11 @@
     <string>Confirmar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="btn_cancelar">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>240</y>
+     <x>710</x>
+     <y>260</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -253,22 +251,74 @@
     <string>Cancelar</string>
    </property>
   </widget>
+  <widget class="QLabel" name="lbl_precio_tipo_entrada">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>50</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Precio: $</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_precio_tipo_visita">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>110</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Precio: $</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_adicional_guia">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>150</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Adicional: $</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>40</y>
+     <width>16</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>btn_cancelar</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>RegistrarVentaDeEntradas</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>608</x>
-     <y>254</y>
+     <x>738</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>589</x>
-     <y>429</y>
+     <y>279</y>
     </hint>
    </hints>
   </connection>
