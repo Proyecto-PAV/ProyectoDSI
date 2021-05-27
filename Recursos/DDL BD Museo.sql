@@ -95,7 +95,10 @@ CREATE TABLE sedes
 (nombre     VARCHAR(50)
     CONSTRAINT sedes_nombre_nn UNIQUE NOT NULL,
  cant_maxima_visitnates     INT,
+ cant_max_por_guia          INT,
+ adicional_por_guia         FLOAT,
     CONSTRAINT sedes_nombre_pk PRIMARY KEY (nombre))
+--Caracteristicas de guias y adicionales en cada sede
 
 
 CREATE TABLE exposiciones
@@ -139,7 +142,7 @@ CREATE TABLE reservasVisitas
     CONSTRAINT reservasVisitas_nro_reserva_pk PRIMARY KEY (numero_reserva),
     CONSTRAINT reservaVisitas_sede_uk UNIQUE (nombre_sede))
 
-
+/*
 CREATE TABLE guias
 (dni INT
     CONSTRAINT guias_dni_nn UNIQUE NOT NULL,
@@ -149,7 +152,8 @@ cant_maxima INT,
 monto_adicional FLOAT,
     CONSTRAINT guias_dni_pk PRIMARY KEY (dni)
 )
-
+HAY QUE PASAR ESTOS METODOS A LA SEDE
+Y SACAR LA TABLA DE ABAJO MEPA 
 
 CREATE TABLE Reservas_x_Guias
 (numero_reserva INT
@@ -158,7 +162,7 @@ CREATE TABLE Reservas_x_Guias
     CONSTRAINT Reservas_x_Guias_dni_nn UNIQUE NOT NULL,    
  nombre_sede    VARCHAR(50),
     CONSTRAINT Reservas_x_Guias_nro_dni_pk PRIMARY KEY(numero_reserva, dni) )
-
+*/
 
 CREATE TABLE obras
 (nombre_obra    VARCHAR(150)
@@ -212,6 +216,7 @@ CREATE TABLE operaciones
     CONSTRAINT operaciones_id_pk PRIMARY KEY (id_operaciones)
 )
 
+/*
 CREATE TABLE gestorVentaEntradas
 (dni                    INT
     CONSTRAINT gestorVentaEntradas_dni_nn NOT NULL,
@@ -228,7 +233,8 @@ CREATE TABLE gestorVentaEntradas
     CONSTRAINT gestorVentaEntradas_dni_usu_fh_pk PRIMARY KEY (dni, nombre_usuario, fecha_hora_actual),
     -- EL DATATYPE 'BIT' REPRESENTA 0,1 O NULL
 )
-
+ESTA CLASE Y LAS PANTALLAS NO TIENEN PERSISTENCIA - NO VAN
+*/
 
 CREATE TABLE usuarios
 (nombre_usuario     VARCHAR(100)
@@ -240,3 +246,14 @@ CREATE TABLE usuarios
  usuario_log        BIT,
     CONSTRAINT usuarios_nombre_usu_pk PRIMARY KEY (nombre_usuario)
 )
+
+--AGREGO LA CLASE SALAS DE LA SEDE
+CREATE TABLE salas
+(numero_sala INT
+    CONSTRAINT salas_nro_sala_nn NOT NULL, 
+ nombre_sede    VARCHAR(50)
+   CONSTRAINT salas_nm_sede_nn NOT NULL,
+ nombre_sala    VARCHAR(150)
+    CONSTRAINT salas_nm_sala_nn NOT NULL,
+    CONSTRAINT sala_nro_sede_pk PRIMARY KEY(numero_sala, nombre_sede),
+    CONSTRAINT sala_nro_sede_sala_uk UNIQUE(numero_sala, nombre_sede, nombre_sala))
