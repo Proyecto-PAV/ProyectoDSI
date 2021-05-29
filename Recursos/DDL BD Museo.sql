@@ -1,13 +1,12 @@
-
 --EJECUTAR EL COMANDO DE CREACI�N DE LA BASE DE DATOS PRIMERO (SOLO).
 --PARA EJECUTAR SOLO ESTA LINEA SE LA DEBE PINTAR Y OPRIMIR EL BOT�N 
 
 
-CREATE DATABASE MUSEO;
+CREATE DATABASE MUSEO_V1;
 
 -- LUEGO DE EJECUTAR EL COMANDO DE CREACI�N COMENTAR LA LINEA
 
-use MUSEO;
+use MUSEO_V1;
 
 -- Crear tablas.
 
@@ -19,25 +18,25 @@ CREATE TABLE entradas
  monto                        FLOAT,
  id_tipo_entrada              INT,
  id_tipo_visita               INT,
- nombre_sede                  INT,
+ nombre_sede                  VARCHAR(50),
      CONSTRAINT entradas_numero_pk PRIMARY KEY (numero),
      CONSTRAINT entradas_id_te_tv_sede_uk UNIQUE(id_tipo_entrada, id_tipo_visita, nombre_sede))
 
 
 CREATE TABLE tipoVisitas
 (id_tipo_visita            INT
-    CONSTRAINT TipoVisitas_id_tipo_visita_nn UNIQUE NOT NULL,
- nombre                    VARCHAR(255)
-    CONSTRAINT TipoVisita_nombre_nn NOT NULL,
-    CONSTRAINT TipoVisitas_id_nn PRIMARY KEY (id_tipo_visita))
-
-
-CREATE TABLE TipoEntradas
-(id_tipo_entrada            INT
-    CONSTRAINT TipoEntradas_id_tipo_entrada_nn UNIQUE NOT NULL,
+    CONSTRAINT tipoVisitas_id_tipo_visita_nn UNIQUE NOT NULL,
  nombre                    VARCHAR(50)
-    CONSTRAINT TipoEntradas_nombre_nn NOT NULL,
-    CONSTRAINT TipoEntradas_id_nn PRIMARY KEY (id_tipo_entrada))
+    CONSTRAINT tipoVisita_nombre_nn NOT NULL,
+    CONSTRAINT tipoVisitas_id_nn PRIMARY KEY (id_tipo_visita))
+
+
+CREATE TABLE tipoEntradas
+(id_tipo_entrada            INT
+    CONSTRAINT tipoEntradas_id_tipo_entrada_nn UNIQUE NOT NULL,
+ nombre                    VARCHAR(50)
+    CONSTRAINT tipoEntradas_nombre_nn NOT NULL,
+    CONSTRAINT tipoEntradas_id_nn PRIMARY KEY (id_tipo_entrada))
 
 
 CREATE TABLE tarifas
@@ -50,9 +49,9 @@ CREATE TABLE tarifas
  fecha_fin_vigencia     DATE,
  fecha_inico_vigencia   DATE,
  monto                  FLOAT,
- id_guia                INT,
+ --id_guia                INT,
     CONSTRAINT tarifas_tipent_tipven_sede_pk PRIMARY KEY (id_tipo_visita, id_tipo_entrada, nombre_sede),
-    CONSTRAINT tarifas_id_guia_tv_te_uk UNIQUE (id_tipo_visita, id_tipo_entrada, nombre_sede, id_guia),
+    CONSTRAINT tarifas_id_guia_tv_te_uk UNIQUE (id_tipo_visita, id_tipo_entrada, nombre_sede),
 )
 
 
@@ -122,7 +121,7 @@ CREATE TABLE detalleExposiciones
     CONSTRAINT detalleExposiciones_expo_nn UNIQUE NOT NULL,
  nombre_obra    VARCHAR(150)
     CONSTRAINT detalleExposiciones_obra_nn UNIQUE NOT NULL,
- id_operaciones INT
+ id_operacion INT
     CONSTRAINT detalleExposiciones_operaciones_nn UNIQUE,
  lugar_asginado VARCHAR(200),
     CONSTRAINT detalleExposiones_expo_obra_pk PRIMARY KEY (nombre_exposicion, nombre_obra))
@@ -210,10 +209,10 @@ CREATE TABLE estados
 
 
 CREATE TABLE operaciones
-(id_operaciones INT
+(id_operacion INT
     CONSTRAINT operaciones_id_nn UNIQUE NOT NULL,
  detalle    VARCHAR(400),
-    CONSTRAINT operaciones_id_pk PRIMARY KEY (id_operaciones)
+    CONSTRAINT operaciones_id_pk PRIMARY KEY (id_operacion)
 )
 
 /*
@@ -257,3 +256,103 @@ CREATE TABLE salas
     CONSTRAINT salas_nm_sala_nn NOT NULL,
     CONSTRAINT sala_nro_sede_pk PRIMARY KEY(numero_sala, nombre_sede),
     CONSTRAINT sala_nro_sede_sala_uk UNIQUE(numero_sala, nombre_sede, nombre_sala))
+
+
+--AGREGO LA CLASE SENSORES
+CREATE TABLE sensores
+(id_sensor INT
+    CONSTRAINT sensores_id_nn UNIQUE NOT NULL,
+ descripcion    VARCHAR(400),
+    CONSTRAINT sensores_id_pk PRIMARY KEY (id_sensor)
+)
+
+
+-- agrego foreign key constraints.
+ALTER TABLE entradas 
+   ADD CONSTRAINT entrada_id_tipovisita_fk
+   FOREIGN KEY (id_tipo_visita) REFERENCES tipoVisitas (id_tipo_visita)
+
+ALTER TABLE entradas 
+   ADD CONSTRAINT entrada_id_tipoentrada_fk
+   FOREIGN KEY (id_tipo_entrada) REFERENCES tipoEntradas (id_tipo_entrada)
+
+ALTER TABLE entradas 
+   ADD CONSTRAINT entrada_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+ALTER TABLE tarifas 
+   ADD CONSTRAINT tarifas_tipoentrada_fk
+   FOREIGN KEY (id_tipo_entrada) REFERENCES tipoEntradas (id_tipo_entrada)
+
+
+ALTER TABLE tarifas 
+   ADD CONSTRAINT tarifas_tipovisita_fk
+   FOREIGN KEY (id_tipo_visita) REFERENCES tipoVisitas (id_tipo_visita)
+
+
+ALTER TABLE tarifas 
+   ADD CONSTRAINT tarifas_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+ALTER TABLE empleados 
+   ADD CONSTRAINT empleados_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+
+ALTER TABLE sesiones
+   ADD CONSTRAINT sesiones_dni_fk
+   FOREIGN KEY (dni) REFERENCES empleados (dni)
+
+ALTER TABLE sesiones
+   ADD CONSTRAINT tarifas_usuario_fk
+   FOREIGN KEY (nombre_usuario) REFERENCES usuarios (nombre_usuario)
+
+
+ALTER TABLE exposiciones 
+   ADD CONSTRAINT exposiciones_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+
+ALTER TABLE detalleExposiciones
+   ADD CONSTRAINT detalle_nombre_expo_fk
+   FOREIGN KEY (nombre_exposicion) REFERENCES exposiciones (nombre)
+
+
+ALTER TABLE detalleExposiciones
+   ADD CONSTRAINT detalle_nombre_obra_fk
+   FOREIGN KEY (nombre_obra) REFERENCES obras (nombre_obra)
+
+
+ALTER TABLE detalleExposiciones
+   ADD CONSTRAINT detalle_operaciones_fk
+   FOREIGN KEY (id_operacion) REFERENCES operaciones (id_operacion)
+
+
+ALTER TABLE reservasVisitas
+   ADD CONSTRAINT reserva_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+
+ALTER TABLE obras
+   ADD CONSTRAINT obras_sensor_fk
+   FOREIGN KEY (codigo_sensor) REFERENCES sensores (id_sensor)
+
+
+ALTER TABLE obras
+   ADD CONSTRAINT obras_empleado_fk
+   FOREIGN KEY (empleado_ingreso) REFERENCES empleados (dni)
+
+/*
+ALTER TABLE cambiosEstados
+   ADD CONSTRAINT cambEstado_estado_fk
+   FOREIGN KEY (id_estado) REFERENCES estados (id_estado)
+
+
+ALTER TABLE cambiosEstados
+   ADD CONSTRAINT cambEstado_ambito_fk
+   FOREIGN KEY (nombre_ambito) REFERENCES estados (nombre_ambito)*/
+
+
+ALTER TABLE salas
+   ADD CONSTRAINT salas_sede_fk
+   FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
