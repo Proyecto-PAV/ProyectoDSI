@@ -196,13 +196,13 @@ CREATE TABLE cambiosEstados
 
 CREATE TABLE estados
 (id_estado INT
-    CONSTRAINT cambiosEstados_id_nn NOT NULL,
+    CONSTRAINT estados_id_nn NOT NULL,
  nombre_ambito VARCHAR(100)
-    CONSTRAINT cambiosEstados_ambito_nn NOT NULL,
+    CONSTRAINT estados_ambito_nn NOT NULL,
  descripcion VARCHAR(400),
  estado_reserva VARCHAR(150),
  nombre_estado  VARCHAR(150),
-    CONSTRAINT cambiosEstados_id_nom_pk PRIMARY KEY (id_estado, nombre_ambito),
+    CONSTRAINT estados_id_nom_pk PRIMARY KEY (id_estado, nombre_ambito),
     CONSTRAINT cambiosEstados_nombre_estado_uk UNIQUE (nombre_estado)
       --HARIA FALTA SABER LOS NOMBRES ESTADO PARA HACER UN CONSTRAINT CHECK!!)
       )
