@@ -21,6 +21,10 @@ class Exposicion():
         self.horaCierre = horaCierre
         self.nombre = nombre
 
+
+
+
+
     def calcularDuracionObrasExpuestas(self):
         pass
 
