@@ -92,7 +92,7 @@ CREATE TABLE sesiones
 CREATE TABLE sedes 
 (nombre     VARCHAR(50)
     CONSTRAINT sedes_nombre_nn UNIQUE NOT NULL,
- cant_maxima_visitnates     INT,
+ cant_maxima_visitantes     INT,
  cant_max_por_guia          INT,
  adicional_por_guia         FLOAT,
     CONSTRAINT sedes_nombre_pk PRIMARY KEY (nombre))
