@@ -1,23 +1,34 @@
+from Modelo.Empleado import Empleado
+from Modelo import Sede
+from Modelo import guia 
+from Modelo import Tarifa 
+from Modelo import guia 
+
 class Entrada():
 
     fechaVenta = ""
     horaVenta = ""
     monto = 0
     numero = 0
-    
-    def __init__(self, fechaVenta, horaVenta, monto, numero):
+    sedes = []
+    guia = []
+    tarifa = []
+    def __init__(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
         self.fechaVenta = fechaVenta
         self.horaVenta = horaVenta
         self.monto = monto
         self.numero = numero
+        self.sede = sedes
+        self.guia = guia
+        self.tarifa = tarifa
 
     def conocerGuiaAsignado(self):
-        pass
+        return self.guia
     def conocerSede(self):
-        pass
+        return self.sedes
     def conocerTarifa(self):
-        pass
+        return self.tarifa
     def getNro(self):
-        pass
-    def new(self):
-        pass
+        return self.numero
+    def new(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
+        return Empleado(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa)
