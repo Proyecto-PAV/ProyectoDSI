@@ -1,4 +1,5 @@
-
+from Modelo import Sesion
+from Modelo import Exposicion
 class usuario():
 
     caducidad = ''
@@ -15,5 +16,5 @@ class usuario():
     def conocerEmpleado(self):
         pass
 
-    def getEmpleadoenSesion(self):
-        pass
+    def getEmpleadoenSesion(self, empleadoSesion):
+        Sesion.getEmpleadoenSesion(empleadoSesion)
