@@ -1,12 +1,14 @@
 import pyodbc
-conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=DESKTOP-CBP7KEN\SQLEXPRESS;'
-                      'Database=GDA;'
-                      'Trusted_Connection=yes;')
+server = 'tpai-server.database.windows.net'
+database = 'MUSEO'
+username = 'gzr'
+password = 'tpaimanero1.'
+cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' +
+                      server+';DATABASE='+database+';UID='+username+';PWD=' + password)
+cursor = cnxn.cursor()
 
-cursor = conn.cursor()
-cursor.execute(
-    """SELECT * FROM GDA.dbo.empleados e WHERE e.apellido LIKE '%a' """)
-
-for row in cursor:
-    print(row)
+cursor.execute("SELECT s.nombre FROM dbo.sedes s;")
+row = cursor.fetchone()
+while row:
+    print(row[0])
+    row = cursor.fetchone()
