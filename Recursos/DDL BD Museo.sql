@@ -22,7 +22,6 @@ CREATE TABLE entradas
      CONSTRAINT entradas_numero_pk PRIMARY KEY (numero),
      CONSTRAINT entradas_id_te_tv_sede_uk UNIQUE(id_tipo_entrada, id_tipo_visita, nombre_sede))
 
-
 CREATE TABLE tipoVisitas
 (id_tipo_visita            INT
     CONSTRAINT tipoVisitas_id_tipo_visita_nn UNIQUE NOT NULL,
@@ -267,6 +266,16 @@ CREATE TABLE sensores
 )
 
 
+--AGREGO TABLA DE RESERVAS X EMPLEADOS
+CREATE TABLE reservas_x_empleado(
+    id_empleado         INT 
+        CONSTRAINT resxemple_dni_nn UNIQUE NOT NULL,
+    nro_reserva         INT 
+        CONSTRAINT resxemple_nroreserva_nn UNIQUE NOT NULL,
+        CONSTRAINT rexemple_dni_nroreserva_pk PRIMARY KEY (id_empleado, nro_reserva)
+)
+
+
 -- agrego foreign key constraints.
 ALTER TABLE entradas 
    ADD CONSTRAINT entrada_id_tipovisita_fk
@@ -356,3 +365,13 @@ ALTER TABLE cambiosEstados
 ALTER TABLE salas
    ADD CONSTRAINT salas_sede_fk
    FOREIGN KEY (nombre_sede) REFERENCES sedes (nombre)
+
+
+ALTER TABLE reservas_x_empleado
+   ADD CONSTRAINT resxempl_dni_fk
+   FOREIGN KEY (id_empleado) REFERENCES empleados (dni)
+
+
+ALTER TABLE reservas_x_empleado
+   ADD CONSTRAINT resxempl_nro_rese_fk
+   FOREIGN KEY (nro_reserva) REFERENCES reservasVisitas (numero_reserva)
