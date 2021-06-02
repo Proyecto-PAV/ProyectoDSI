@@ -2,11 +2,11 @@
 --PARA EJECUTAR SOLO ESTA LINEA SE LA DEBE PINTAR Y OPRIMIR EL BOT�N 
 
 
-CREATE DATABASE MUSEO_V1;
+CREATE DATABASE MUSEO;
 
 -- LUEGO DE EJECUTAR EL COMANDO DE CREACI�N COMENTAR LA LINEA
 
-use MUSEO_V1;
+use MUSEO;
 
 -- Crear tablas.
 
@@ -196,14 +196,14 @@ CREATE TABLE cambiosEstados
 
 CREATE TABLE estados
 (id_estado INT
-    CONSTRAINT estados_id_nn NOT NULL,
+    CONSTRAINT estados_id_nn UNIQUE NOT NULL,
  nombre_ambito VARCHAR(100)
-    CONSTRAINT estados_ambito_nn NOT NULL,
+    CONSTRAINT estados_ambito_nn UNIQUE NOT NULL,
  descripcion VARCHAR(400),
  estado_reserva VARCHAR(150),
  nombre_estado  VARCHAR(150),
     CONSTRAINT estados_id_nom_pk PRIMARY KEY (id_estado, nombre_ambito),
-    CONSTRAINT cambiosEstados_nombre_estado_uk UNIQUE (nombre_estado)
+    CONSTRAINT estados_nombre_estado_uk UNIQUE (nombre_estado)
       --HARIA FALTA SABER LOS NOMBRES ESTADO PARA HACER UN CONSTRAINT CHECK!!)
       )
 
@@ -342,7 +342,7 @@ ALTER TABLE obras
    ADD CONSTRAINT obras_empleado_fk
    FOREIGN KEY (empleado_ingreso) REFERENCES empleados (dni)
 
-/*
+
 ALTER TABLE cambiosEstados
    ADD CONSTRAINT cambEstado_estado_fk
    FOREIGN KEY (id_estado) REFERENCES estados (id_estado)
@@ -350,7 +350,7 @@ ALTER TABLE cambiosEstados
 
 ALTER TABLE cambiosEstados
    ADD CONSTRAINT cambEstado_ambito_fk
-   FOREIGN KEY (nombre_ambito) REFERENCES estados (nombre_ambito)*/
+   FOREIGN KEY (nombre_ambito) REFERENCES estados (nombre_ambito)
 
 
 ALTER TABLE salas
