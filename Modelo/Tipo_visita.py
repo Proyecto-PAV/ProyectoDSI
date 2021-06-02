@@ -10,10 +10,10 @@ class TipoVisita():
         self.tipoVisita = tipoVisita
 
     def getNombre(self):
-        pass
+        return self.nombre
 
     def getTipoVisita(self):
-        pass
+        return self.tipoEntrada
 
     def mostrarNombre(self):
-        pass
+        return "Nombre: "+ self.nombre
