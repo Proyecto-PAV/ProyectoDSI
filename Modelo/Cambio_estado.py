@@ -10,8 +10,16 @@ class Cambio_Estado():
         self.fechaHoraInicio = fechaHoraInicio
 
     def conocerEstado(self):
-        pass
+        return self.estado
+
     def getCambiosEstado(self):
         pass
-    def new(self):
-        pass
+
+    def new(self, estado, fechaHoraInicio, fechaHoraFin):
+        return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
+
+    def esEstadoActual(self):
+        if self.fechaHoraFin == '':
+            return True
+        else:
+            return False
