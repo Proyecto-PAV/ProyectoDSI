@@ -31,4 +31,4 @@ class Entrada():
     def getNro(self):
         return self.numero
     def new(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
-        return Empleado(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa)
+        return Entrada(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa)
