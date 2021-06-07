@@ -12,11 +12,32 @@ class estado():
         self.estadoReserva = estadoReserva
         self.nombre = nombre
     
-    def esAmbitoObra(self):
-        pass
+    def esAmbitoObra(ambito):
+        if ambito == 'Obra':
+            return True
+        else:
+            return False
 
-    def esPendienteAsigDeposito(self):
-        pass
+    def esAmbitoReservaVisita(ambito):
+        if ambito == 'Reserva Visita':
+            return True
+        else:
+            return False
 
-    def getEstadoReservaConfirmada(self):
-        pass
+    def esConfirmada(estadoReserva):
+        if estadoReserva == 'Confirmada':
+            return True
+        else:
+            return False
+
+    def esPendienteAsigDeposito(nombre):
+        if nombre == 'PendienteAsigDeposito':
+            return True
+        else:
+            return False
+
+    def getEstadoReservaConfirmada(estadoReserva):
+        if estadoReserva == 'Confirmada':
+            return estadoReserva
+        else:
+            pass
