@@ -5,13 +5,11 @@ class Tarifa():
     fechaFinVigencia = ""
     fechaInicioVigencia = ""
     monto = 0
-    montoAdicionalGuia = 0
 
-    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, montoAdicionalGuia):
+    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto):
         self.fechaFinVigencia = fechaFinVigencia
         self.fechaInicioVigencia = fechaInicioVigencia
         self.monto = monto
-        self.montoAdicionalGuia = montoAdicionalGuia
     
     
     def conocerTipoEntrada(self, entrada):
@@ -30,8 +28,6 @@ class Tarifa():
         else:
             print ("La fecha ingresada esta fuera de vigencia")
     
-    def getAdicionalPorGuia(self):
-        return self.montoAdicionalGuia
     
     def getMonto(self):
         return self.monto
