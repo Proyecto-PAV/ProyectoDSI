@@ -12,9 +12,11 @@ class Empleado():
     sexo = ""
     telefono = 0000000000
     cargos = []
+    horaIngreso = ""
+    horaSalida = ""
 
 
-    def __init__(self, nombre, apellido, codValidacion, cuit, dni, domicilio, fechaDeIngreso, fechaNacimiento, mail, sedeDondeTrabaja, sexo, telefono, cargos):
+    def __init__(self, nombre, apellido, codValidacion, cuit, dni, domicilio, fechaDeIngreso, fechaNacimiento, mail, sedeDondeTrabaja, sexo, telefono, cargos,horaIngreso, horaSalida):
         self.nombre = nombre
         self.apellido = apellido
         self.codValidacion = codValidacion
@@ -28,11 +30,13 @@ class Empleado():
         self.sexo = sexo
         self.telefono = telefono
         self.cargos = cargos
+        self.horaIngreso = horaIngreso
+        self.horaSalida = horaSalida
 
     def conocerCargo(self):
         return self.cargos
     def conocerHorario(self):
-        pass
+        return self.horaIngreso,self.horaSalida
     def getSedeDondeTrabaja(self):
         return self.sedeDondeTrabaja
 
