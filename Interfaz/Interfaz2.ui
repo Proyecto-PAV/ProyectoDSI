@@ -174,21 +174,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>btn_registrar_venta_entradas</sender>
-   <signal>clicked()</signal>
-   <receiver>MenuRV</receiver>
-   <slot>open()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>398</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>804</x>
-     <y>223</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>
