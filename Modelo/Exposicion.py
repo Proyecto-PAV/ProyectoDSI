@@ -28,7 +28,7 @@ class Exposicion():
         pass
 
     def conocerDetalleExposicion(self):
-        return self.detalleExposicion
+        pass
 
     def conocerEmpleado(self):
         return self.empleado
@@ -41,8 +41,10 @@ class Exposicion():
 
     def esVigente(self):
         x = datetime.datetime.now()
-    
+        if x > self.fechaInicio and x < self.fechaFin:
+                return True
+        else: False
 
     def getDetalleExposición(self):
-        pass
+        return self.detalleExposicion
     
