@@ -11,7 +11,7 @@ class Entrada():
     monto = 0
     numero = 0
     sedes = []
-    guia = []
+    guia = True
     tarifa = []
     def __init__(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
         self.fechaVenta = fechaVenta
