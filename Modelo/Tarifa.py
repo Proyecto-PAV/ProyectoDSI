@@ -24,9 +24,9 @@ class Tarifa():
     def esVigente(self, fecha):
         
         if fecha <= fechaFinVigencia and fecha >= fechaInicioVigencia:
-            print ("La fecha esta en vigencia")
+            return True
         else:
-            print ("La fecha ingresada esta fuera de vigencia")
+            return False
     
     
     def getMonto(self):
