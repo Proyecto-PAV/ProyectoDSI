@@ -6,10 +6,12 @@ class Tarifa():
     fechaInicioVigencia = ""
     monto = 0
 
-    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto):
+    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, tipo_entrada, tipo_visita):
         self.fechaFinVigencia = fechaFinVigencia
         self.fechaInicioVigencia = fechaInicioVigencia
         self.monto = monto
+        self.tipo_entrada = Tipo_Entrada
+        self.tipo_visita = Tipo_visita
     
     
     def conocerTipoEntrada(self, entrada):
