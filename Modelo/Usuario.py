@@ -12,8 +12,8 @@ class usuario():
         self.nombre = nombre
         self.usuarioLogueado = usuarioLogueado
     
-    def conocerEmpleado(self):
+    def getUsuario(self):
         pass
 
-    def getEmpleadoenSesion(self):
+    def getgetSedeDondeTrabaja(self):
         pass
