@@ -1,4 +1,6 @@
 from Modelo.Empleado import *
+from BaseDeDatos import CapaConexion
+
 
 class usuario():
 
@@ -14,13 +16,9 @@ class usuario():
         self.usuarioLogueado = usuarioLogueado
         self.dni = dni
     
-    def getUsuario(self):
-        dni= self.getDNI(usuario)
+    def getUsuario(nombreUsuario):
+        dni= CapaConexion.ObtenerDniUsuario(nombreUsuario)
         sede = Empleado.getSedeDondeTrabaja(dni)
         return sede
 
-    
-    def getDNI(nombreUsuario):
-        #consutlar BD para obtener el dni
-        dni=0
-        return dni 
+

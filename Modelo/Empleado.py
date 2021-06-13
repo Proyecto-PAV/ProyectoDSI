@@ -1,3 +1,5 @@
+from BaseDeDatos import CapaConexion
+
 class Empleado():
 
     nombre = ""
@@ -34,7 +36,7 @@ class Empleado():
     
     def getSedeDondeTrabaja(dni):
         #consultar BD
-        #SELECT nombre_sede FROM EMPLEADOS WHERE DNI=dni
-        sedeDondeTrabaja =''
+     
+        sedeDondeTrabaja = CapaConexion.ObtenerSedeEmpleado(dni)
         return sedeDondeTrabaja
 

@@ -1,6 +1,6 @@
 
 from Modelo.Usuario import *
-from BaseDatos.CapaConexion import *
+from BaseDeDatos import CapaConexion
 
 class Sesion():
     
@@ -26,7 +26,7 @@ class Sesion():
         #obtener las sesiones que no tengan fecha fin
         #SELECT empleadoSesion FROM Sesiones WHERE FechaFIN IS NULL
         
-        usuarioSesion = CapaConexion.ObenterSesionActiva()
+        usuarioSesion = CapaConexion.ObtenerSesionActiva()
         sedeEmpleado = usuario.getUsuario(usuarioSesion)
 
         return sedeEmpleado
