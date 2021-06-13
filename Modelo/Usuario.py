@@ -15,5 +15,5 @@ class usuario():
     def getUsuario(self):
         pass
 
-    def getgetSedeDondeTrabaja(self):
+    def getSedeDondeTrabaja(self):
         pass
