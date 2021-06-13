@@ -13,18 +13,16 @@ def conexion():
     return cnxn
 
 
-class Sede: 
-
-    def ObtenerTodasLasSedes(self):
-        cnxn = self.conexion()
-        cursor = cnxn.cursor()
-        cursor.execute('select * from sedes')
-        for row in cursor:
-            print(row)
+def ObtenerTodasLasSedes(self):
+    cnxn = self.conexion()
+    cursor = cnxn.cursor()
+    cursor.execute('select * from sedes')
+    for row in cursor:
+        print(row)
 
 
-    def ObtenerSesionActiva():
-        pass
+def ObtenerSesionActiva():
+    pass
 
 
-Sede.ObtenerTodasLasSedes()
+ObtenerTodasLasSedes()
