@@ -13,8 +13,8 @@ def conexion():
     return cnxn
 
 
-def ObtenerTodasLasSedes(self):
-    cnxn = self.conexion()
+def ObtenerTodasLasSedes():
+    cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select * from sedes')
     for row in cursor:
