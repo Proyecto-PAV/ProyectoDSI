@@ -25,4 +25,5 @@ def ObtenerSesionActiva():
     pass
 
 
-ObtenerTodasLasSedes()
+if __name__ == '__main__':
+        ObtenerTodasLasSedes()
