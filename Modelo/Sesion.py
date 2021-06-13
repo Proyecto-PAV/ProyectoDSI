@@ -1,3 +1,6 @@
+from Modelo.Usuario import *
+
+
 class Sesion():
     
     empleadoSesion = ''
@@ -18,5 +21,11 @@ class Sesion():
     def conocerUsuario(usuario):
         usuario.getUsuarios()
 
-    def getEmpleadoenSesion(self, empleadoSesion):
-        return empleadoSesion
+    def getEmpleadoenSesion():
+        #llamar a la clase usuario
+        #obtener las sesiones que no tengan fecha fin
+        #SELECT empleadoSesion FROM Sesiones WHERE FechaFIN IS NULL
+        usuarioSesion=''
+        sedeEmpleado = usuario.getUsuario(usuarioSesion)
+
+        return sedeEmpleado

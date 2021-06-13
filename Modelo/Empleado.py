@@ -30,6 +30,11 @@ class Empleado():
         pass
     def conocerHorario(self):
         pass
-    def getSedeDondeTrabaja(self):
-        pass
+
+    
+    def getSedeDondeTrabaja(dni):
+        #consultar BD
+        #SELECT nombre_sede FROM EMPLEADOS WHERE DNI=dni
+        sedeDondeTrabaja =''
+        return sedeDondeTrabaja
 

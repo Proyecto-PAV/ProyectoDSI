@@ -1,4 +1,12 @@
+from Modelo.Sesion import *
 
 
 def ObtenerSedeActual():
-    pass 
+    sede_actual = Sesion.getEmpleadoenSesion()
+
+    return sede_actual
+
+
+
+
+
