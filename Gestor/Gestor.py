@@ -26,3 +26,5 @@ if __name__=='__main__':
     nombre_sede = ObtenerSedeActual()
     fechaHoraActual = getFechaYHoraActual()
     tarifas, adicional_guia = buscarTarifasExistentes(nombre_sede, fechaHoraActual)
+    seleccion = ''
+    tarifa_seleccionada = '' 
