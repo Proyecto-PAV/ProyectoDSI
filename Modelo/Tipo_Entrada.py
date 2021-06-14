@@ -9,13 +9,12 @@ class TipoEntrada():
         self.tipoEntrada = tipoEntrada
 
     def getNombre(self):
-        pass
+        return self.nombre
 
     def getTipoEntrada(self):
-        pass
+        return self.tipoEntrada
 
     def mostrarNombre(self):
-        pass
+        return "Nombre: "+ self.nombre
 
-    def tomarNombre(self):
-        pass
+    
