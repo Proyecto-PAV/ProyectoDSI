@@ -9,7 +9,7 @@ class ReservaVisita():
     horaInicioReal = 0
     numeroReserva = 0
 
-    def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaHoraCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, numeroReserva):
+    def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaHoraCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, numeroReserva, empleado, exposicion, sede):
         self.cantidadAlumnos = cantidadAlumnos
         self.cantidadAlumnosConfirmada = cantidadAlumnosConfirmada
         self.duracionEstimada = duracionEstimada
@@ -18,6 +18,9 @@ class ReservaVisita():
         self.horaFinReal = horaFinReal
         self.horaInicioReal = horaInicioReal
         self.numeroReserva = numeroReserva
+        self.empleado = empleado
+        self.exposicion = exposicion
+        self.sede = sede
 
     def conocerAsignacionGuia(self):
         pass 
@@ -26,16 +29,16 @@ class ReservaVisita():
         pass
 
     def conocerEmpleado(self):
-        pass
+        return self.empleado
 
     def conocerEscuela(self):
         pass
 
     def conocerExposición(self):
-        pass
+        return self.exposicion
 
     def conocerSede(self):
-        pass
+        return self
 
     def esParaFechaYHora(self):
         pass

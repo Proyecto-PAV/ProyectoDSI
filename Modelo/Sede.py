@@ -1,3 +1,6 @@
+from Modelo.Tarifa import *
+from BaseDeDatos.CapaConexion import *
+
 class Sede():
     
     cantidadMaximaPorGuia = 0
@@ -46,3 +49,17 @@ class Sede():
 
     def getEntradaVendidas(): #sede en ningun momento conoce la cantidad de entradas vendidas
         pass
+
+    def getAdicionalPorGuia(sede):
+        #conectar BD
+        monto_sede = CapaConexion.ObtenerMontoGuiaSede(sede)
+        return monto_sede
+
+    def getTarifasVigentes(nombre_sede, fecha_hora_actual):
+        
+        filtrar_tarifas = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
+        datos_tarifas = Tarifa.getMonto(filtrar_tarifas)
+        adicional_guia = Sede.getAdicionalPorGuia(nombre_sede)
+
+        return datos_tarifas, adicional_guia
+

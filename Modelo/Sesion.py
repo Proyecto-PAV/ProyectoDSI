@@ -1,3 +1,7 @@
+
+from Modelo.Usuario import *
+from BaseDeDatos import CapaConexion
+
 class Sesion():
     
     empleadoSesion = ''
@@ -18,5 +22,10 @@ class Sesion():
     def conocerUsuario(usuario):
         usuario.getUsuarios()
 
-    def getEmpleadoenSesion(self, empleadoSesion):
-        return empleadoSesion
+    def getEmpleadoenSesion():
+        #obtener las sesiones que no tengan fecha fin
+            
+        usuarioSesion = CapaConexion.ObtenerSesionActiva()
+        sedeEmpleado = usuario.getUsuario(usuarioSesion)
+
+        return sedeEmpleado

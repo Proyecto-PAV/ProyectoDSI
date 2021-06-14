@@ -7,8 +7,15 @@ cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' +
                       server+';DATABASE='+database+';UID='+username+';PWD=' + password)
 cursor = cnxn.cursor()
 
-cursor.execute("""SELECT * FROM dbo.sedes e WHERE e.nombre LIKE '%E' """)
-row = cursor.fetchone()
-while row:
-    print(row[0])
+def usuario(nUsuario, cUsuario):
+    user = nUsuario
+    contra = cUsuario
+    cursor.execute('SELECT nombre_usuario, contraseña FROM usuarios WHERE nombre_usuario = ? and contraseña = ?', user, contra)
     row = cursor.fetchone()
+    if row == None:
+        return
+    else:
+        return True
+
+
+

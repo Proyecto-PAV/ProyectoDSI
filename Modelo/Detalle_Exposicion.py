@@ -1,3 +1,4 @@
+from Modelo import Obra
 
 class Detalle_Exposicion():
 
@@ -10,14 +11,14 @@ class Detalle_Exposicion():
         self.obra = obra
         self.operaciones = operaciones
 
-    def buscarDuracExtObra(self):
-        pass
-
     def conocerObra(self):
+        return self.obra
+
+    def buscarDuracExtObra(self):
         pass
 
     def conocerPared(self):
         pass
 
     def getObra(self):
-        pass
+        return self.obra
