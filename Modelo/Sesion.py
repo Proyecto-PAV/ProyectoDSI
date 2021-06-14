@@ -24,8 +24,7 @@ class Sesion():
 
     def getEmpleadoenSesion():
         #obtener las sesiones que no tengan fecha fin
-        #SELECT empleadoSesion FROM Sesiones WHERE FechaFIN IS NULL
-        
+            
         usuarioSesion = CapaConexion.ObtenerSesionActiva()
         sedeEmpleado = usuario.getUsuario(usuarioSesion)
 

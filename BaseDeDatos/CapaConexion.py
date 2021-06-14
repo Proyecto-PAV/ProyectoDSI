@@ -43,6 +43,7 @@ def ObtenerSedeEmpleado(dni):
 
 
 def ObtenerTarifasEnVigencia(nombre_sede, fecha):
+    #corroborar la matriz
     cnxn = conexion()
     cursor = cnxn.cursor()
     tarifas = cursor.execute("select id_tipo_entrada, id_tipo_visita from tarifas  \
@@ -70,6 +71,13 @@ def ObtenerMonto(te, tv):
     monto = cursor.execute("select monto from tarifas \
             where id_tipo_entrada = ' " + te + " ' \
                  and id_tipo_visita = ' " + tv + " ' ")
+    return monto
+
+
+def ObtenerMontoGuiaSede(nombre):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
 

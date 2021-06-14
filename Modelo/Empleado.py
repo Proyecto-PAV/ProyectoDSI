@@ -36,7 +36,6 @@ class Empleado():
     
     def getSedeDondeTrabaja(dni):
         #consultar BD
-     
         sedeDondeTrabaja = CapaConexion.ObtenerSedeEmpleado(dni)
         return sedeDondeTrabaja
 

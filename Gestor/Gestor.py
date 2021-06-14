@@ -16,7 +16,7 @@ def getFechaYHoraActual():
 def buscarTarifasExistentes(sede_actual, fecha_hora_actual):
     tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
     
-    return
+    return tarifas
 
 
 
@@ -25,4 +25,4 @@ def buscarTarifasExistentes(sede_actual, fecha_hora_actual):
 if __name__=='__main__':
     nombre_sede = ObtenerSedeActual()
     fechaHoraActual = getFechaYHoraActual()
-    tarifas = buscarTarifasExistentes(nombre_sede, fechaHoraActual)
+    tarifas, adicional_guia = buscarTarifasExistentes(nombre_sede, fechaHoraActual)
