@@ -40,10 +40,7 @@ class Exposicion():
         pass
 
     def esVigente(self):
-        x = datetime.datetime.now()
-        if x > self.fechaInicio and x < self.fechaFin:
-                return True
-        else: False
+        
 
     def getDetalleExposición(self):
         return self.detalleExposicion
