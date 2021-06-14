@@ -1,3 +1,6 @@
+from Modelo.Empleado import *
+from BaseDeDatos import CapaConexion
+
 
 class usuario():
 
@@ -6,14 +9,16 @@ class usuario():
     nombre = ''
     usuarioLogueado = False
 
-    def __init__(self, caducidad, contraseña, nombre, usuarioLogueado):
+    def __init__(self, caducidad, contraseña, nombre, usuarioLogueado, dni):
         self.caducidad = caducidad
         self.contraseña = contraseña
         self.nombre = nombre
         self.usuarioLogueado = usuarioLogueado
+        self.dni = dni
     
-    def conocerEmpleado(self):
-        pass
+    def getUsuario(nombreUsuario):
+        dni= CapaConexion.ObtenerDniUsuario(nombreUsuario)
+        sede = Empleado.getSedeDondeTrabaja(dni)
+        return sede
 
-    def getEmpleadoenSesion(self):
-        pass
+
