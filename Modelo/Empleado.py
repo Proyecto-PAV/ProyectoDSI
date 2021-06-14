@@ -1,3 +1,5 @@
+from BaseDeDatos import CapaConexion
+
 class Empleado():
 
     nombre = ""
@@ -30,6 +32,10 @@ class Empleado():
         pass
     def conocerHorario(self):
         pass
-    def getSedeDondeTrabaja(self):
-        pass
+
+    
+    def getSedeDondeTrabaja(dni):
+        #consultar BD
+        sedeDondeTrabaja = CapaConexion.ObtenerSedeEmpleado(dni)
+        return sedeDondeTrabaja
 
