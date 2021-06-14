@@ -1,3 +1,5 @@
+from Modelo.Tarifa import *
+
 class Sede():
     
     cantidadMaximaPorGuia = 0
@@ -46,3 +48,11 @@ class Sede():
 
     def getEntradaVendidas(): #sede en ningun momento conoce la cantidad de entradas vendidas
         pass
+
+    def getTarifasVigentes(nombre_sede, fecha_hora_actual):
+        
+        filtrar_tarifas = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
+        datos_tarifas = Tarifa.getMonto(filtrar_tarifas)
+
+        pass
+
