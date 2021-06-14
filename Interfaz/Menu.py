@@ -9,6 +9,7 @@
 
 
 from VentaEntradas import Ui_RegistrarVentaDeEntradas
+#from InicioSesion import Ui_InicioSesion
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QDialog
 
@@ -20,6 +21,12 @@ class Ui_MenuRV(object):
         self.ui = Ui_RegistrarVentaDeEntradas()
         self.ui.setupUi(self.menu)
         self.menu.show()
+
+    def volver(self):
+        self.iniciarSesion = QMainWindow()
+        self.ui = Ui_InicioSesion()
+        self.ui.setupUi(self.iniciarSesion)
+        self.iniciarSesion.show()
 
     def setupUi(self, MenuRV):
         MenuRV.setObjectName("MenuRV")
