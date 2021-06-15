@@ -93,10 +93,15 @@ def ObtenerMontoGuiaSede(nombre):
     return monto
 
 
+def ObtenerEstadosReservaVisita():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    estados = cursor.execute("select id_estado from estados where nombre_ambito = 'ReservaVisita' ")
+    return estados
 
 
+if __name__ == 'main':
+       estados = ObtenerEstadosReservaVisita()
+       print(estados)
 
-
-if __name__ == '__main__':
-        ObtenerTodasLasSedes()
         

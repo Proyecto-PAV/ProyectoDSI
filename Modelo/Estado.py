@@ -1,4 +1,4 @@
-
+from BaseDeDatos.CapaConexion import *
 class estado():
 
     ambito = ''
@@ -18,11 +18,15 @@ class estado():
         else:
             return False
 
-    def esAmbitoReservaVisita(ambito):
-        if ambito == 'Reserva Visita':
-            return True
-        else:
-            return False
+    def esAmbitoReservaVisita():
+        estados_reservaVisita = []
+        print(estados_reservaVisita)
+        estados_reservaVisita_obj = []
+        for i in estados_reservaVisita():
+            objeto = Estado('ReservaVisita', None, None, None) #? Con que atributo creamos el objeto
+            estados_reservaVisita_obj.append(objeto)
+
+        return estados_reservaVisita_obj
 
     def esConfirmada(estadoReserva):
         if estadoReserva == 'Confirmada':
