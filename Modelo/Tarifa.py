@@ -1,6 +1,6 @@
 from Modelo.Tipo_visita import *
 from Modelo.Tipo_Entrada import *
-from BaseDeDatos import CapaConexion
+from BaseDeDatos.CapaConexion import ObtenerTarifasEnVigencia
 
 class Tarifa():
     
@@ -9,11 +9,10 @@ class Tarifa():
     monto = 0
     #montoAdicionalGuia = 0
 
-    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, montoAdicionalGuia, tipo_entrada, tipo_visita):
+    def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, tipo_entrada, tipo_visita):
         self.fechaFinVigencia = fechaFinVigencia
         self.fechaInicioVifencia = fechaInicioVifencia
         self.monto = monto
-        #self.montoAdicionalGuia = montoAdicionalGuia
         #! aca faltan tipo entrada y tipo visita
         self.tipo_entrada = tipo_entrada
         self.tipo_entrada = tipo_visita
@@ -29,9 +28,7 @@ class Tarifa():
         return nombre_visita
 
     def esVigente(nombre_sede, fecha):
-        #?aca se podria dvolver una coleccion de objetos en vez de devolver una matriz
-        #?creando objeto por objeto mediante por ejemplo un for
-        t_vigentes = CapaConexion.ObtenerTarifasEnVigencia(nombre_sede, fecha)
+        t_vigentes = ObtenerTarifasEnVigencia(nombre_sede, fecha)
         t_vigentes_obj = []
         for row in t_vigentes:
             obj = Tarifa(None, None, None, None, row[0], row[1])

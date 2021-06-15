@@ -1,4 +1,4 @@
-from Modelo.Tarifa import *
+from Modelo.Tarifa import Tarifa
 from BaseDeDatos.CapaConexion import *
 
 class Sede():
@@ -47,19 +47,19 @@ class Sede():
     def getCantidadMaximaVisitantes(self):
         return self.cantidadMaximaVisitantes
 
-    def getEntradaVendidas(): #sede en ningun momento conoce la cantidad de entradas vendidas
+    def getEntradaVendidas(self): #sede en ningun momento conoce la cantidad de entradas vendidas
         pass
 
-    def getAdicionalPorGuia(sede):
+    def getAdicionalPorGuia(self, sede):
         #conectar BD
         monto_sede = CapaConexion.ObtenerMontoGuiaSede(sede)
         return monto_sede
 
-    def getTarifasVigentes(nombre_sede, fecha_hora_actual):
-        
-        filtrar_tarifas = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
+    def getTarifasVigentes(self, nombre_sede, fecha_hora_actual):
+        self.tarifasVigentes = Tarifa(None,None,None,None,None)
+
+        filtrar_tarifas = self.tarifasVigentes.esVigente(nombre_sede, fecha_hora_actual)
         datos_tarifas = Tarifa.getMonto(filtrar_tarifas)
         adicional_guia = Sede.getAdicionalPorGuia(nombre_sede)
 
         return datos_tarifas, adicional_guia
-

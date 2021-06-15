@@ -1,7 +1,7 @@
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
-from Modelo.Sede import *
+from Modelo.Sede import Sede
 
 
 class GestorVentaEntradas():
@@ -51,7 +51,9 @@ class GestorVentaEntradas():
         #este metodo desencadena toda la logica
         
         self.sedeActual = self.ObtenerSedeActual()
-
+        self.fechaHoraActual = self.getFechaYHoraActual()
+        
+        tarifasVigentes = self.buscarTarifasVigentes(self.sedeActual, self.fechaHoraActual)
 
 
     def actualizarPantallas(self):
@@ -59,12 +61,13 @@ class GestorVentaEntradas():
 
     def buscarEstadoConfirmada(self):
         pass
-    """
+    
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
-        tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
+        self.sedeActual = Sede(None, None, None, None, sede_actual, None, None)
+        tarifas = self.sedeActual.getTarifasVigentes(sede_actual, fecha_hora_actual)
 
         return tarifas
-    """
+
     def calcularDuracionEstimada(self):
         pass
 
