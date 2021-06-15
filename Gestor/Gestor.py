@@ -59,17 +59,29 @@ class GestorVentaEntradas():
 
     def buscarEstadoConfirmada(self):
         pass
-    """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
         tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
 
         return tarifas
-    """
     def calcularDuracionEstimada(self):
         pass
 
-    def calcularMontoTotalAPagar(self):
-        pass
+    def calcularMontoTotalAPagar(self, entradas, cantidad_entradas):
+        #?Se le pasa la cantidad de entradas seleccionada por el usuario y la entrada con el tipo de entrada y el tipo de visita de cada entrada
+        #?Suponemos que en el paso 3 y 6 se guardan en variables estos parametros
+        #?Tambien suponemos que entradas es un vector con el convinatorio de todas las entradas posibles que arroje (select id_tipo_entrada, id_tipo_visita from tarifas where nombre_sede like 'Museo Telon')
+        total = 0
+        monto_por_entrada = 0
+        #*Ejemplo
+        #entradas = [e1, e2, e3, e4, e5, e6, e7, e8, e19, e0]
+        #cantidad_entradas = [0, 11, 10, 0, 0, 0, 0, 0, 0, 0]
+        for row in cantidad_entradas:
+            if row != 0:
+                monmonto_por_entradato = CapaConexion.ObtenerMonto(entradas[row][0], entradas[row][1])
+                total = total + monto_por_entrada
+        return total
+        
+        
 
     def generarNúmeroEntrada(self):
         pass
