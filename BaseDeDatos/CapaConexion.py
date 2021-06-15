@@ -54,14 +54,17 @@ def ObtenerSedeEmpleado():
     sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
     return sede
 """
-def ObtenerTarifasEnVigencia(nombre_sede, fecha):
+def ObtenerExposicionesEnVigencia(nombre_sede, fecha):
     #corroborar la matriz
     cnxn = conexion()
     cursor = cnxn.cursor()
-    tarifas = cursor.execute("select id_tipo_entrada, id_tipo_visita from tarifas  \
-                where nombre_sede = '" + nombre_sede + "' AND YEAR('"+fecha+"') \
-                BETWEEN YEAR('fecha_inicio_vigencia') and YEAR('fecha_fin_vigencia')")
-    return tarifas
+    cursor.execute( "select * from exposiciones WHERE nombre_sede=? AND  \
+        ( ? BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada  \
+        AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL)\
+        OR (? BETWEEN fecha_inicio and fecha_fin) )", nombre_sede, fecha, fecha)
+
+    exposiciones = cursor.fetchone()
+    return exposiciones
 
 
 def ObtenerNombreEntrada(nro):

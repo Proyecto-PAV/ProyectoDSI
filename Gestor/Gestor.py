@@ -33,6 +33,7 @@ class GestorVentaEntradas():
         self.pantallaCantidadActualSala = pantallaCantidadActualSala
         self.entrada = entrada
         self.sesion = sesion
+        #? cantidad de entradas no seria?
         self.cantidadEventos = cantidadEventos
         self.capacidadMaximaSede = capacidadMaximaSede
         self.confirmacionVenta = confirmacionVenta
@@ -66,7 +67,10 @@ class GestorVentaEntradas():
         return tarifas
     """
     def calcularDuracionEstimada(self):
-        pass
+        actual = self.sedeActual
+        duracion = Sede.getExposicionesCompletasVigentes(actual)
+        return duracion
+
 
     def calcularMontoTotalAPagar(self):
         pass
