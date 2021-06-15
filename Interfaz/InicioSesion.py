@@ -9,17 +9,24 @@
 
 
 from Menu import Ui_MenuRV
+from Pantalla import usuario
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QDialog
+from PyQt5.QtWidgets import QMainWindow, QDialog, QMessageBox, QWidget
 from PyQt5 import uic
 
 
 class Ui_InicioSesion(QMainWindow):
-    def menu(self):
-        self.menu = QDialog()
-        self.ui = Ui_MenuRV()
-        self.ui.setupUi(self.menu)
-        self.menu.show()
+    def menu(self, event):
+        res = usuario(self.LE_usuario.text(), self.LE_contra.text())
+        if res == True:
+            self.menu = QDialog()
+            self.ui = Ui_MenuRV()
+            self.ui.setupUi(self.menu)
+            self.menu.show()
+        else:
+            pass
+                
+            
 
     def setupUi(self, InicioSesion):
         InicioSesion.setObjectName("InicioSesion")
@@ -59,6 +66,7 @@ class Ui_InicioSesion(QMainWindow):
         self.LE_usuario.setObjectName("LE_usuario")
         self.LE_contra = QtWidgets.QLineEdit(self.centralwidget)
         self.LE_contra.setGeometry(QtCore.QRect(240, 240, 161, 20))
+        self.LE_contra.setEchoMode(QtWidgets.QLineEdit.Password)
         self.LE_contra.setText("")
         self.LE_contra.setObjectName("LE_contra")
         InicioSesion.setCentralWidget(self.centralwidget)
@@ -77,6 +85,11 @@ class Ui_InicioSesion(QMainWindow):
         self.lbl_usuario.setText(_translate("InicioSesion", "Usuario:"))
         self.lbl_contra.setText(_translate("InicioSesion", "Contraseña:"))
 
+class ErrorLogin(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        uic.loadUi('Interfaz5.ui', self)
+
 
 
 if __name__ == "__main__":
@@ -86,4 +99,10 @@ if __name__ == "__main__":
     ui = Ui_InicioSesion()
     ui.setupUi(InicioSesion)
     InicioSesion.show()
-    sys.exit(app.exec_())
+    app.exec_()
+
+    
+
+
+
+

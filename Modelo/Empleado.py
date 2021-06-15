@@ -1,3 +1,5 @@
+from BaseDeDatos.CapaConexion import ObtenerSedeEmpleado
+
 class Empleado():
 
     nombre = ""
@@ -11,12 +13,8 @@ class Empleado():
     sedeDondeTrabaja = ""
     sexo = ""
     telefono = 0000000000
-    cargos = []
-    horaIngreso = ""
-    horaSalida = ""
 
-
-    def __init__(self, nombre, apellido, codValidacion, cuit, dni, domicilio, fechaDeIngreso, fechaNacimiento, mail, sedeDondeTrabaja, sexo, telefono, cargos,horaIngreso, horaSalida):
+    def __init__(self, nombre, apellido, codValidacion, cuit, dni, domicilio, fechaDeIngreso, fechaNacimiento, mail, sedeDondeTrabaja, sexo, telefono):
         self.nombre = nombre
         self.apellido = apellido
         self.codValidacion = codValidacion
@@ -29,14 +27,15 @@ class Empleado():
         self.sedeDondeTrabaja = sedeDondeTrabaja
         self.sexo = sexo
         self.telefono = telefono
-        self.cargos = cargos
-        self.horaIngreso = horaIngreso
-        self.horaSalida = horaSalida
 
     def conocerCargo(self):
-        return self.cargos
+        pass
     def conocerHorario(self):
-        return self.horaIngreso,self.horaSalida
-    def getSedeDondeTrabaja(self):
-        return self.sedeDondeTrabaja
+        pass
+
+    
+    def getSedeDondeTrabaja(self, dni):
+        #consultar BD
+        sedeDondeTrabaja = ObtenerSedeEmpleado(dni)
+        return sedeDondeTrabaja
 

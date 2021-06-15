@@ -1,3 +1,5 @@
+from BaseDeDatos import CapaConexion
+
 
 class TipoEntrada():
 
@@ -8,11 +10,14 @@ class TipoEntrada():
         self.nombre = nombre,
         self.tipoEntrada = tipoEntrada
 
-    def getNombre(self):
-        return self.nombre
+    def getNombre(self, numero):
 
-    def getTipoEntrada(self):
-        return self.tipoEntrada
+        nombre = CapaConexion.ObtenerNombreEntrada(numero)
+        return nombre
+
+    def getTipoEntrada(self, numero):
+        nombre = self.getNombre(numero)
+        return nombre
 
     def mostrarNombre(self):
         return "Nombre: "+ self.nombre

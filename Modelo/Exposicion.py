@@ -1,3 +1,4 @@
+import datetime
 
 
 class Exposicion():
@@ -11,7 +12,7 @@ class Exposicion():
     horaCierre = 0
     nombre = ""
 
-    def __init__(self, detalleExposicion, fechaFin, fechaFinReplanificada, fechaInicio, fechaInicioReplanificada, horaApertura, horaCierre, nombre):
+    def __init__(self, detalleExposicion, fechaFin, fechaFinReplanificada, fechaInicio, fechaInicioReplanificada, horaApertura, horaCierre, nombre, empleado):
         self.detalleExposicion = detalleExposicion
         self.fechaFin = fechaFin
         self.fechaFinReplanificada = fechaFinReplanificada
@@ -20,6 +21,8 @@ class Exposicion():
         self.horaApertura = horaApertura 
         self.horaCierre = horaCierre
         self.nombre = nombre
+        self.empleado = empleado
+
 
     def calcularDuracionObrasExpuestas(self):
         pass
@@ -27,11 +30,8 @@ class Exposicion():
     def conocerDetalleExposicion(self):
         pass
 
-    def conocerDetellaExposicion(self):
-        pass
-
     def conocerEmpleado(self):
-        pass
+        return self.empleado
 
     def conocerPublicoDestino(self):
         pass
@@ -40,8 +40,8 @@ class Exposicion():
         pass
 
     def esVigente(self):
-        pass
+        
 
     def getDetalleExposición(self):
-        pass
+        return self.detalleExposicion
     
