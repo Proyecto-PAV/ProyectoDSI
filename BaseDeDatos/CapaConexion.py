@@ -108,8 +108,9 @@ def ObtenerCantidadAlumnosConfirmado():
 def ObtenerEstadosReservaVisita():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    nombre  = cursor.execute("select  from estados where  nombre_ambito ='" + ReservaVisita + "'")
-    return nombre
+    estados = cursor.execute("select id_estado from estados where  nombre_ambito = 'ReservaVisita' ")
+    return estados
+    
 
 if __name__ == '__main__':
         ObtenerTodasLasSedes()

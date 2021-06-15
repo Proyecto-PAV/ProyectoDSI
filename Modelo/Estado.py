@@ -1,4 +1,4 @@
-from Modelo.CapaConexion import *
+
 
 class Estado():
 
@@ -23,4 +23,16 @@ class Estado():
         pass
 
     def esAmbitoReservaaVisita():
-        pass
+        estados_reservaVisita =  ObtenerEstadosReservaVisita()
+        print(estados_reservaVisita)
+        print("hola")
+        estados_reservaVisita_obj = []
+        for i in estados_reservaVisita():    
+            objeto = Estado('ReservaVisita', None, None, None) #? Con que atributo creamos el objeto
+            estados_reservaVisita_obj.append(objeto)
+            
+        return estados_reservaVisita_obj
+
+    
+if __name__ == "__main__":
+    Estado.esAmbitoReservaaVisita()
