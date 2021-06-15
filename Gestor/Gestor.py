@@ -49,19 +49,22 @@ class GestorVentaEntradas():
     def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         #este metodo desencadena toda la logica
-        self.ObtenerSedeActual()
+        
+        self.sedeActual = self.ObtenerSedeActual()
+
+
 
     def actualizarPantallas(self):
         pass
 
     def buscarEstadoConfirmada(self):
         pass
-
+    """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
         tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
 
         return tarifas
-
+    """
     def calcularDuracionEstimada(self):
         pass
 
@@ -107,11 +110,6 @@ class GestorVentaEntradas():
     def finCU(self):
         pass
 
-    if _name_ == '_main_':
-        nombre_sede = ObtenerSedeActual()
-        fechaHoraActual = getFechaYHoraActual()
-        tarifas, adicional_guia = buscarTarifasVigentes(
-            nombre_sede, fechaHoraActual)
 
 
 

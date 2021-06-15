@@ -20,8 +20,11 @@ class Usuario():
     
     def getUsuario(self, nombreUsuario):
         dni = ObtenerDniUsuario(nombreUsuario)
-        self.empleado = Empleado()
+        self.empleado = Empleado(None, None, None, None, dni, None, None, None, None, None, None, None)
         sede = self.empleado.getSedeDondeTrabaja(dni)
+
+        #!preguntar si esto es necesario
+        self.empleado.sedeDondeTrabaja = sede
         return sede
 
 

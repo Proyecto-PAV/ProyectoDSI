@@ -7,20 +7,21 @@ class Tarifa():
     fechaFinVigencia = ""
     fechaInicioVifencia = ""
     monto = 0
-    montoAdicionalGuia = 0
+    #montoAdicionalGuia = 0
 
     def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, montoAdicionalGuia, tipo_entrada, tipo_visita):
         self.fechaFinVigencia = fechaFinVigencia
         self.fechaInicioVifencia = fechaInicioVifencia
         self.monto = monto
-        self.montoAdicionalGuia = montoAdicionalGuia
+        #self.montoAdicionalGuia = montoAdicionalGuia
         #! aca faltan tipo entrada y tipo visita
         self.tipo_entrada = tipo_entrada
         self.tipo_entrada = tipo_visita
    
      
     def conocerTipoEntrada(self, entrada):
-        nombre_entrada= TipoEntrada.getTipoEntrada(entrada)
+        self.tipo_entrada = TipoEntrada(None, None)
+        nombre_entrada= self.tipoEntrada.getTipoEntrada(entrada)
         return nombre_entrada
 
     def conocerTipoVisita(self, visita):
@@ -56,5 +57,5 @@ class Tarifa():
         return v
     
 
-esVigente("Museo Telon", "2021-07-01")
+
 

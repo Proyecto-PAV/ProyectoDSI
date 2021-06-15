@@ -34,7 +34,7 @@ class Empleado():
         pass
 
     
-    def getSedeDondeTrabaja(dni):
+    def getSedeDondeTrabaja(self, dni):
         #consultar BD
         sedeDondeTrabaja = ObtenerSedeEmpleado(dni)
         return sedeDondeTrabaja

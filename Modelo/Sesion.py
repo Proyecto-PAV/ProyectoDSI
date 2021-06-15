@@ -33,3 +33,4 @@ class Sesion():
         self.usuario = Usuario(None, None, usuarioSesion, None, None, None)
         sedeEmpleado = self.usuario.getUsuario(usuarioSesion)
         return sedeEmpleado
+        
