@@ -1,3 +1,4 @@
+from Modelo.Reserva_Visita import ReservaVisita
 import pyodbc 
 
 ''' funcion de conexion generica con la BD '''
@@ -80,10 +81,23 @@ def ObtenerMontoGuiaSede(nombre):
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
+def ObtenerCantidadDeAlumnosConfirmados(fechaHora):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas where fecha_hora_reserva ='" + fechaHora + "'")
+    return cantidad
 
+def ObtenerCantidadAlumnosConfirmado():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas where fecha_hora_reserva ='" +  + "'")
+    return cantidad
 
-
-
+def ObtenerEstadosReservaVisita():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    nombre  = cursor.execute("select  from estados where  nombre_ambito ='" + ReservaVisita + "'")
+    return nombre
 
 if __name__ == '__main__':
         ObtenerTodasLasSedes()

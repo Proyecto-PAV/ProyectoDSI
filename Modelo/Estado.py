@@ -1,5 +1,6 @@
+from Modelo.CapaConexion import *
 
-class estado():
+class Estado():
 
     ambito = ''
     descripcion = ''
@@ -19,4 +20,7 @@ class estado():
         pass
 
     def getEstadoReservaConfirmada(self):
+        pass
+
+    def esAmbitoReservaaVisita():
         pass

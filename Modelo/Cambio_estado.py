@@ -1,3 +1,5 @@
+from Modelo.Estado import *
+
 
 class Cambio_Estado():
     estado = ""
@@ -13,7 +15,7 @@ class Cambio_Estado():
         return self.estado
 
     def getCambiosEstado(self):
-        pass
+        estado = Estado.getEstadoReservaConfirmada()
 
     def new(self, estado, fechaHoraInicio, fechaHoraFin):
         return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
