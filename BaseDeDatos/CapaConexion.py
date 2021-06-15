@@ -13,6 +13,8 @@ def conexion():
     return cnxn
 
 
+
+
 def ObtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -24,24 +26,34 @@ def ObtenerTodasLasSedes():
 def ObtenerSesionActiva():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    nombre = cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
-    return nombre
+    cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
+    sesion = cursor.fetchone()
+    return sesion[0]
 
 
 def ObtenerDniUsuario(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    dni = cursor.execute("select dni_empleado from usuarios where nombre_usuario= '" + nombre + "'" )
-    return dni
+    cursor.execute("select dni_empleado from usuarios where nombre_usuario=?", nombre  )
+    dni = cursor.fetchone()
+    return dni[0]
 
 
 def ObtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    sede = cursor.execute("select nombre_sede from empleados where dni= '" + dni + "'" )
+    
+    cursor.execute("select nombre_sede from empleados where dni=?",dni )
+    sedes = cursor.fetchone()
+    return sedes[0]
+   
+"""
+def ObtenerSedeEmpleado():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
     return sede
-
-
+"""
 def ObtenerTarifasEnVigencia(nombre_sede, fecha):
     #corroborar la matriz
     cnxn = conexion()
