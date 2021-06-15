@@ -13,7 +13,9 @@ def conexion():
     return cnxn
 
 
-def obtenerTodasLasSedes():
+
+
+def ObtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select * from sedes')
@@ -21,28 +23,38 @@ def obtenerTodasLasSedes():
         print(row)
 
 
-def obtenerSesionActiva():
+def ObtenerSesionActiva():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    nombre = cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
-    return nombre
+    cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
+    sesion = cursor.fetchone()
+    return sesion[0]
 
 
-def obtenerDniUsuario(nombre):
+def ObtenerDniUsuario(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    dni = cursor.execute("select dni_empleado from usuarios where nombre_usuario= '" + nombre + "'" )
-    return dni
+    cursor.execute("select dni_empleado from usuarios where nombre_usuario=?", nombre  )
+    dni = cursor.fetchone()
+    return dni[0]
 
 
-def obtenerSedeEmpleado(dni):
+def ObtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    sede = cursor.execute("select nombre_sede from empleados where dni= '" + dni + "'" )
+    
+    cursor.execute("select nombre_sede from empleados where dni=?",dni )
+    sedes = cursor.fetchone()
+    return sedes[0]
+   
+"""
+def ObtenerSedeEmpleado():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
     return sede
-
-
-def obtenerTarifasEnVigencia(nombre_sede, fecha):
+"""
+def ObtenerTarifasEnVigencia(nombre_sede, fecha):
     #corroborar la matriz
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -52,20 +64,20 @@ def obtenerTarifasEnVigencia(nombre_sede, fecha):
     return tarifas
 
 
-def obtenerNombreEntrada(nro):
+def ObtenerNombreEntrada(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoEntradas where id_tipo_entrada ='" +nro+ "'")
     return nombre
 
-def obtenerNombreVisita(nro):
+def ObtenerNombreVisita(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoVisitas where id_tipo_visita =' " + nro + " ' ")
     return nombre
 
 
-def obtenerMonto(te, tv):
+def ObtenerMonto(te, tv):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select monto from tarifas \
@@ -74,17 +86,13 @@ def obtenerMonto(te, tv):
     return monto
 
 
-def obtenerMontoGuiaSede(nombre):
+def ObtenerMontoGuiaSede(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
-def obtenerExposicionesVigentes(nombre_sede):
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    exposiciones = cursor.execute("select * from exposiciones E where nombre='" +nombre_sede+ "'")
-    return exposiciones
+
 
 
 
