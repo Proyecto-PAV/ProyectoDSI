@@ -1,4 +1,4 @@
-from BaseDeDatos.CapaConexion import *
+from BaseDeDatos import CapaConexion
 class estado():
 
     ambito = ''
@@ -28,20 +28,25 @@ class estado():
 
         return estados_reservaVisita_obj
 
-    def esConfirmada(estadoReserva):
-        if estadoReserva == 'Confirmada':
-            return True
-        else:
-            return False
 
-    def esPendienteAsigDeposito(nombre):
+    def esPendienteAsigDeposito(self, nombre):
         if nombre == 'PendienteAsigDeposito':
             return True
         else:
             return False
 
-    def getEstadoReservaConfirmada(estadoReserva):
-        if estadoReserva == 'Confirmada':
-            return estadoReserva
-        else:
-            pass
+    def esAmbitoReservaVisita(self):
+        estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
+        estados_reservaVisita_obj = []
+        for row in estados_reservaVisita():    
+            objeto = Estado(row[1], row[2],row[3]) 
+            estados_reservaVisita_obj.append(objeto)
+            
+        return estados_reservaVisita_obj
+
+    def esConfirmada(self, estadosReservaVisita):
+        estadosConfirmados = []
+        for i in estadosReservaVisita:
+            if i[3] == 'Confirmado':
+                estadosConfirmados.append(estadosReservaVisita[i])
+        return estadosConfirmados

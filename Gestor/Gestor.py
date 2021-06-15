@@ -2,6 +2,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import *
+from Modelo import Estado
 
 
 class GestorVentaEntradas():
@@ -58,7 +59,12 @@ class GestorVentaEntradas():
         pass
 
     def buscarEstadoConfirmada(self):
-        pass
+        estadosConfirmados = []
+        estadosReservaVisita = []
+        estadosReservaVisita = Estado.esAmbitoReservaVisita()
+        estadosConfirmados = Estado.esConfirmada(estadosReservaVisita)
+        return estadosConfirmados
+
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
         tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
