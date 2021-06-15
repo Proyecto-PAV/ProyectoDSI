@@ -1,18 +1,17 @@
-
+from BaseDeDatos import CapaConexion
 
 class Estado():
 
     ambito = ''
     descripcion = ''
-    estadoReserva = ''
     nombre = ''
 
     def __init__(self, ambito, descripcion, estadoReserva, nombre):
         self.ambito = ambito
         self.descripcion = descripcion
-        self.estadoReserva = estadoReserva
         self.nombre = nombre
-    
+
+
     def esAmbitoObra(self):
         pass
 
@@ -23,16 +22,17 @@ class Estado():
         pass
 
     def esAmbitoReservaaVisita():
-        estados_reservaVisita =  ObtenerEstadosReservaVisita()
-        print(estados_reservaVisita)
-        print("hola")
+        
+        estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
+        
         estados_reservaVisita_obj = []
-        for i in estados_reservaVisita():    
-            objeto = Estado('ReservaVisita', None, None, None) #? Con que atributo creamos el objeto
+        for row in estados_reservaVisita():    
+            objeto = Estado(row[1], row[2],row[3]) #? Con que atributo creamos el objeto
             estados_reservaVisita_obj.append(objeto)
             
         return estados_reservaVisita_obj
 
+    def esConfirmada(estado_reservaVisita):
+        pass
+
     
-if __name__ == "__main__":
-    Estado.esAmbitoReservaaVisita()
