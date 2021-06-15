@@ -23,7 +23,7 @@ class Usuario():
         self.empleado = Empleado(None, None, None, None, dni, None, None, None, None, None, None, None)
         sede = self.empleado.getSedeDondeTrabaja(dni)
 
-        #!preguntar si esto es necesario
+        #!no es necesario 
         self.empleado.sedeDondeTrabaja = sede
         return sede
 

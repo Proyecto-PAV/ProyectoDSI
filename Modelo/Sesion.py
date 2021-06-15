@@ -3,14 +3,14 @@ from Modelo.Usuario import Usuario
 from BaseDeDatos.CapaConexion import *
 
 class Sesion():
-    """
+
     empleadoSesion = ''
     fechaFin = ''
     fechaInicio = ''
     horaFin = ''
     horaInicio = ''
     usuario = ''
-    """
+  
 
     def __init__(self, empleadoSesion, fechaFin, fechaInicio, horaFin, horaInicio, usuario):
         self.empleadoSesion = empleadoSesion
@@ -26,8 +26,6 @@ class Sesion():
 
     def getEmpleadoenSesion(self):
         #obtener las sesiones que no tengan fecha fin
-        #? probado no me tira error al acceder a la bd, al realizar el metodo obtener sesion activa
-        #? para que esta el dni en sesion no iria solo en usuario?
         usuarioSesion = ObtenerSesionActiva()
 
         self.usuario = Usuario(None, None, usuarioSesion, None, None, None)
