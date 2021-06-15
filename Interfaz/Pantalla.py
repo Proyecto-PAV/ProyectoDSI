@@ -54,6 +54,7 @@ class PantallaVentaEntradas:
     def tomarSeleccionTipoVisita(self):
         pass
 
+    """
     #! poner esta funcion en la pantalla inicio sesion
     def usuario(nUsuario, cUsuario):
         user = nUsuario
@@ -64,6 +65,6 @@ class PantallaVentaEntradas:
             return
         else:
             return True
-
+    """
 
 
