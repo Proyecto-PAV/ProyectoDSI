@@ -13,7 +13,7 @@ def conexion():
     return cnxn
 
 
-def ObtenerTodasLasSedes():
+def obtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select * from sedes')
@@ -21,28 +21,28 @@ def ObtenerTodasLasSedes():
         print(row)
 
 
-def ObtenerSesionActiva():
+def obtenerSesionActiva():
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre = cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
     return nombre
 
 
-def ObtenerDniUsuario(nombre):
+def obtenerDniUsuario(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     dni = cursor.execute("select dni_empleado from usuarios where nombre_usuario= '" + nombre + "'" )
     return dni
 
 
-def ObtenerSedeEmpleado(dni):
+def obtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
     sede = cursor.execute("select nombre_sede from empleados where dni= '" + dni + "'" )
     return sede
 
 
-def ObtenerTarifasEnVigencia(nombre_sede, fecha):
+def obtenerTarifasEnVigencia(nombre_sede, fecha):
     #corroborar la matriz
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -52,20 +52,20 @@ def ObtenerTarifasEnVigencia(nombre_sede, fecha):
     return tarifas
 
 
-def ObtenerNombreEntrada(nro):
+def obtenerNombreEntrada(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoEntradas where id_tipo_entrada ='" +nro+ "'")
     return nombre
 
-def ObtenerNombreVisita(nro):
+def obtenerNombreVisita(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoVisitas where id_tipo_visita =' " + nro + " ' ")
     return nombre
 
 
-def ObtenerMonto(te, tv):
+def obtenerMonto(te, tv):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select monto from tarifas \
@@ -74,13 +74,17 @@ def ObtenerMonto(te, tv):
     return monto
 
 
-def ObtenerMontoGuiaSede(nombre):
+def obtenerMontoGuiaSede(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
-
+def obtenerExposicionesVigentes(nombre_sede):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    exposiciones = cursor.execute("select * from exposiciones E where nombre='" +nombre_sede+ "'")
+    return exposiciones
 
 
 

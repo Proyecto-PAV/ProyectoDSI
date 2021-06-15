@@ -18,7 +18,9 @@ def buscarTarifasExistentes(sede_actual, fecha_hora_actual):
     
     return tarifas
 
-
+def calcularDuracionEstimada(nombre_sede):
+    duracion_estimada = Sede.getExposicionesCompletasVigentes(nombre_sede)
+    return duracion_estimada
 
 
 
@@ -28,3 +30,4 @@ if __name__=='__main__':
     tarifas, adicional_guia = buscarTarifasExistentes(nombre_sede, fechaHoraActual)
     seleccion = ''
     tarifa_seleccionada = '' 
+    duracion_estimada = calcularDuracionEstimada(nombre_sede)

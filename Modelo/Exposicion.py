@@ -1,5 +1,5 @@
 import datetime
-
+from BaseDeDatos import CapaConexion 
 
 class Exposicion():
 
@@ -39,8 +39,8 @@ class Exposicion():
     def conocerTipoExposicion(self):
         pass
 
-    def esVigente(self):
-        
+    def esVigente(self,nombre_sede):
+        v_vigentes = CapaConexion.obtenerExposicionesVigentes(nombre_sede)
 
     def getDetalleExposición(self):
         return self.detalleExposicion
