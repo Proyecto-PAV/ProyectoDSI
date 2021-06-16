@@ -15,7 +15,7 @@ def conexion():
 
 
 
-def ObtenerTodasLasSedes():
+def obtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select * from sedes')
@@ -23,7 +23,7 @@ def ObtenerTodasLasSedes():
         print(row)
 
 
-def ObtenerSesionActiva():
+def obtenerSesionActiva():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
@@ -31,7 +31,7 @@ def ObtenerSesionActiva():
     return sesion[0]
 
 
-def ObtenerDniUsuario(nombre):
+def obtenerDniUsuario(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("select dni_empleado from usuarios where nombre_usuario=?", nombre  )
@@ -39,7 +39,7 @@ def ObtenerDniUsuario(nombre):
     return dni[0]
 
 
-def ObtenerSedeEmpleado(dni):
+def obtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
     
@@ -54,33 +54,32 @@ def ObtenerSedeEmpleado():
     sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
     return sede
 """
-def ObtenerExposicionesEnVigencia(nombre_sede, fecha):
-    #corroborar la matriz
+def obtenerExposicionesEnVigencia(nombre_sede, fecha):
+    #!comprobar porque nos devuelve solo el primero
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute( "select * from exposiciones WHERE nombre_sede=? AND  \
-        ( ? BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada  \
+    cursor.execute ( "select * from exposiciones WHERE nombre_sede='"+nombre_sede +"' AND  \
+        ( '"+ str(fecha) +"' BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada  \
         AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL)\
-        OR (? BETWEEN fecha_inicio and fecha_fin) )", nombre_sede, fecha, fecha)
-
+        OR ('"+ str(fecha) +"' BETWEEN fecha_inicio and fecha_fin) ")
     exposiciones = cursor.fetchone()
+
     return exposiciones
 
-
-def ObtenerNombreEntrada(nro):
+def obtenerNombreEntrada(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoEntradas where id_tipo_entrada ='" +nro+ "'")
     return nombre
 
-def ObtenerNombreVisita(nro):
+def obtenerNombreVisita(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     nombre= cursor.execute("select nombre from tipoVisitas where id_tipo_visita =' " + nro + " ' ")
     return nombre
 
 
-def ObtenerMonto(te, tv):
+def obtenerMonto(te, tv):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select monto from tarifas \
@@ -89,15 +88,29 @@ def ObtenerMonto(te, tv):
     return monto
 
 
-def ObtenerMontoGuiaSede(nombre):
+def obtenerMontoGuiaSede(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
+def obtenerDetalleExposiciones(nombre_expo):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    #fijarse que en los detalles los nombres no se repiten y deberian
+    cursor.execute ( "select * from detalleExposiciones WHERE nombre_exposicion=?", nombre_expo)
+    detalles = cursor.fetchone()
+
+    return detalles
 
 
+def getDuracionResumidaObra(self, nombre):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute ("select duracion_resumida from obras WHERE nombre_obra=?", nombre)
+    obra = cursor.fetchone()
 
+    return obra
 
 
 if __name__ == '__main__':

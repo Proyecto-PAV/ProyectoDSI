@@ -1,4 +1,7 @@
 #from Modelo import Tipo_Entrada
+from BaseDeDatos import CapaConexion
+
+
 class Obra():
     
     alto = 0
@@ -68,6 +71,8 @@ class Obra():
     def crearCambioEstado(self):
         pass
     
-    def getDuracionResumida(self):
-        pass
+    def getDuracionResumida(self, nombre_obra):
+        obras = CapaConexion.getDuracionResumidaObra(nombre_obra)
+        Obra(obras[2],obras[3],obras[9],obras[4],obras[5],obras[6],obras[7],obras[8],obras[0],obras[1],obras[11])
+        return self.duracionResumida
     

@@ -1,6 +1,8 @@
 from Modelo.Tarifa import *
 from BaseDeDatos.CapaConexion import *
 from Modelo.Exposicion import *
+
+
 class Sede():
     
     cantidadMaximaPorGuia = 0
@@ -66,4 +68,6 @@ class Sede():
     
     def getExposicionesCompletasVigentes(self, nombre):
         expo_vigentes = Exposicion.esVigente(nombre)
-        
+        duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
+        return duracion_resumida
+                

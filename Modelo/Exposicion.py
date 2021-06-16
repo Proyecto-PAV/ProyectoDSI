@@ -1,3 +1,4 @@
+from Modelo.Detalle_Exposicion import Detalle_Exposicion
 import datetime
 from BaseDeDatos import CapaConexion
 
@@ -40,6 +41,7 @@ class Exposicion():
         pass
 
     def esVigente(self,nombre_sede):
+        #! preguntar como saber si es completa -con conocerTipoExposicion?
         fecha_actual = datetime.now()
         v_vigentes = CapaConexion.ObtenerExposicionesEnVigencia(nombre_sede, fecha_actual)
         expo_vigentes_obj = [] 
@@ -51,6 +53,15 @@ class Exposicion():
         return expo_vigentes_obj
         
 
-    def getDetalleExposición(self):
-        return self.detalleExposicion
+    def getDetalleExposición(self, vigentes):
+        #calcular el total de la duracion 
+        duracion_total = 0
+        for e in vigentes:
+            duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
+
+        return duracion_total
+
+
+    
+
     
