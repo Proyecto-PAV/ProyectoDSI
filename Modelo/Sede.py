@@ -67,7 +67,7 @@ class Sede():
         return datos_tarifas, adicional_guia
     
     def getExposicionesCompletasVigentes(self, nombre):
-        expo_vigentes = Exposicion.esVigente(nombre)
+        expo_vigentes = Exposicion.esVigente(self, nombre)
         duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
         return duracion_resumida
                 

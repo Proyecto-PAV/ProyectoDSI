@@ -1,5 +1,5 @@
 from Modelo.Empleado import Empleado
-from BaseDeDatos.CapaConexion import ObtenerDniUsuario
+from BaseDeDatos.CapaConexion import *
 
 
 class Usuario():
@@ -19,7 +19,7 @@ class Usuario():
         self.empleado = empleado
     
     def getUsuario(self, nombreUsuario):
-        dni = ObtenerDniUsuario(nombreUsuario)
+        dni = obtenerDniUsuario(nombreUsuario)
         self.empleado = Empleado(None, None, None, None, dni, None, None, None, None, None, None, None)
         sede = self.empleado.getSedeDondeTrabaja(dni)
 

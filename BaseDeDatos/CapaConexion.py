@@ -1,4 +1,5 @@
 import pyodbc 
+from datetime import datetime
 
 ''' funcion de conexion generica con la BD '''
 def conexion():
@@ -42,7 +43,6 @@ def obtenerDniUsuario(nombre):
 def obtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    
     cursor.execute("select nombre_sede from empleados where dni=?",dni )
     sedes = cursor.fetchone()
     return sedes[0]
@@ -55,16 +55,17 @@ def ObtenerSedeEmpleado():
     return sede
 """
 def obtenerExposicionesEnVigencia(nombre_sede, fecha):
-    #!comprobar porque nos devuelve solo el primero
+    #!comprobar el porque nos devuelve solo el primero
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute ( "select * from exposiciones WHERE nombre_sede='"+nombre_sede +"' AND  \
-        ( '"+ str(fecha) +"' BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada  \
-        AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL)\
-        OR ('"+ str(fecha) +"' BETWEEN fecha_inicio and fecha_fin) ")
+    cursor.execute("SELECT * FROM exposiciones WHERE nombre_sede='" + nombre_sede + "' \
+        AND ('"+ str(fecha) +"' BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada \
+        AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL) \
+        OR ('"+ str(fecha) +"' BETWEEN fecha_inicio and fecha_fin) ") 
     exposiciones = cursor.fetchone()
 
     return exposiciones
+
 
 def obtenerNombreEntrada(nro):
     cnxn = conexion()

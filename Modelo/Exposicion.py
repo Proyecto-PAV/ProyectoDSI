@@ -1,6 +1,6 @@
 from Modelo.Detalle_Exposicion import Detalle_Exposicion
-import datetime
-from BaseDeDatos import CapaConexion
+from datetime import datetime
+from BaseDeDatos.CapaConexion import *
 
 class Exposicion():
 
@@ -42,12 +42,12 @@ class Exposicion():
 
     def esVigente(self,nombre_sede):
         #! preguntar como saber si es completa -con conocerTipoExposicion?
-        fecha_actual = datetime.now()
-        v_vigentes = CapaConexion.ObtenerExposicionesEnVigencia(nombre_sede, fecha_actual)
+        fecha = datetime.now()
+        v_vigentes = obtenerExposicionesEnVigencia(nombre_sede, fecha)
         expo_vigentes_obj = [] 
         
         for obj in v_vigentes:
-            expo = Exposicion(None, obj[3], obj[4],obj[1], obj[2], obj[5], obj[6], obj[7], None)
+            expo = Exposicion(None, obj[3], None, obj[1], None, obj[5], obj[6], obj[7], None)
             expo_vigentes_obj.append(expo) 
         
         return expo_vigentes_obj
