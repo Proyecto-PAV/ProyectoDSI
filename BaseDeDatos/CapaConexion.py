@@ -87,6 +87,13 @@ def ObtenerMontoGuiaSede(nombre):
     adicionalMonto = cursor.fetchone()
     return adicionalMonto[0]
 
+def ObtenerUltimoNumero(nombre_sede):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select MAX(numero) from Entradas where nombre_sede=?", nombre_sede)
+    ultimoNumero = cursor.fetchone()
+    return ultimoNumero
+
 
 
 

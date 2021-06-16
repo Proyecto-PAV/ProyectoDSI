@@ -1,3 +1,4 @@
+from BaseDeDatos.CapaConexion import *
 class Entrada():
 
     fechaVenta = ""
@@ -17,7 +18,8 @@ class Entrada():
         pass
     def conocerTarifa(self):
         pass
-    def getNro(self):
-        pass
+    def getNro(self, nombre_sede):
+        UltimoNumeroEntrada = ObtenerUltimoNumero(nombre_sede)
+        return UltimoNumeroEntrada
     def new(self):
         pass

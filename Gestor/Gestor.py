@@ -3,6 +3,7 @@ from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
 from Modelo.Tarifa import *
+from Modelo.Entrada import *
 
 
 class GestorVentaEntradas():
@@ -86,8 +87,8 @@ class GestorVentaEntradas():
         
         
         
-    def generarNúmeroEntrada(self):
-        pass
+    def generarNumeroEntrada(ultimo_numero):
+        numero_entrada = ultimo_numero + 1
 
     def imprimirEntradasGeneradas(self):
         pass
@@ -103,8 +104,10 @@ class GestorVentaEntradas():
         fecha_hora_actual = datetime.now()
         return fecha_hora_actual
 
-    def obtenerUltimoNúmero(self):
-        pass
+    def obtenerUltimoNúmero(self, sedeActual):
+        nombre = sedeActual.nombre
+        ultimoNumero = Entrada.getNro(nombre)
+        return ultimoNumero
 
     def solicitarSeleccionTipoEntraTipoVisitayGuia(self):
         pass
