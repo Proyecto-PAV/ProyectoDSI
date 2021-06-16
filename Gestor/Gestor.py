@@ -2,7 +2,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import *
-
+from Modelo.Estado import *
 
 class GestorVentaEntradas():
 
@@ -58,7 +58,13 @@ class GestorVentaEntradas():
         pass
 
     def buscarEstadoConfirmada(self):
-        pass
+        estado_reservaVisita = []
+        estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
+        estado_reservaConfirmada = []
+        estado_reservaConfirmada = Estado.esConfirmada(estado_reservaVisitaObj)
+        print("Exito paaaa")
+        
+
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
         tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
@@ -99,7 +105,8 @@ class GestorVentaEntradas():
 
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
-        pass
+        #? Que atributo se pone en el igual
+        self.buscarEstadoConfirmada(self)
 
     def tomarSeleccionTipoVisitaYTipoEntradaYGuia(self):
         pass

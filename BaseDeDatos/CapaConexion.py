@@ -105,12 +105,15 @@ def ObtenerCantidadAlumnosConfirmado():
     cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas where fecha_hora_reserva ='" +  + "'")
     return cantidad
 
-def ObtenerEstadosReservaVisita():
+def obtenerEstadosReservaVisita():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    estados = cursor.execute("select id_estado from estados where  nombre_ambito = 'ReservaVisita' ")
+    cursor.execute("select * from estados where  nombre_ambito = 'ReservaVisita' ")
+    estados = cursor.fetchall()
     return estados
-    
+
+
+
 
 if __name__ == '__main__':
         ObtenerTodasLasSedes()

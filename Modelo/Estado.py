@@ -6,11 +6,10 @@ class Estado():
     descripcion = ''
     nombre = ''
 
-    def __init__(self, ambito, descripcion, estadoReserva, nombre):
+    def __init__(self, ambito, descripcion, nombre):
         self.ambito = ambito
         self.descripcion = descripcion
         self.nombre = nombre
-
 
     def esAmbitoObra(self):
         pass
@@ -22,17 +21,23 @@ class Estado():
         pass
 
     def esAmbitoReservaaVisita():
-        
         estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
-        
-        estados_reservaVisita_obj = []
-        for row in estados_reservaVisita():    
-            objeto = Estado(row[1], row[2],row[3]) #? Con que atributo creamos el objeto
+        print(estados_reservaVisita)
+        estados_reservaVisita_obj = []  
+        for row in estados_reservaVisita:    
+            objeto = Estado(row[1], row[2], row[3]) #? Con que atributo creamos el objeto
+            print(objeto.nombre)
             estados_reservaVisita_obj.append(objeto)
-            
         return estados_reservaVisita_obj
 
-    def esConfirmada(estado_reservaVisita):
-        pass
+    def esConfirmada(estado_reservaVisitaObj):
+        EstadosConfirmados = []
+        for i in range(0, len(estado_reservaVisitaObj)):
+            print(i)
+            if estado_reservaVisitaObj[i].nombre == 'Confirmado':
+               objeto = Estado(estado_reservaVisitaObj[i].ambito, estado_reservaVisitaObj[i].descripcion, estado_reservaVisitaObj[i].nombre)
+               EstadosConfirmados.append(objeto)
+        return EstadosConfirmados
+
 
     
