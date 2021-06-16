@@ -1,7 +1,7 @@
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
-from Modelo.Sede import *
+from Modelo.Sede import Sede
 
 
 class GestorVentaEntradas():
@@ -51,42 +51,30 @@ class GestorVentaEntradas():
         #este metodo desencadena toda la logica
         
         self.sedeActual = self.ObtenerSedeActual()
-
-
+        self.fechaHoraActual = self.getFechaYHoraActual()
+        
+        tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        return tarifasVigentes, montoAdicionalGuia
 
     def actualizarPantallas(self):
         pass
 
     def buscarEstadoConfirmada(self):
         pass
+    
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
-        tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
+        self.sedeActual = Sede(None, None, None, None, sede_actual, None, None)
+        tarifasVigentes = self.sedeActual.getTarifasVigentes(sede_actual, fecha_hora_actual)
+        montoAdicional = sede_actual.getAdicionalPorGuia()
 
-        return tarifas
+        return tarifasVigentes, montoAdicional
+
+
     def calcularDuracionEstimada(self):
         pass
 
-    def calcularMontoTotalAPagar(self, tipoEntrada, tipoVisita, cantidad_entradas):
-        #?Se le pasa la cantidad de entradas seleccionada por el usuario y la entrada con el tipo de entrada y el tipo de visita de cada entrada
-        #?Suponemos que en el paso 3 y 6 se guardan en variables estos parametros
-        #?Tambien suponemos que entradas es un vector con el convinatorio de todas las entradas posibles que arroje (select id_tipo_entrada, id_tipo_visita from tarifas where nombre_sede like 'Museo Telon')
-        total = 0
-        '''monto_por_entrada = 0
-        #*Ejemplo cuando se piden 11 entradas de menores y 10 de jubilados
-        #entradas = [e1, e2, e3, e4, e5, e6, e7, e8, e19, e0]
-        #cantidad_entradas = [0, 11, 10, 0, 0, 0, 0, 0, 0, 0]
-        for row in cantidad_entradas:
-            if row != 0:
-                monto_por_entrada = CapaConexion.ObtenerMonto(entradas[row][0], entradas[row][1])
-                total = total + monto_por_entrada
-                
-        #al final es con un tipo de entrada y tipo de visita fijo
-        return total'''
-        
-        
-        
-        
-        
+    def calcularMontoTotalAPagar(self):
+        pass
 
     def generarNúmeroEntrada(self):
         pass
