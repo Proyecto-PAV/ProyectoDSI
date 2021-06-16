@@ -50,16 +50,20 @@ class Sede():
     def getEntradaVendidas(self): #sede en ningun momento conoce la cantidad de entradas vendidas
         pass
 
-    def getAdicionalPorGuia(self, sede):
-        #conectar BD
-        monto_sede = CapaConexion.ObtenerMontoGuiaSede(sede)
-        return monto_sede
+    def getAdicionalPorGuia(self):
+        #obtiene el mondo adicional de la bd
+        montoAdicional = ObtenerMontoGuiaSede(self.nombre)
+        return montoAdicional
 
     def getTarifasVigentes(self, nombre_sede, fecha_hora_actual):
-        self.tarifasVigentes = Tarifa(None,None,None,None,None)
+        tarifa = Tarifa(None,None,None,None,None)
 
-        filtrar_tarifas = self.tarifasVigentes.esVigente(nombre_sede, fecha_hora_actual)
-        datos_tarifas = Tarifa.getMonto(filtrar_tarifas)
-        adicional_guia = Sede.getAdicionalPorGuia(nombre_sede)
+        self.tarifasVigentes = tarifa.esVigente(nombre_sede, fecha_hora_actual)
 
-        return datos_tarifas, adicional_guia
+        for t in self.tarifasVigentes:
+            t.getMonto(nombre_sede)
+        
+        return self.tarifasVigentes
+
+      
+

@@ -53,8 +53,8 @@ class GestorVentaEntradas():
         self.sedeActual = self.ObtenerSedeActual()
         self.fechaHoraActual = self.getFechaYHoraActual()
         
-        tarifasVigentes = self.buscarTarifasVigentes(self.sedeActual, self.fechaHoraActual)
-
+        tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        return tarifasVigentes, montoAdicionalGuia
 
     def actualizarPantallas(self):
         pass
@@ -64,9 +64,11 @@ class GestorVentaEntradas():
     
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
         self.sedeActual = Sede(None, None, None, None, sede_actual, None, None)
-        tarifas = self.sedeActual.getTarifasVigentes(sede_actual, fecha_hora_actual)
+        tarifasVigentes = self.sedeActual.getTarifasVigentes(sede_actual, fecha_hora_actual)
+        montoAdicional = sede_actual.getAdicionalPorGuia()
 
-        return tarifas
+        return tarifasVigentes, montoAdicional
+
 
     def calcularDuracionEstimada(self):
         pass
