@@ -2,6 +2,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
+from Modelo.Tarifa import *
 
 
 class GestorVentaEntradas():
@@ -73,9 +74,18 @@ class GestorVentaEntradas():
     def calcularDuracionEstimada(self):
         pass
 
-    def calcularMontoTotalAPagar(self):
-        pass
-
+    def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia, sedeActual):
+        #!Tomando en cuanta que se le pasa un objeto de tarifa
+        monto = 0
+        montoAdicional = 0
+        monto = tarifa_seleccionada.monto * cantidad_seleccionada
+        if hayGuia == True:
+            montoAdicional = sedeActual.getAdicionalPorGuia()
+            monto = monto + montoAdicional
+        return monto
+        
+        
+        
     def generarNúmeroEntrada(self):
         pass
 
