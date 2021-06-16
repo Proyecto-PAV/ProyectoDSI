@@ -112,7 +112,12 @@ def obtenerEstadosReservaVisita():
     estados = cursor.fetchall()
     return estados
 
-
+def obtenerEntradasPorSede(sede_actual):
+    cnxn = conexion()
+    cursor = cnxn.cursos()
+    cursor.execute("select fecha_venta, hora_venta, monto, numero from entradas where nombre_sede =? ", sede_actual)
+    entradas = cursor.fetchall()
+    return entradas
 
 
 if __name__ == '__main__':

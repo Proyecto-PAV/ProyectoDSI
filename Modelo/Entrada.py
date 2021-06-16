@@ -1,3 +1,6 @@
+from BaseDeDatos import CapaConexion
+
+
 class Entrada():
 
     fechaVenta = ""
@@ -21,3 +24,18 @@ class Entrada():
         pass
     def new(self):
         pass
+
+    def esSedeActual(sede_actual):
+        entradas = CapaConexion.obtenerEntradasPorSede(sede_actual)
+        EntradasDeSede = []
+        for row in entradas:
+            objeto = Entrada(entradas[1],entradas[2],entradas[3],entradas[4])
+            EntradasDeSede.append(objeto)
+        return EntradasDeSede
+
+    def getEntradasFechaHoraVenta(entradasObj, duracionEstimada):
+        entradasFechaHora = []
+        for i in range(0, len(entradasObj)):
+            objeto = Entrada(entradasObj[i].fechaVenta, entradasObj[i].fechaHora)
+            entradasFechaHora.append(objeto)
+        return entradasFechaHora

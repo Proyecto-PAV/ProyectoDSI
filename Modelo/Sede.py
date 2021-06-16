@@ -1,6 +1,6 @@
 from Modelo.Tarifa import *
 from BaseDeDatos.CapaConexion import *
-
+from Modelo.Entrada import *
 class Sede():
     
     cantidadMaximaPorGuia = 0
@@ -44,11 +44,13 @@ class Sede():
         pass
     #Se sigue con los def
 
-    def getCantidadMaximaVisitantes(self):
-        return self.cantidadMaximaVisitantes
+    def getCantidadMaximaVisitantes(sede_actual):
+        return sede_actual.cantidadMaximaVisitantes
 
-    def getEntradaVendidas(): #sede en ningun momento conoce la cantidad de entradas vendidas
-        pass
+    def getEntradaVendidas(sede_actual, duracionEstimada):
+        entradasObj = Entrada.esSedeActual(sede_actual)
+        FechaHoraEntradas = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        
 
     def getAdicionalPorGuia(sede):
         #conectar BD
@@ -62,4 +64,8 @@ class Sede():
         adicional_guia = Sede.getAdicionalPorGuia(nombre_sede)
 
         return datos_tarifas, adicional_guia
+    #!APARTIR DE ACA MODIFICAMOS
+    def getReservaVisita(sede_actual, estadosConfirmados, duracionEstimada):
+        for i in range(0, len(estadosConfirmados)):
+            pass
 

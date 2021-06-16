@@ -46,10 +46,9 @@ class GestorVentaEntradas():
         self.tipoEntrada = tipoEntrada
         self.tipoVisita = tipoVisita
 
-    def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
+    def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
-        #este metodo desencadena toda la logica
-        
+        #este metodo desencadena toda la logica        
         self.sedeActual = self.ObtenerSedeActual()
 
 
@@ -60,11 +59,16 @@ class GestorVentaEntradas():
     def buscarEstadoConfirmada(self):
         estado_reservaVisitaObj = []
         estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
-        estado_reservaConfirmada = []
-        estado_reservaConfirmada = Estado.esConfirmada(estado_reservaVisitaObj)
-        print(estado_reservaConfirmada[0].nombre)
-        print("Exito paaaa")
-        
+        estado_reservaConfirmadaObj = []
+        estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
+        return estado_reservaConfirmadaObj
+    
+    def validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados, duracionEstimada):
+        sede_actual = self.sedeActual
+        Sede.getReservaVisita(sede_actual, estadosConfirmados, duracionEstimada)
+        Sede.getEntradaVendidas(sede_actual, duracionEstimada)
+        cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
+        pass
 
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
@@ -107,13 +111,13 @@ class GestorVentaEntradas():
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
         #? Que atributo se pone en el igual
-        self.buscarEstadoConfirmada(self)
+        estadosConfirmados = self.buscarEstadoConfirmada(self)
+        self.validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados)
 
     def tomarSeleccionTipoVisitaYTipoEntradaYGuia(self):
         pass
 
-    def validarCantidadDeEntradasMenorCapaMáxima(self):
-        self
+    
 
     def finCU(self):
         pass
