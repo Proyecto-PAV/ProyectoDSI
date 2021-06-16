@@ -58,10 +58,11 @@ class GestorVentaEntradas():
         pass
 
     def buscarEstadoConfirmada(self):
-        estado_reservaVisita = []
+        estado_reservaVisitaObj = []
         estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
         estado_reservaConfirmada = []
         estado_reservaConfirmada = Estado.esConfirmada(estado_reservaVisitaObj)
+        print(estado_reservaConfirmada[0].nombre)
         print("Exito paaaa")
         
 
@@ -112,7 +113,7 @@ class GestorVentaEntradas():
         pass
 
     def validarCantidadDeEntradasMenorCapaMáxima(self):
-        pass
+        self
 
     def finCU(self):
         pass
