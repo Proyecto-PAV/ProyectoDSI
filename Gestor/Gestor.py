@@ -2,8 +2,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import *
-from Modelo import Estado
-
+from Modelo.Estado import *
 
 class GestorVentaEntradas():
 
@@ -47,10 +46,9 @@ class GestorVentaEntradas():
         self.tipoEntrada = tipoEntrada
         self.tipoVisita = tipoVisita
 
-    def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
+    def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
-        #este metodo desencadena toda la logica
-        
+        #este metodo desencadena toda la logica        
         self.sedeActual = self.ObtenerSedeActual()
 
 
@@ -59,11 +57,18 @@ class GestorVentaEntradas():
         pass
 
     def buscarEstadoConfirmada(self):
-        estadosConfirmados = []
-        estadosReservaVisita = []
-        estadosReservaVisita = Estado.esAmbitoReservaVisita()
-        estadosConfirmados = Estado.esConfirmada(estadosReservaVisita)
-        return estadosConfirmados
+        estado_reservaVisitaObj = []
+        estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
+        estado_reservaConfirmadaObj = []
+        estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
+        return estado_reservaConfirmadaObj
+    
+    def validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados, duracionEstimada):
+        sede_actual = self.sedeActual
+        Sede.getReservaVisita(sede_actual, estadosConfirmados, duracionEstimada)
+        Sede.getEntradaVendidas(sede_actual, duracionEstimada)
+        cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
+        pass
 
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
@@ -105,13 +110,14 @@ class GestorVentaEntradas():
 
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
-        pass
+        #? Que atributo se pone en el igual
+        estadosConfirmados = self.buscarEstadoConfirmada(self)
+        self.validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados)
 
     def tomarSeleccionTipoVisitaYTipoEntradaYGuia(self):
         pass
 
-    def validarCantidadDeEntradasMenorCapaMáxima(self):
-        pass
+    
 
     def finCU(self):
         pass

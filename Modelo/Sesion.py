@@ -27,7 +27,6 @@ class Sesion():
     def getEmpleadoenSesion(self):
         #obtener las sesiones que no tengan fecha fin
         usuarioSesion = ObtenerSesionActiva()
-
         self.usuario = Usuario(None, None, usuarioSesion, None, None, None)
         sedeEmpleado = self.usuario.getUsuario(usuarioSesion)
         return sedeEmpleado

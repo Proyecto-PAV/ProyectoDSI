@@ -1,5 +1,6 @@
 from BaseDeDatos import CapaConexion
-class estado():
+
+class Estado():
 
     ambito = ''
     descripcion = ''
@@ -9,42 +10,34 @@ class estado():
         self.ambito = ambito
         self.descripcion = descripcion
         self.nombre = nombre
-    
-    def esAmbitoObra(ambito):
-        if ambito == 'Obra':
-            return True
-        else:
-            return False
 
-    def esAmbitoReservaVisita():
-        estados_reservaVisita = []
-        print(estados_reservaVisita)
-        estados_reservaVisita_obj = []
-        for i in estados_reservaVisita():
-            objeto = Estado('ReservaVisita', None, None) #? Con que atributo creamos el objeto
-            estados_reservaVisita_obj.append(objeto)
+    def esAmbitoObra(self):
+        pass
 
-        return estados_reservaVisita_obj
+    def esPendienteAsigDeposito(self):
+        pass
 
+    def getEstadoReservaConfirmada(self):
+        pass
 
-    def esPendienteAsigDeposito(self, nombre):
-        if nombre == 'PendienteAsigDeposito':
-            return True
-        else:
-            return False
-
-    def esAmbitoReservaVisita(self):
+    def esAmbitoReservaaVisita():
         estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
-        estados_reservaVisita_obj = []
-        for row in estados_reservaVisita():    
-            objeto = Estado(row[1], row[2],row[3]) 
-            estados_reservaVisita_obj.append(objeto)
+       
+        estados_reservaVisita_obj = []  
+        for row in estados_reservaVisita:    
+            objeto = Estado(row[1], row[2], row[3]) #? Con que atributo creamos el objeto
             
+            estados_reservaVisita_obj.append(objeto)
         return estados_reservaVisita_obj
 
-    def esConfirmada(self, estadosReservaVisita):
-        estadosConfirmados = []
-        for i in estadosReservaVisita:
-            if i[3] == 'Confirmado':
-                estadosConfirmados.append(estadosReservaVisita[i])
-        return estadosConfirmados
+    def esConfirmada(estado_reservaVisitaObj):
+        EstadosConfirmados = []
+        for i in range(0, len(estado_reservaVisitaObj)):
+            
+            if estado_reservaVisitaObj[i].nombre == 'Confirmado':
+               objeto = Estado(estado_reservaVisitaObj[i].ambito, estado_reservaVisitaObj[i].descripcion, estado_reservaVisitaObj[i].nombre)
+               EstadosConfirmados.append(objeto)
+        return EstadosConfirmados
+
+
+    
