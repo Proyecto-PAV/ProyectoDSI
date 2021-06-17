@@ -67,11 +67,9 @@ class Sede():
         return datos_tarifas, adicional_guia
     
     def getExposicionesCompletasVigentes(nombre):
-        
+        #levantamos todos las exposiciones de la BD que sean vigentes
         expo_vigentes = Exposicion.esVigente(nombre)
-        
+        #de esas vigentes obtenemos su duracion resumida
         duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
         return duracion_resumida
 
-    
-                

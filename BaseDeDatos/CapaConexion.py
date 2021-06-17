@@ -54,16 +54,12 @@ def ObtenerSedeEmpleado():
     sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
     return sede
 """
-def obtenerExposicionesEnVigencia(nombre_sede, fecha):
-    #!comprobar el porque nos devuelve solo el primero
+def obtenerExposiciones():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("SELECT * FROM exposiciones WHERE nombre_sede=? \
-        AND (? BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada \
-        AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL) \
-        OR (? BETWEEN fecha_inicio and fecha_fin) ", nombre_sede, fecha, fecha) 
+    cursor.execute("SELECT * FROM exposiciones") 
     exposiciones = cursor.fetchall()
-  
+      
     return exposiciones
 
 
@@ -98,19 +94,17 @@ def obtenerMontoGuiaSede(nombre):
 def obtenerDetalleExposiciones(nombre_expo):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    #fijarse que en los detalles los nombres no se repiten y deberian
-    cursor.execute ( "select * from detalleExposiciones WHERE nombre_exposicion=?", nombre_expo)
+    #fijarse que en los detalles los nombres no se repiten y deberian/es recomendable
+    cursor.execute ("select * from detalleExposiciones")
     detalles = cursor.fetchall()
-
     return detalles
 
 
-def getDuracionResumidaObra(self, nombre):
+def getDuracionResumidaObra():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute ("select duracion_resumida from obras WHERE nombre_obra=?", nombre)
-    obra = cursor.fetchone()
-
+    cursor.execute ("select * from obras")
+    obra = cursor.fetchall()
     return obra
 
 '''

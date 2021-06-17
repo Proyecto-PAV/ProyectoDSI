@@ -69,7 +69,7 @@ class GestorVentaEntradas():
     def calcularDuracionEstimada(self):
         actual = self.sedeActual
         duracion = Sede.getExposicionesCompletasVigentes(actual)
-        return duracion
+        self.duracionEstimada=duracion
 
 
     def calcularMontoTotalAPagar(self):

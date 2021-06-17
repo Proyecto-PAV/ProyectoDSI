@@ -1,3 +1,4 @@
+from datetime import datetime
 from Modelo import Obra
 from BaseDeDatos import CapaConexion
 from Modelo.Obra import *
@@ -25,16 +26,16 @@ class Detalle_Exposicion():
     def getObra(nombre_expo):
         #buscar todos los detalles de esa expo
         detalles = CapaConexion.obtenerDetalleExposiciones(nombre_expo)
-        return detalles
-
-        #instanciar los objetos y sumar la duracion de esta exposicion
+        #instancia los objetos y suma la duracion de esta exposicion
         detalles_obj =[]
         duracion_resumida = 0
         for d in detalles:
             detalle = Detalle_Exposicion(d[2], d[1], d[0])
             detalles_obj.append(detalle)
-            #obtener duracion resumida de la obra del detalle -corroborar con el POO
-            duracion_resumida += Obra.getDuracionResumida(d[1])
+            #obtener duracion resumida de la obra del detalle
+            tiempo = Obra.getDuracionResumida(detalle.obra)
+            #!Revisar la suma con sus tipos 
+            duracion_resumida += (tiempo)
         
         return duracion_resumida
 
