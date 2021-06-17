@@ -87,7 +87,7 @@ class GestorVentaEntradas():
         
         
         
-    def generarNumeroEntrada(ultimo_numero):
+    def generarNumeroEntrada(self, ultimo_numero):
         numero_entrada = ultimo_numero + 1
 
     def imprimirEntradasGeneradas(self):

@@ -18,8 +18,13 @@ class Entrada():
         pass
     def conocerTarifa(self):
         pass
-    def getNro(self, nombre_sede):
-        UltimoNumeroEntrada = ObtenerUltimoNumero(nombre_sede)
-        return UltimoNumeroEntrada
+    def getNro(nombreSede):
+        ultimoNro = 0
+        entradas = ObtenerUltimoNumero()
+        for row in entradas:
+            o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+            if (o.numero > ultimoNro) and (o.nombre_sede == nombreSede):
+                ultimoNro = o.numero
+        return ultimoNro
     def new(self):
         pass

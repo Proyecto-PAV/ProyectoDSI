@@ -83,7 +83,12 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
-
+def ObtenerUltimoNumero():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from Entradas")
+    entradas = cursor.fetchall()
+    return entradas
 
 
 #!hay q eliminar esto o no
