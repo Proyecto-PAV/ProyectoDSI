@@ -89,9 +89,6 @@ def ObtenerMontoGuiaSede(nombre):
 
 
 
-
-
-
 if __name__ == '__main__':
         ObtenerTodasLasSedes()
         

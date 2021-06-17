@@ -17,11 +17,11 @@ class PantallaVentaEntradas:
 
     def tomarOpcionRegistrarVentaEntradas(self):
         self.habilitarPantalla()
-
         #aca se crea el objeto gestprVentaEntrada
         self.gestorVentaEntradas = GestorVentaEntradas()
-
-        self.gestorVentaEntradas.tomarOpciónRegistrarVentaDeEntradas(self)
+        tarifasVigentes, montoAdicionalGuia = self.gestorVentaEntradas.tomarOpciónRegistrarVentaDeEntradas(self)
+        return tarifasVigentes, montoAdicionalGuia
+        
     
 
     def habilitarPantalla(self):
@@ -53,18 +53,4 @@ class PantallaVentaEntradas:
 
     def tomarSeleccionTipoVisita(self):
         pass
-
-    """
-    #! poner esta funcion en la pantalla inicio sesion
-    def usuario(nUsuario, cUsuario):
-        user = nUsuario
-        contra = cUsuario
-        cursor.execute('SELECT nombre_usuario, contraseña FROM usuarios WHERE nombre_usuario = ? and contraseña = ?', user, contra)
-        row = cursor.fetchone()
-        if row == None:
-            return
-        else:
-            return True
-    """
-
 
