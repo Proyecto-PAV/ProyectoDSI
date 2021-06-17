@@ -23,30 +23,28 @@ def ObtenerTodasLasSedes():
         print(row)
 
 
-def ObtenerSesionActiva():
+def ObtenerSesionesBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute('select nombre_usuario from sesiones where fecha_fin IS NULL')
-    sesion = cursor.fetchone()
-    return sesion[0]
+    cursor.execute('SELECT * FROM sesiones')
+    sesiones = cursor.fetchall()
+    return sesiones
 
-
-def ObtenerDniUsuario(nombre):
+def ObtenerUsuariosBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select dni_empleado from usuarios where nombre_usuario=?", nombre  )
-    dni = cursor.fetchone()
-    return dni[0]
+    cursor.execute("SELECT * FROM usuarios")
+    usuarios = cursor.fetchall()
+    return usuarios
 
-
-def ObtenerSedeEmpleado(dni):
+def ObtenerEmpleados():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    
-    cursor.execute("select nombre_sede from empleados where dni=?",dni )
-    sedes = cursor.fetchone()
-    return sedes[0]
-   
+    cursor.execute("SELECT * FROM empleados")
+    empleados = cursor.fetchall()
+    return empleados
+
+
 
 def ObtenerTarifasEnVigencia(nombre_sede, fecha):
     #create_date = datetime.strptime(fecha, '%Y-%m-%dT%H:%M:%S.%f')
@@ -57,36 +55,44 @@ def ObtenerTarifasEnVigencia(nombre_sede, fecha):
     return tarifas
 
 
-def ObtenerNombreEntrada(nro):
+def obtenerTarifas():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select nombre from tipoEntradas where id_tipo_entrada =?", nro)
-    nombre = cursor.fetchone()
-    return nombre[0]
+    cursor.execute("SELECT * FROM tarifas")
+    tarifas = cursor.fetchall()
+    return tarifas
 
-def ObtenerNombreVisita(nro):
+
+def obtenerTiposEntradas():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select nombre from tipoVisitas where id_tipo_visita =?", nro )
-    nombre = cursor.fetchone()
-    return nombre[0]
+    cursor.execute("SELECT * FROM tipoEntradas")
+    tiposEntradas = cursor.fetchall()
+    return tiposEntradas
 
+def obtenerTiposVisitas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("SELECT * FROM tipoVisitas")
+    tiposVisitas = cursor.fetchall()
+    return tiposVisitas
 
+#?para mi no tiene sentido dejarla porque el monto ya lo obtenemos por medio de la bd
+"""
 def ObtenerMonto(te, tv, ns):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("select monto from tarifas where id_tipo_entrada =?  and id_tipo_visita =? and nombre_sede =?", te, tv, ns)
     monto = cursor.fetchone()
     return monto[0]
+"""
 
-
-def ObtenerMontoGuiaSede(nombre):
+def obtenerSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select adicional_por_guia from sedes where nombre=?", nombre)
-    adicionalMonto = cursor.fetchone()
-    return adicionalMonto[0]
-
+    cursor.execute("SELECT * FROM sedes")
+    sedes = cursor.fetchall()
+    return sedes
 
 
 

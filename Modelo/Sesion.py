@@ -24,11 +24,17 @@ class Sesion():
     def conocerUsuario(self, usuario):
         usuario.getUsuarios()
 
-    def getEmpleadoenSesion(self):
+    def getEmpleadoenSesion():
         #obtener las sesiones que no tengan fecha fin
-        usuarioSesion = ObtenerSesionActiva()
-
-        self.usuario = Usuario(None, None, usuarioSesion, None, None, None)
-        sedeEmpleado = self.usuario.getUsuario(usuarioSesion)
-        return sedeEmpleado
+        sesionesBd = ObtenerSesionesBd()
+        for sesion in sesionesBd:
+            sesionObj = Sesion(None, sesion[2], sesion[1], sesion[4], sesion[3], sesion[0])
+            if sesionObj.fechaFin == None:
+                sesionActiva = sesionObj
         
+        sedeEmpleado, usuario = Usuario.getUsuario(sesionActiva)
+        sesionActiva.empleadoSesion = usuario.nombre
+        return sedeEmpleado
+
+
+

@@ -1,4 +1,4 @@
-from BaseDeDatos.CapaConexion import ObtenerSedeEmpleado
+from BaseDeDatos.CapaConexion import *
 
 class Empleado():
 
@@ -32,10 +32,20 @@ class Empleado():
         pass
     def conocerHorario(self):
         pass
-
     
-    def getSedeDondeTrabaja(self, dni):
+    """
+    def getSedeDondeTrabaja(usuario):
         #consultar BD
-        sedeDondeTrabaja = ObtenerSedeEmpleado(dni)
+        sedeDondeTrabaja = ObtenerSedeEmpleado(usuario.dni)
         return sedeDondeTrabaja
-
+    """
+    
+    def getSedeDondeTrabaja(usuario):
+        #consultar BD
+        empleadosBd = ObtenerEmpleados()
+        for e in empleadosBd:
+            empleadoObj = Empleado(e[2], e[3], e[6], e[1], e[0], e[7], e[8], e[9], e[10], e[11], e[4], e[5])
+            if empleadoObj.dni == usuario.dni:
+                empleado = empleadoObj
+        return empleado
+    
