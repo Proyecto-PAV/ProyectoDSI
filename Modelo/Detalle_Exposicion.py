@@ -22,9 +22,11 @@ class Detalle_Exposicion():
     def conocerPared(self):
         pass
 
-    def getObra(self, nombre_expo):
+    def getObra(nombre_expo):
         #buscar todos los detalles de esa expo
         detalles = CapaConexion.obtenerDetalleExposiciones(nombre_expo)
+        return detalles
+
         #instanciar los objetos y sumar la duracion de esta exposicion
         detalles_obj =[]
         duracion_resumida = 0

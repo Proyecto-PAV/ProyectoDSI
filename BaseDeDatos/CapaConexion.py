@@ -58,12 +58,12 @@ def obtenerExposicionesEnVigencia(nombre_sede, fecha):
     #!comprobar el porque nos devuelve solo el primero
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("SELECT * FROM exposiciones WHERE nombre_sede='" + nombre_sede + "' \
-        AND ('"+ str(fecha) +"' BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada \
+    cursor.execute("SELECT * FROM exposiciones WHERE nombre_sede=? \
+        AND (? BETWEEN fecha_inicio_replanificada AND fecha_fin_replanificada \
         AND fecha_inicio_replanificada IS NOT NULL AND fecha_fin_replanificada IS NOT NULL) \
-        OR ('"+ str(fecha) +"' BETWEEN fecha_inicio and fecha_fin) ") 
-    exposiciones = cursor.fetchone()
-
+        OR (? BETWEEN fecha_inicio and fecha_fin) ", nombre_sede, fecha, fecha) 
+    exposiciones = cursor.fetchall()
+  
     return exposiciones
 
 
@@ -100,7 +100,7 @@ def obtenerDetalleExposiciones(nombre_expo):
     cursor = cnxn.cursor()
     #fijarse que en los detalles los nombres no se repiten y deberian
     cursor.execute ( "select * from detalleExposiciones WHERE nombre_exposicion=?", nombre_expo)
-    detalles = cursor.fetchone()
+    detalles = cursor.fetchall()
 
     return detalles
 
@@ -113,7 +113,7 @@ def getDuracionResumidaObra(self, nombre):
 
     return obra
 
-
+'''
 if __name__ == '__main__':
         ObtenerTodasLasSedes()
-        
+        '''
