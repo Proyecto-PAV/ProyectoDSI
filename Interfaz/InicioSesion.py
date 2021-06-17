@@ -16,6 +16,7 @@ from PyQt5 import uic
 
 
 class Ui_InicioSesion(QMainWindow):
+
     def menu(self, event):
         res = usuario(self.LE_usuario.text(), self.LE_contra.text())
         if res == True:
@@ -25,7 +26,7 @@ class Ui_InicioSesion(QMainWindow):
             self.menu.show()
         else:
             pass
-                
+    
             
 
     def setupUi(self, InicioSesion):

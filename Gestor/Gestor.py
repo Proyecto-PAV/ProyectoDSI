@@ -1,7 +1,7 @@
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
-from Modelo.Sede import *
+from Modelo.Sede import Sede
 
 
 class GestorVentaEntradas():
@@ -51,20 +51,24 @@ class GestorVentaEntradas():
         #este metodo desencadena toda la logica
         
         self.sedeActual = self.ObtenerSedeActual()
-
-
+        self.fechaHoraActual = self.getFechaYHoraActual()
+        
+        tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
+        return tarifasVigentes, montoAdicionalGuia
 
     def actualizarPantallas(self):
         pass
 
     def buscarEstadoConfirmada(self):
         pass
-    """
-    def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
-        tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
+    
+    def buscarTarifasVigentes(self):
+        tarifasVigentes = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
 
-        return tarifas
-    """
+        return tarifasVigentes, montoAdicional
+
+
     def calcularDuracionEstimada(self):
         pass
 
@@ -79,9 +83,7 @@ class GestorVentaEntradas():
 
     def ObtenerSedeActual(self):
         #preguntar si hay que inicializar con none la fecha de inicio
-        self.sesion = Sesion(None, None, None, None, None, None)
-        sede_actual = self.sesion.getEmpleadoenSesion()
-
+        sede_actual = Sesion.getEmpleadoenSesion()
         return sede_actual
 
     def getFechaYHoraActual(self):
