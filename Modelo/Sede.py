@@ -47,12 +47,6 @@ class Sede():
     def getCantidadMaximaVisitantes(sede_actual):
         return sede_actual.cantidadMaximaVisitantes
 
-    def getEntradaVendidas(sede_actual, duracionEstimada):
-        entradasObj = Entrada.esSedeActual(sede_actual)
-        EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
-        return EntradasVendidasActual
-        
-
     def getAdicionalPorGuia(sede):
         #conectar BD
         monto_sede = CapaConexion.ObtenerMontoGuiaSede(sede)
@@ -69,3 +63,7 @@ class Sede():
     def getReservaVisita(sede_actual, duracionEstimada):
         reservasFechaHora = ReservaVisita.esParaFechaYHora(duracionEstimada)
 
+    def getEntradaVendidas(sede_actual, duracionEstimada):
+        entradasObj = Entrada.esSedeActual(sede_actual)
+        EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        return EntradasVendidasActual

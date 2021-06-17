@@ -1,3 +1,4 @@
+from typing import DefaultDict
 from BaseDeDatos import CapaConexion
 from datetime import datetime, timedelta
 
@@ -39,15 +40,23 @@ class Entrada():
         fecha_hora_actual = datetime.now()
         for i in range(0, len(entradasObj)):
             lista = self.horaVenta.split(":")
+            lista2 = duracionEstimada.split(":")
             hora=int(lista[0])
             minuto=int(lista[1])
             segundo=int(lista[2])
             dh = timedelta(hours=hora) 
             dm = timedelta(minutes=minuto)          
             ds = timedelta(seconds=segundo) 
-            resultado1 = duracionEstimada + ds
-            resultado2 = resultado1 + dm
-            hora_fin = resultado2 + dh
-            if hora_fin > fecha_hora_actual:
+            hora2=int(lista2[0])
+            minuto2=int(lista2[1])
+            segundo2=int(lista2[2])
+            dh2 = timedelta(hours=hora2) 
+            dm2 = timedelta(minutes=minuto2)          
+            ds2 = timedelta(seconds=segundo2) 
+            resultado1 = ds2 + ds
+            resultado2 = resultado1 + dm +dm2
+            hora_fin = resultado2 + dh + dh2
+            fecha_fin = hora_fin + self.fechaVenta
+            if fecha_fin > fecha_hora_actual:
                 entradasFechaHora += 1
         return entradasFechaHora

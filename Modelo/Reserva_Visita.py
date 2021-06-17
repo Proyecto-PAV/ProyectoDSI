@@ -44,7 +44,7 @@ class ReservaVisita():
         return self
 
     def esParaFechaYHora(self, duracionEstimada):
-        for i in 
+        pass
 
     def getCantidadAlumnosConfirmados(self):
         pass
