@@ -15,9 +15,12 @@ from PyQt5.QtWidgets import QAbstractItemView
 
 class Ui_TarifaEntradas(object):
 
+    def __init__(pantallaVentaEntradas):
+        pantallaVentaEntradas = pantallaVentaEntradas
+
     def obtenerTarifas(self):
-        pantalla = PantallaVentaEntradas(None, None, None, None, None, None, None, None, None, None )
-        tarifasVigentes, montoAdicionalGuia = pantalla.tomarOpcionRegistrarVentaEntradas()
+        self.pantallaVentaEntradas = PantallaVentaEntradas(None, None, None, None, None, None, None, None, None, None )
+        tarifasVigentes, montoAdicionalGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
         self.lbl_adicional_guia.setText("$" + str(montoAdicionalGuia))
         for tarifa in tarifasVigentes:
             tipo_entrada = tarifa.tipo_entrada
@@ -32,7 +35,13 @@ class Ui_TarifaEntradas(object):
     
     def seleccionTarifa(self):
         row = self.t_tarifas.currentRow()
-        print(row)
+        tipo_entrada = (self.t_tarifas.item(row, 0).text())
+        tipo_visita = (self.t_tarifas.item(row, 1).text())
+        monto = (self.t_tarifas.item(row, 2).text())
+        if self.RB_con_guia.isChecked():
+            tarifasVigentes, adicionalPorGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
+            montoTotal = float(monto) + adicionalPorGuia
+            print(montoTotal)
 
 
     def setupUi(self, TarifaEntradas):

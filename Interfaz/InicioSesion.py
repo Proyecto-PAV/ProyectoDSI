@@ -16,6 +16,7 @@ from Menu import Ui_MenuRV
 from CapaConexion import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QLineEdit, QMainWindow, QDialog, QMessageBox, QWidget
+from PyQt5.QtCore import *
 
 
 
@@ -34,7 +35,7 @@ class Ui_InicioSesion(object):
             self.menu = QDialog()
             self.ui = Ui_MenuRV()
             self.ui.setupUi(self.menu)
-            self.menu.show()            
+            self.menu.show()
 
     def setupUi(self, InicioSesion):
         InicioSesion.setObjectName("InicioSesion")

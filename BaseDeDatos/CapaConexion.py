@@ -79,6 +79,12 @@ def ObtenerMonto(te, tv, ns):
     monto = cursor.fetchone()
     return monto[0]
 
+def cambiarFechaSesion():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select monto from tarifas where id_tipo_entrada =?  and id_tipo_visita =? and nombre_sede =?", te, tv, ns)
+    monto = cursor.fetchone()
+
 
 def ObtenerMontoGuiaSede(nombre):
     cnxn = conexion()
