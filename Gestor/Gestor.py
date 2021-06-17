@@ -23,6 +23,7 @@ class GestorVentaEntradas():
     hayGuia = True
     montoTotalAPagar = 0
     numeroEntrada = 0
+    UltimoNumeroEntrada = 0
     sedeActual = ""
     tipoEntrada = None
     tipoVisita = None
