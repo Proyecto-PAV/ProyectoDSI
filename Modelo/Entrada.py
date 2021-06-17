@@ -1,4 +1,5 @@
 from BaseDeDatos import CapaConexion
+from datetime import datetime, timedelta
 
 
 class Entrada():
@@ -33,9 +34,20 @@ class Entrada():
             EntradasDeSede.append(objeto)
         return EntradasDeSede
 
-    def getEntradasFechaHoraVenta(entradasObj, duracionEstimada):
-        entradasFechaHora = []
+    def getEntradasFechaHoraVenta(self, entradasObj, duracionEstimada):
+        entradasFechaHora = 0
+        fecha_hora_actual = datetime.now()
         for i in range(0, len(entradasObj)):
-            objeto = Entrada(entradasObj[i].fechaVenta, entradasObj[i].fechaHora)
-            entradasFechaHora.append(objeto)
+            lista = self.horaVenta.split(":")
+            hora=int(lista[0])
+            minuto=int(lista[1])
+            segundo=int(lista[2])
+            dh = timedelta(hours=hora) 
+            dm = timedelta(minutes=minuto)          
+            ds = timedelta(seconds=segundo) 
+            resultado1 = duracionEstimada + ds
+            resultado2 = resultado1 + dm
+            hora_fin = resultado2 + dh
+            if hora_fin > fecha_hora_actual:
+                entradasFechaHora += 1
         return entradasFechaHora

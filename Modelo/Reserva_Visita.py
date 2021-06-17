@@ -1,3 +1,6 @@
+from BaseDeDatos import CapaConexion
+from datetime import datetime, timedelta
+
 class ReservaVisita():
 
     cantidadAlumnos = 0
@@ -40,8 +43,8 @@ class ReservaVisita():
     def conocerSede(self):
         return self
 
-    def esParaFechaYHora(self):
-        pass
+    def esParaFechaYHora(self, duracionEstimada):
+        for i in 
 
     def getCantidadAlumnosConfirmados(self):
         pass

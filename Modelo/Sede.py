@@ -49,7 +49,8 @@ class Sede():
 
     def getEntradaVendidas(sede_actual, duracionEstimada):
         entradasObj = Entrada.esSedeActual(sede_actual)
-        FechaHoraEntradas = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        return EntradasVendidasActual
         
 
     def getAdicionalPorGuia(sede):
@@ -65,7 +66,6 @@ class Sede():
 
         return datos_tarifas, adicional_guia
     #!APARTIR DE ACA MODIFICAMOS
-    def getReservaVisita(sede_actual, estadosConfirmados, duracionEstimada):
-        for i in range(0, len(estadosConfirmados)):
-            pass
+    def getReservaVisita(sede_actual, duracionEstimada):
+        reservasFechaHora = ReservaVisita.esParaFechaYHora(duracionEstimada)
 

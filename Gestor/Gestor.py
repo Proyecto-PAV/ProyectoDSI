@@ -63,9 +63,9 @@ class GestorVentaEntradas():
         estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados, duracionEstimada):
+    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada):
         sede_actual = self.sedeActual
-        Sede.getReservaVisita(sede_actual, estadosConfirmados, duracionEstimada)
+        Sede.getReservaVisita(sede_actual, duracionEstimada)
         Sede.getEntradaVendidas(sede_actual, duracionEstimada)
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
         pass
