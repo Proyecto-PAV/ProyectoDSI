@@ -20,7 +20,7 @@ class Entrada():
         pass
     def getNro(nombreSede):
         ultimoNro = 0
-        entradas = ObtenerUltimoNumero()
+        entradas = obtenerEntradas()
         for row in entradas:
             o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
             if (o.numero > ultimoNro) and (o.nombre_sede == nombreSede):

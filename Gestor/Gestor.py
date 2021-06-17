@@ -2,6 +2,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
+from Modelo.Entrada import *
 from Modelo.Tarifa import *
 from Modelo.Entrada import *
 
@@ -48,6 +49,7 @@ class GestorVentaEntradas():
         self.sedeActual = sedeActual
         self.tipoEntrada = tipoEntrada
         self.tipoVisita = tipoVisita
+        
 
     def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
@@ -104,7 +106,7 @@ class GestorVentaEntradas():
 
     def obtenerUltimoNúmero(self, sedeActual):
         nombre = sedeActual.nombre
-        ultimoNumero = Entrada.getNro(nombre)
+        ultimoNumero = getNro(nombre)
         return ultimoNumero
 
     def solicitarSeleccionTipoEntraTipoVisitayGuia(self):

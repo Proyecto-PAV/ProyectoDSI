@@ -83,7 +83,7 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
-def ObtenerUltimoNumero():
+def obtenerEntradas():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("select * from Entradas")
