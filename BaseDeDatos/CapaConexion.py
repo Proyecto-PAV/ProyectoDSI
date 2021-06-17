@@ -13,8 +13,6 @@ def conexion():
     return cnxn
 
 
-
-
 def ObtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -23,36 +21,27 @@ def ObtenerTodasLasSedes():
         print(row)
 
 
-def ObtenerSesionesBd():
+def obtenerSesionesBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM sesiones')
     sesiones = cursor.fetchall()
     return sesiones
 
-def ObtenerUsuariosBd():
+def obtenerUsuariosBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM usuarios")
     usuarios = cursor.fetchall()
     return usuarios
 
-def ObtenerEmpleados():
+def obtenerEmpleados():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM empleados")
     empleados = cursor.fetchall()
     return empleados
 
-
-
-def ObtenerTarifasEnVigencia(nombre_sede, fecha):
-    #create_date = datetime.strptime(fecha, '%Y-%m-%dT%H:%M:%S.%f')
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cursor.execute("select id_tipo_entrada, id_tipo_visita from tarifas where nombre_sede =? AND YEAR(?) BETWEEN YEAR(fecha_inicio_vigencia) and YEAR(fecha_fin_vigencia)", nombre_sede, fecha)
-    tarifas = cursor.fetchall()
-    return tarifas
 
 
 def obtenerTarifas():
@@ -97,7 +86,7 @@ def obtenerSedes():
 
 
 
-
+#!hay q eliminar esto o no
 if __name__ == '__main__':
         ObtenerTodasLasSedes()
         

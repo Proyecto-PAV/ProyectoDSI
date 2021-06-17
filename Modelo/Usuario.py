@@ -1,5 +1,5 @@
 from Modelo.Empleado import Empleado
-from BaseDeDatos.CapaConexion import ObtenerUsuariosBd
+from BaseDeDatos.CapaConexion import obtenerUsuariosBd
 
 
 class Usuario():
@@ -19,7 +19,7 @@ class Usuario():
         self.empleado = empleado
     
     def getUsuario(sesionActiva):
-        usuariosBd = ObtenerUsuariosBd()
+        usuariosBd = obtenerUsuariosBd()
         for usuario in usuariosBd:
             usuarioObj = Usuario(usuario[1], usuario[2], usuario[0], usuario[3], usuario[4], None)
             if usuarioObj.nombre == sesionActiva.usuario:

@@ -42,7 +42,7 @@ class Empleado():
     
     def getSedeDondeTrabaja(usuario):
         #consultar BD
-        empleadosBd = ObtenerEmpleados()
+        empleadosBd = obtenerEmpleados()
         for e in empleadosBd:
             empleadoObj = Empleado(e[2], e[3], e[6], e[1], e[0], e[7], e[8], e[9], e[10], e[11], e[4], e[5])
             if empleadoObj.dni == usuario.dni:

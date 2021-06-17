@@ -26,7 +26,7 @@ class Sesion():
 
     def getEmpleadoenSesion():
         #obtener las sesiones que no tengan fecha fin
-        sesionesBd = ObtenerSesionesBd()
+        sesionesBd = obtenerSesionesBd()
         for sesion in sesionesBd:
             sesionObj = Sesion(None, sesion[2], sesion[1], sesion[4], sesion[3], sesion[0])
             if sesionObj.fechaFin == None:
