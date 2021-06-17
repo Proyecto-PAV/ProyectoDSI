@@ -63,10 +63,10 @@ class GestorVentaEntradas():
         estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada):
+    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, estadosConfirmados):
         sede_actual = self.sedeActual
         Sede.getReservaVisita(sede_actual, duracionEstimada)
-        Sede.getEntradaVendidas(sede_actual, duracionEstimada)
+        Sede.getEntradaVendidas(sede_actual, duracionEstimada, estadosConfirmados)
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
         pass
 
@@ -112,7 +112,7 @@ class GestorVentaEntradas():
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
         #? Que atributo se pone en el igual
         estadosConfirmados = self.buscarEstadoConfirmada(self)
-        self.validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados)
+        self.validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados, estadosConfirmados)
 
     def tomarSeleccionTipoVisitaYTipoEntradaYGuia(self):
         pass

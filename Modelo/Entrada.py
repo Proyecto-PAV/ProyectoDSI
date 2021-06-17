@@ -1,7 +1,7 @@
 from typing import DefaultDict
 from BaseDeDatos import CapaConexion
 from datetime import datetime, timedelta
-
+import time
 
 class Entrada():
 
@@ -10,11 +10,12 @@ class Entrada():
     monto = 0
     numero = 0
     
-    def __init__(self, fechaVenta, horaVenta, monto, numero):
+    def __init__(self, fechaVenta, horaVenta, monto, numero, sede):
         self.fechaVenta = fechaVenta
         self.horaVenta = horaVenta
         self.monto = monto
         self.numero = numero
+        self.sede = sede
 
     def conocerGuiaAsignado(self):
         pass
@@ -28,18 +29,24 @@ class Entrada():
         pass
 
     def esSedeActual(sede_actual):
-        entradas = CapaConexion.obtenerEntradasPorSede(sede_actual)
+        entradas = CapaConexion.obtenerEntradasPorSede()      
         EntradasDeSede = []
-        for row in entradas:
-            objeto = Entrada(entradas[1],entradas[2],entradas[3],entradas[4])
-            EntradasDeSede.append(objeto)
+      
+        for row in entradas:           
+            objeto = Entrada(row[1],row[2],row[3],row[0], row[4])
+       
+            if row[4] == sede_actual:    
+                EntradasDeSede.append(objeto)
+
         return EntradasDeSede
 
-    def getEntradasFechaHoraVenta(self, entradasObj, duracionEstimada):
+    def getEntradasFechaHoraVenta(entradasObj, duracionEstimada):
         entradasFechaHora = 0
         fecha_hora_actual = datetime.now()
-        for i in range(0, len(entradasObj)):
-            lista = self.horaVenta.split(":")
+        
+        for i in range(0, len(entradasObj)):   
+            horaVentaString = entradasObj[i].horaVenta.strftime('%H:%M:%S')
+            lista = horaVentaString.split(":")
             lista2 = duracionEstimada.split(":")
             hora=int(lista[0])
             minuto=int(lista[1])
@@ -56,7 +63,9 @@ class Entrada():
             resultado1 = ds2 + ds
             resultado2 = resultado1 + dm +dm2
             hora_fin = resultado2 + dh + dh2
-            fecha_fin = hora_fin + self.fechaVenta
+            E = datetime.combine(entradasObj[i].fechaVenta, datetime.min.time())
+            fecha_fin = hora_fin + E
+           
             if fecha_fin > fecha_hora_actual:
                 entradasFechaHora += 1
         return entradasFechaHora

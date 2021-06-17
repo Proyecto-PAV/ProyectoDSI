@@ -64,6 +64,8 @@ class Sede():
         reservasFechaHora = ReservaVisita.esParaFechaYHora(duracionEstimada)
 
     def getEntradaVendidas(sede_actual, duracionEstimada):
+        
         entradasObj = Entrada.esSedeActual(sede_actual)
         EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        print (EntradasVendidasActual)
         return EntradasVendidasActual
