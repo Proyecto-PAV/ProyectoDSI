@@ -1,4 +1,4 @@
-from Gestor.Gestor import GestorVentaEntradas
+from Gestor.Gestor import *
 
 class PantallaVentaEntradas:
 

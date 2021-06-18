@@ -20,32 +20,37 @@ class Tarifa():
         return "fechaFinVigencia: ", self.fechaFinVigencia, "fechaInicioVifencia: ", self.fechaInicioVifencia, "monto: ", self.monto, "tipo entrada: ", self.tipo_entrada, "tipo visita: ", self.tipo_visita
      
     def conocerTipoEntrada(self, tipo_entrada):
-        tipoEntrada = TipoEntrada(None, None)
-        nombre_entrada = tipoEntrada.getTipoEntrada(tipo_entrada)
+        #le mando por parametro el numero del tipo para q me devuelva el nombre
+        nombre_entrada = TipoEntrada.getTipoEntrada(tipo_entrada)
         return nombre_entrada
 
+
     def conocerTipoVisita(self, visita):
-        tipoVisita = TipoVisita(None, None)
-        nombre_visita = tipoVisita.getTipoVisita(visita)
+        nombre_visita = TipoVisita.getTipoVisita(visita)
         return nombre_visita
 
-    def esVigente(self, nombre_sede, fecha):
-        t_vigentes = ObtenerTarifasEnVigencia(nombre_sede, fecha)
-        t_vigentes_obj = []
-        for tarifa in t_vigentes:
-            obj = Tarifa(None, None, None, tarifa[0], tarifa[1])
-            t_vigentes_obj.append(obj)
 
-        return t_vigentes_obj  
-
- 
-    def getMonto(self, ns):
+    def getMonto(self):
+        #esta funcio obtiene los nombres de los tipos 
             tEntrada = self.conocerTipoEntrada(self.tipo_entrada)
             tVisita = self.conocerTipoVisita(self.tipo_visita)
-            monto = ObtenerMonto(self.tipo_entrada, self.tipo_visita, ns)
-            self.monto = monto
             self.tipo_entrada = tEntrada
             self.tipo_visita = tVisita
+
+    def esVigente(nombre_sede, fecha):
+        tarifasBd = obtenerTarifas()
+        t_vigentes_obj = []
+        for tarifa in tarifasBd:
+            objTarifa = Tarifa(tarifa[3], tarifa[4], tarifa[5], tarifa[0], tarifa[1])
+    
+            if (tarifa[2] == nombre_sede) and (datetime.date(fecha) > objTarifa.fechaInicioVifencia) and (datetime.date(fecha) < objTarifa.fechaFinVigencia):
+                t_vigentes_obj.append(objTarifa)
+
+        return t_vigentes_obj  
+ 
+
+ 
+    
     
         
 

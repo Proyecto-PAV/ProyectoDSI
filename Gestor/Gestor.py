@@ -53,7 +53,7 @@ class GestorVentaEntradas():
         self.sedeActual = self.ObtenerSedeActual()
         self.fechaHoraActual = self.getFechaYHoraActual()
         
-        tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
         return tarifasVigentes, montoAdicionalGuia
 
     def actualizarPantallas(self):
@@ -62,10 +62,9 @@ class GestorVentaEntradas():
     def buscarEstadoConfirmada(self):
         pass
     
-    def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
-        self.sedeActual = Sede(None, None, None, None, sede_actual, None, None)
-        tarifasVigentes = self.sedeActual.getTarifasVigentes(sede_actual, fecha_hora_actual)
-        montoAdicional = self.sedeActual.getAdicionalPorGuia()
+    def buscarTarifasVigentes(self):
+        tarifasVigentes = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
 
         return tarifasVigentes, montoAdicional
 
@@ -84,9 +83,7 @@ class GestorVentaEntradas():
 
     def ObtenerSedeActual(self):
         #preguntar si hay que inicializar con none la fecha de inicio
-        self.sesion = Sesion(None, None, None, None, None, None)
-        sede_actual = self.sesion.getEmpleadoenSesion()
-
+        sede_actual = Sesion.getEmpleadoenSesion()
         return sede_actual
 
     def getFechaYHoraActual(self):

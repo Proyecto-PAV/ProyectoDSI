@@ -12,7 +12,7 @@ class Sede():
     tarifasVigentes = False #Cambiar a booleano
 
     def __init__(self, cantidadMaximaPorGuia, cantidadMaximaVisitantes,
-    duracionExposicionesVigentes,exposicionesVigentes,nombre,reservaVisita, tarifasVigentes):
+    duracionExposicionesVigentes,exposicionesVigentes,nombre,reservaVisita, tarifasVigentes, adicionalGuia):
         self.cantidadMaximaPorGuia = cantidadMaximaPorGuia
         self.cantidadMaximaVisitantes = cantidadMaximaVisitantes
         self.duracionExposicionesVigentes = duracionExposicionesVigentes
@@ -20,6 +20,7 @@ class Sede():
         self.nombre = nombre
         self.reservaVisita = reservaVisita
         self.tarifasVigentes = tarifasVigentes
+        self.adicionalGuia = adicionalGuia
 
     def calcularDuracionAExposicionesVigentes(self, duracionExposicionesVigentes):
         '''for exposicionesVigentes in self.exposicionesVigentes:
@@ -50,20 +51,22 @@ class Sede():
     def getEntradaVendidas(self): #sede en ningun momento conoce la cantidad de entradas vendidas
         pass
 
-    def getAdicionalPorGuia(self):
+    def getAdicionalPorGuia(sedeNombre):
         #obtiene el mondo adicional de la bd
-        montoAdicional = ObtenerMontoGuiaSede(self.nombre)
-        return montoAdicional
+        sedesBd = obtenerSedes()
+        for sede in sedesBd:
+            sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
+            if sedeObj.nombre == sedeNombre:
+                return sedeObj.adicionalGuia
 
-    def getTarifasVigentes(self, nombre_sede, fecha_hora_actual):
-        tarifa = Tarifa(None,None,None,None,None)
+    def getTarifasVigentes(nombre_sede, fecha_hora_actual):
 
-        self.tarifasVigentes = tarifa.esVigente(nombre_sede, fecha_hora_actual)
+        tarifasVigentes = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
 
-        for t in self.tarifasVigentes:
-            t.getMonto(nombre_sede)
+        for t in tarifasVigentes:
+            t.getMonto()
         
-        return self.tarifasVigentes
+        return tarifasVigentes
 
       
 
