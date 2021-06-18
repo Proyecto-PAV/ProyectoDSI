@@ -10,4 +10,14 @@ nuevo = gestor1.generarNumeroEntrada()
 
 gestor1.fechaHoraActual=gestor1.getFechaYHoraActual()
 
-print(nuevo)
+montoAdicional = 0
+
+tarifas, montoAdicional = gestor1.buscarTarifasVigentes()
+
+cantidad = 10
+
+hayguia = True
+
+total = gestor1.calcularMontoTotalAPagar(tarifas[0], cantidad, hayguia, gestor1.sedeActual)
+
+print(total)

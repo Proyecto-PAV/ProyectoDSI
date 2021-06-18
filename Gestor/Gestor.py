@@ -105,7 +105,7 @@ class GestorVentaEntradas():
         return fecha_hora_actual
 
     def obtenerUltimoNúmero(self, sedeActual):
-        nombre = sedeActual
+        nombre = sedeActual.nombre
         self.numeroEntrada = Entrada.getNro(nombre)
         numeroEntrada = self.numeroEntrada
         return numeroEntrada
@@ -120,7 +120,7 @@ class GestorVentaEntradas():
         numeroEntrada = self.generarNumeroEntrada()
         # Guarda en el atributo del gestor el ultimo numero de entrada generado
         self.numeroEntrada = numeroEntrada
-        nombreSede = self.sedeActual
+        nombreSede = self.sedeActual.nombre
         empleado = self.empleado
         FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
         FechayHora = FechayHora.split(" ")
