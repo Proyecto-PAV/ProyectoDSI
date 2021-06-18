@@ -107,6 +107,15 @@ def getDuracionResumidaObra():
     obra = cursor.fetchall()
     return obra
 
+
+def obtenerSalas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute ("select * from salas")
+    salas = cursor.fetchall()
+    return salas
+
+
 '''
 if __name__ == '__main__':
         ObtenerTodasLasSedes()

@@ -1,2 +1,0 @@
-from BaseDeDatos import CapaConexion
-

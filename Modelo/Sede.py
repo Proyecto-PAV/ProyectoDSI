@@ -73,3 +73,4 @@ class Sede():
         duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
         return duracion_resumida
 
+    

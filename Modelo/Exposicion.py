@@ -58,7 +58,7 @@ class Exposicion():
                 
             elif (expo.fechaFinReplanificada>=fecha and expo.fechaInicioReplanificada<=fecha) and (expo.nombreSede==nombre_sede):
                 vigentes.append(expo)
-        
+
         return vigentes
   
     def getDetalleExposición(vigentes):

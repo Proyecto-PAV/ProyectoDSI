@@ -2,7 +2,9 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import *
-
+from Modelo.Sala import *
+from Interfaz.PantallaCantActualSala import *
+from Interfaz.PantallaCantidadActualPrinci import *
 
 class GestorVentaEntradas():
 
@@ -12,7 +14,7 @@ class GestorVentaEntradas():
     pantallaCantidadActualSala = None
     entrada = None
     sesion = None
-    cantidadEventos = 0
+    cantidadEntradasEmitir= 0
     capacidadMaximaSede = 0
     confirmacionVenta = True
     duracionEstimada = 0
@@ -25,7 +27,7 @@ class GestorVentaEntradas():
     tipoEntrada = None
     tipoVisita = None
 
-    def _init_(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEventos, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
+    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
                  hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
@@ -33,8 +35,7 @@ class GestorVentaEntradas():
         self.pantallaCantidadActualSala = pantallaCantidadActualSala
         self.entrada = entrada
         self.sesion = sesion
-        #? cantidad de entradas no seria?
-        self.cantidadEventos = cantidadEventos
+        self.cantidadEntradasEmitir = cantidadEntradas
         self.capacidadMaximaSede = capacidadMaximaSede
         self.confirmacionVenta = confirmacionVenta
         self.duracionEstimada = duracionEstimada
@@ -55,10 +56,25 @@ class GestorVentaEntradas():
 
 
 
-    def actualizarPantallas(self):
-        #* atibutos del gestor necesarios: CantidadEntradas, 
+    def actualizarPantallas(self, pantallaSala, pantallaPrincipal):
+        #* atibutos del gestor necesarios: CantidadEntradas, nombre de salas y capacidad Maxima
+     
+        #crear objeto pantalla y actualizar la pantalla principal
+        self.pantallaCantidadActualPrincipal = pantallaPrincipal
+        PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
+        #crear objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
+        self.pantallaCantidadActualSala= pantallaSala
+        #buscar todas las salas de la sede
+        salas = Sala.conocerSalas(self.sedeActual)
+        #actualizar pantallas de estas salas primero creando el objeto
+        for s in salas:
+            sl = Sala(s.nombre, s.numero, s.superficie, s.nombreSede)
+            if sl.nombre == self.pantallaCantidadActualSala.nombreSala:
+               PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
+            
+
+       
         
-        pass
 
     def buscarEstadoConfirmada(self):
         pass
