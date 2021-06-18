@@ -61,18 +61,14 @@ class Exposicion():
         return vigentes
   
     def getDetalleExposición(vigentes):
-
         #calcular el total de la duracion 
-        v=[]
-        for expo in vigentes:
-            v.append(Detalle_Exposicion.getObra(expo.nombre))
-        
         duracion_total = 0
         for e in vigentes:
             duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
-
+            #! CHEKEAR QUE HACER CON EL BREAK
+            break
+        
         return Exposicion.convertirTiempo(duracion_total)
-
 
     def getNombre(self):
         return self.nombre

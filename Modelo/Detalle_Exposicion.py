@@ -40,7 +40,6 @@ class Detalle_Exposicion():
             t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
             #sumar al contador de minutos
             duracion_resumida = duracion_resumida + t_obra
-        
         #retornamos la duracion en minutos
         return duracion_resumida
 
