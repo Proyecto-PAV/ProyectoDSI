@@ -1,4 +1,3 @@
-
 from Modelo.Usuario import Usuario
 from BaseDeDatos.CapaConexion import *
 

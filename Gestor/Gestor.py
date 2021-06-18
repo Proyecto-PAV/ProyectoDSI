@@ -6,6 +6,10 @@ from Modelo.Entrada import *
 from Modelo.Tarifa import *
 from Modelo.Entrada import *
 
+from Modelo.Sede import *
+from Modelo.Sala import *
+from Interfaz.PantallaCantActualSala import *
+from Interfaz.PantallaCantidadActualPrinci import *
 
 class GestorVentaEntradas():
 
@@ -15,7 +19,7 @@ class GestorVentaEntradas():
     pantallaCantidadActualSala = None
     entrada = None
     sesion = None
-    cantidadEventos = 0
+    cantidadEntradasEmitir= 0
     capacidadMaximaSede = 0
     confirmacionVenta = True
     duracionEstimada = 0
@@ -29,7 +33,7 @@ class GestorVentaEntradas():
     tipoEntrada = None
     tipoVisita = None
 
-    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEventos, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
+    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
                  hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
@@ -37,7 +41,7 @@ class GestorVentaEntradas():
         self.pantallaCantidadActualSala = pantallaCantidadActualSala
         self.entrada = entrada
         self.sesion = sesion
-        self.cantidadEventos = cantidadEventos
+        self.cantidadEntradasEmitir = cantidadEntradas
         self.capacidadMaximaSede = capacidadMaximaSede
         self.confirmacionVenta = confirmacionVenta
         self.duracionEstimada = duracionEstimada
@@ -61,8 +65,23 @@ class GestorVentaEntradas():
         tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
         return tarifasVigentes, montoAdicionalGuia
 
-    def actualizarPantallas(self):
-        pass
+    def actualizarPantallas(self, pantallaSala, pantallaPrincipal):
+     
+        #crear objeto pantalla y actualizar la pantalla principal
+        self.pantallaCantidadActualPrincipal = pantallaPrincipal
+        PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
+        #crear objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
+        self.pantallaCantidadActualSala= pantallaSala
+        #buscar todas las salas de la sede
+        salas = Sala.conocerSalas(self.sedeActual)
+        #actualizar pantallas de estas salas primero creando el objeto
+        for i in range(len(salas)):
+            PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
+    
+            
+
+       
+        
 
     def buscarEstadoConfirmada(self):
         pass
@@ -72,6 +91,13 @@ class GestorVentaEntradas():
         montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
 
         return tarifasVigentes, montoAdicional
+        return tarifas
+    """
+    def calcularDuracionEstimada(self):
+        actual = self.sedeActual
+        duracion = Sede.getExposicionesCompletasVigentes(actual)
+        self.duracionEstimada=duracion
+
 
 
     def calcularDuracionEstimada(self):

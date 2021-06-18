@@ -1,5 +1,7 @@
 from Modelo.Tarifa import Tarifa
 from BaseDeDatos.CapaConexion import *
+from Modelo.Exposicion import *
+
 
 class Sede():
     
@@ -22,6 +24,7 @@ class Sede():
         self.tarifasVigentes = tarifasVigentes
         self.adicionalGuia = adicionalGuia
 
+
     def calcularDuracionAExposicionesVigentes(self, duracionExposicionesVigentes):
         '''for exposicionesVigentes in self.exposicionesVigentes:
                 if (exposicionesVigentes.esVigente() == True):
@@ -30,7 +33,7 @@ class Sede():
                 else:
                     return None
         '''
-
+        #Revisar y borrar este metodo
         pass
     
     def conocerColeccion(self):
@@ -68,5 +71,13 @@ class Sede():
         
         return tarifasVigentes
 
-      
+        return datos_tarifas, adicional_guia
+    
+    def getExposicionesCompletasVigentes(nombre):
+        #levantamos todos las exposiciones de la BD que sean vigentes
+        expo_vigentes = Exposicion.esVigente(nombre)
+        #de esas vigentes obtenemos su duracion resumida
+        duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
+        return duracion_resumida
 
+    

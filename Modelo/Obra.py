@@ -1,4 +1,7 @@
-from Modelo import Empleado
+#from Modelo import Tipo_Entrada
+from BaseDeDatos import CapaConexion
+
+
 class Obra():
     
     alto = 0
@@ -72,6 +75,13 @@ class Obra():
     def crearCambioEstado(self):
         pass
     
-    def getDuracionResumida(self):
-        return self.duracionResumida
+    def getDuracionResumida(nombre_obra):
+        #obtenemos todas las obras
+        obras = CapaConexion.getDuracionResumidaObra()
+        #creamos los objetos obras hasta encontrar la que nos pasa por parametro y obtenemos su duracion
+        for obra in obras:
+            obj = Obra(obra[2],obra[3],obra[9],obra[4],obra[5],obra[6],obra[7],obra[8],obra[0],obra[1],obra[11])
+            if obj.nombreObra==nombre_obra:
+                return obj.duracionResumida
+
     

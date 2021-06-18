@@ -1,0 +1,5 @@
+Lib/
+Scripts/
+Pruebas.py
+__pycache__
+settings

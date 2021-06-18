@@ -1,5 +1,6 @@
 import pyodbc 
 from datetime import datetime
+
 ''' funcion de conexion generica con la BD '''
 def conexion():
         
@@ -13,7 +14,9 @@ def conexion():
     return cnxn
 
 
-def ObtenerTodasLasSedes():
+
+
+def obtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('select * from sedes')
@@ -21,14 +24,15 @@ def ObtenerTodasLasSedes():
         print(row)
 
 
-def obtenerSesionesBd():
+def obtenerSesionActiva():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM sesiones')
     sesiones = cursor.fetchall()
     return sesiones
 
-def obtenerUsuariosBd():
+
+def obtenerDniUsuario(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM usuarios")
@@ -53,6 +57,30 @@ def obtenerTarifas():
 
 
 def obtenerTiposEntradas():
+def obtenerSedeEmpleado(dni):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select nombre_sede from empleados where dni=?",dni )
+    sedes = cursor.fetchone()
+    return sedes[0]
+   
+"""
+def ObtenerSedeEmpleado():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
+    return sede
+"""
+def obtenerExposiciones():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("SELECT * FROM exposiciones") 
+    exposiciones = cursor.fetchall()
+      
+    return exposiciones
+
+
+def obtenerNombreEntrada(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM tipoEntradas")
@@ -60,6 +88,7 @@ def obtenerTiposEntradas():
     return tiposEntradas
 
 def obtenerTiposVisitas():
+    def obtenerNombreVisita(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM tipoVisitas")
@@ -82,6 +111,36 @@ def cambiarFechaSesion(te, tv, ns):
     cursor.execute("select monto from tarifas where id_tipo_entrada =?  and id_tipo_visita =? and nombre_sede =?", te, tv, ns)
     monto = cursor.fetchone()
 '''
+def obtenerMonto(te, tv):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    monto = cursor.execute("select monto from tarifas \
+            where id_tipo_entrada = ' " + te + " ' \
+                 and id_tipo_visita = ' " + tv + " ' ")
+    return monto
+
+
+def obtenerMontoGuiaSede(nombre):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
+    return monto
+
+def obtenerDetalleExposiciones():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    #fijarse que en los detalles los nombres no se repiten y deberian/es recomendable
+    cursor.execute ("select * from detalleExposiciones")
+    detalles = cursor.fetchall()
+    return detalles
+
+
+def getDuracionResumidaObra():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute ("select * from obras")
+    obra = cursor.fetchall()
+    return obra
 
 def obtenerSedes():
     cnxn = conexion()
@@ -99,6 +158,15 @@ def obtenerEntradas():
 
 
 #!hay q eliminar esto o no
+def obtenerSalas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute ("select * from salas")
+    salas = cursor.fetchall()
+    return salas
+
+
+'''
 if __name__ == '__main__':
         ObtenerTodasLasSedes()
-        
+        '''

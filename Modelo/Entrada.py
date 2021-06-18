@@ -1,6 +1,13 @@
 from BaseDeDatos.CapaConexion import *
 class Entrada():
     
+from Modelo.Empleado import Empleado
+from Modelo import Sede
+from Modelo import guia 
+from Modelo import Tarifa 
+from Modelo import guia 
+
+class Entrada():
     numero = 0
     fechaVenta = ""
     horaVenta = ""
@@ -10,7 +17,8 @@ class Entrada():
     nombre_sede = ""
     dni_guia = 0
 
-    def __init__(self, numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
+   
+    def __init__(self, numero,fechaVenta, horaVenta, monto, idTipoEntrada, idTipoVisita,sede, guia, ):
         self.numero = numero
         self.fechaVenta = fechaVenta
         self.horaVenta = horaVenta
@@ -20,10 +28,15 @@ class Entrada():
         self.nombre_sede = nombre_sede
         self.dni_guia = dni_guia
     
+        self.sede = sede
+        self.guia = guia
+        self.idTipoEntrada = idTipoEntrada
+        self.idTipoVisita = idTipoVisita
+
     def conocerGuiaAsignado(self):
-        pass
+        return self.guia
     def conocerSede(self):
-        pass
+        return self.sedes
     def conocerTarifa(self):
         pass
     def getNro(nombreSede):
@@ -37,3 +50,8 @@ class Entrada():
     def new(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
         nuevaEntrada = Entrada(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia)
         return nuevaEntrada
+        return self.tarifa
+    def getNro(self):
+        return self.numero
+    def new(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
+        return Entrada(self, numero, fechaVenta, horaVenta, monto, sedes, guia, tarifa)

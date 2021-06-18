@@ -1,4 +1,4 @@
-from BaseDeDatos.CapaConexion import *
+from BaseDeDatos.CapaConexion import obtenerSedeEmpleado
 
 class Empleado():
 
@@ -36,7 +36,7 @@ class Empleado():
     """
     def getSedeDondeTrabaja(usuario):
         #consultar BD
-        sedeDondeTrabaja = ObtenerSedeEmpleado(usuario.dni)
+        sedeDondeTrabaja = obtenerSedeEmpleado(dni)
         return sedeDondeTrabaja
     """
     
