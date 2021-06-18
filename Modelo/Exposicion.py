@@ -14,7 +14,7 @@ class Exposicion():
     horaCierre = 0
     nombre = ""
 
-    def __init__(self, detalleExposicion, fechaFin, fechaFinReplanificada, fechaInicio, fechaInicioReplanificada, horaApertura, horaCierre, nombreSede, empleado):
+    def __init__(self, detalleExposicion, fechaFin, fechaFinReplanificada, fechaInicio, fechaInicioReplanificada, horaApertura, horaCierre, nombreExpo, nombreSede, empleado):
         self.detalleExposicion = detalleExposicion
         self.fechaFin = fechaFin
         self.fechaFinReplanificada = fechaFinReplanificada
@@ -22,7 +22,8 @@ class Exposicion():
         self.fechaInicioReplanificada = fechaInicioReplanificada
         self.horaApertura = horaApertura 
         self.horaCierre = horaCierre
-        self.nombre = nombreSede
+        self.nombre = nombreExpo
+        self.nombreSede = nombreSede
         self.empleado = empleado
 
 
@@ -46,16 +47,16 @@ class Exposicion():
         #obtener fecha actual y todas las exposiciones
         fecha = datetime.date(datetime.now())
         exposiciones = obtenerExposiciones()
-        
-        #filtrar exposiciones por las vigentes y almacenarlas en un nuevo vector
+                
+        #filtrar exposiciones por las vigentes y almacenarlas en un nuevo vector como objetos
         vigentes=[]
         for exp in exposiciones:
-           
-            expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[7],exp[8])
-
-            if (expo.fechaFin>fecha and expo.fechaInicio<fecha) and (expo.nombre==nombre_sede):
+            expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[0], exp[7], exp[8])
+            
+            if (expo.fechaFin>fecha and expo.fechaInicio<fecha) and (expo.nombreSede==nombre_sede):
                 vigentes.append(expo)
-            elif (expo.fechaFinReplanificada>fecha and expo.fechaInicioReplanificada<fecha) and (expo.nombre==nombre_sede):
+                
+            elif (expo.fechaFinReplanificada>=fecha and expo.fechaInicioReplanificada<=fecha) and (expo.nombreSede==nombre_sede):
                 vigentes.append(expo)
         
         return vigentes
@@ -65,8 +66,6 @@ class Exposicion():
         duracion_total = 0
         for e in vigentes:
             duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
-            #! CHEKEAR QUE HACER CON EL BREAK
-            break
         
         return Exposicion.convertirTiempo(duracion_total)
 
@@ -88,14 +87,14 @@ class Exposicion():
 
 #?solo de test, borrar dps
     def mostrarExpo(expo):
-        print ( str(expo.detalleExposicion)+ '-'+
-        str(expo.fechaFin)+ '-'+
-        str(expo.fechaFinReplanificada)+'-'+
-        str(expo.fechaInicio)+'-'+
-        str(expo.fechaInicioReplanificada )+'-'+
-        str(expo.horaApertura )+'-'+
-        str(expo.horaCierre )+'-'+
-        str(expo.nombre )+'-'+
+        print ( str(expo.detalleExposicion)+ '- - -'+
+        str(expo.fechaFin)+ '- - -'+
+        str(expo.fechaFinReplanificada)+'- - -'+
+        str(expo.fechaInicio)+'- - -'+
+        str(expo.fechaInicioReplanificada )+'- - -'+
+        str(expo.horaApertura )+'- - -'+
+        str(expo.horaCierre )+'- - -'+
+        str(expo.nombre )+'- - -'+
         str(expo.empleado) )
 
 

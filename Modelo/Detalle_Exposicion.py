@@ -27,19 +27,19 @@ class Detalle_Exposicion():
         #buscar todos los detalles de esa expo
         detalles = CapaConexion.obtenerDetalleExposiciones()
         #instancia los objetos y suma la duracion de esta exposicion
-        detalles_obj =[]
+
         # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
         duracion_resumida = 0
         #comienzo del ciclo
         for d in detalles:
             detalle = Detalle_Exposicion(d[2], d[1], d[0])
-            detalles_obj.append(detalle)
-            #obtener duracion resumida de la obra del detalle y separar sus unidades
-            tiempo = Obra.getDuracionResumida(detalle.obra)
-            #convertir el formato a int en minutos
-            t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
-            #sumar al contador de minutos
-            duracion_resumida = duracion_resumida + t_obra
+            if detalle.exposicion==nombre_expo:
+                #obtener duracion resumida de la obra del detalle y separar sus unidades
+                tiempo = Obra.getDuracionResumida(detalle.obra)
+                #convertir el formato a int en minutos
+                t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
+                #sumar al contador de minutos
+                duracion_resumida += t_obra
         #retornamos la duracion en minutos
         return duracion_resumida
 

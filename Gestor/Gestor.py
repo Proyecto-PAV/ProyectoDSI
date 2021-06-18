@@ -56,6 +56,8 @@ class GestorVentaEntradas():
 
 
     def actualizarPantallas(self):
+        #* atibutos del gestor necesarios: CantidadEntradas, 
+        
         pass
 
     def buscarEstadoConfirmada(self):
