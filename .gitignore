@@ -1,5 +1,6 @@
 Lib/
 Scripts/
 Pruebas.py
+*.pyc
 __pycache__
 settings
