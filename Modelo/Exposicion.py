@@ -79,15 +79,14 @@ class Exposicion():
 
 
     def convertirTiempo(min):
-        #convertir los minutos en h/m/s
+        #convertir los minutos en 'h/m/s'
         hs = min/60
         ms = (hs - int(hs)) * 60
         ss = (ms - int(ms)) * 60
         hs = int(hs)
         ms = int(ms)
         ss = int(ss)
-        
-        tiempo_final = time(hour=hs, minute=ms, second=ss) 
+        tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
         return tiempo_final
 
 

@@ -29,7 +29,6 @@ class Detalle_Exposicion():
         #instancia los objetos y suma la duracion de esta exposicion
         detalles_obj =[]
         # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
-        
         duracion_resumida = 0
         #comienzo del ciclo
         for d in detalles:
@@ -37,15 +36,15 @@ class Detalle_Exposicion():
             detalles_obj.append(detalle)
             #obtener duracion resumida de la obra del detalle y separar sus unidades
             tiempo = Obra.getDuracionResumida(detalle.obra)
+            #convertir el formato a int en minutos
             t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
-            #!Revisar la suma con sus tipos 
+            #sumar al contador de minutos
             duracion_resumida = duracion_resumida + t_obra
         
-        #duracion_res = Detalle_Exposicion.convertirTiempo(duracion_resumida, True)
+        #retornamos la duracion en minutos
         return duracion_resumida
 
 
-    
     def convertirMinutos(t_obra):
         #convierte el tiempo h/m/s a minutos
         t_str = t_obra.strftime('%H:%M:%S')
