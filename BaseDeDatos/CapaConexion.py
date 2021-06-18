@@ -1,3 +1,4 @@
+from Modelo.Reserva_Visita import ReservaVisita
 import pyodbc 
 from datetime import datetime
 
@@ -57,6 +58,8 @@ def obtenerTarifas():
 
 
 def obtenerTiposEntradas():
+    pass
+
 def obtenerSedeEmpleado(dni):
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -88,7 +91,8 @@ def obtenerNombreEntrada(nro):
     return tiposEntradas
 
 def obtenerTiposVisitas():
-    def obtenerNombreVisita(nro):
+    pass
+def obtenerNombreVisita(nro):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM tipoVisitas")
@@ -134,6 +138,12 @@ def obtenerDetalleExposiciones():
     detalles = cursor.fetchall()
     return detalles
 
+def obtenerEstadosReservaVisita():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from estados ")
+    estados = cursor.fetchall()
+    return estados
 
 def getDuracionResumidaObra():
     cnxn = conexion()
@@ -164,7 +174,26 @@ def obtenerSalas():
     cursor.execute ("select * from salas")
     salas = cursor.fetchall()
     return salas
+def obtenerEntradasPorSede():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select numero, fecha_venta, hora_venta, monto, nombre_sede from entradas")
+    entradas = cursor.fetchall()
+    return entradas
 
+def obtenerReservas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from reservasVisitas")
+    reservas = cursor.fetchall()
+    return reservas
+
+def obtenerCambiosEstados():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from cambiosEstados")
+    cambiosEstados = cursor.fetchall()
+    return cambiosEstados
 
 '''
 if __name__ == '__main__':

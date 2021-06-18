@@ -1,6 +1,8 @@
 from BaseDeDatos.CapaConexion import *
-class Entrada():
-    
+from typing import DefaultDict
+from BaseDeDatos import CapaConexion
+from datetime import datetime, timedelta
+import time
 from Modelo.Empleado import Empleado
 from Modelo import Sede
 from Modelo import guia 
@@ -12,26 +14,14 @@ class Entrada():
     fechaVenta = ""
     horaVenta = ""
     monto = 0
-    id_tipo_entrada = 0
-    id_tipo_visita = 0
-    nombre_sede = ""
-    dni_guia = 0
-
-   
-    def __init__(self, numero,fechaVenta, horaVenta, monto, idTipoEntrada, idTipoVisita,sede, guia, ):
-        self.numero = numero
+    numero = 0
+    
+    def __init__(self, fechaVenta, horaVenta, monto, numero, sede):
         self.fechaVenta = fechaVenta
         self.horaVenta = horaVenta
         self.monto = monto
-        self.id_tipo_entrada = id_tipo_entrada
-        self.id_tipo_visita = id_tipo_visita
-        self.nombre_sede = nombre_sede
-        self.dni_guia = dni_guia
-    
+        self.numero = numero
         self.sede = sede
-        self.guia = guia
-        self.idTipoEntrada = idTipoEntrada
-        self.idTipoVisita = idTipoVisita
 
     def conocerGuiaAsignado(self):
         return self.guia
@@ -55,3 +45,56 @@ class Entrada():
         return self.numero
     def new(self, fechaVenta, horaVenta, monto, numero, sedes, guia, tarifa):
         return Entrada(self, numero, fechaVenta, horaVenta, monto, sedes, guia, tarifa)
+        pass
+    
+
+    def esSedeActual(sede_actual):
+        entradas = CapaConexion.obtenerEntradasPorSede()      
+        EntradasDeSede = []
+      
+        for row in entradas:           
+            objeto = Entrada(row[1],row[2],row[3],row[0], row[4])
+       
+            if row[4] == sede_actual:    
+                EntradasDeSede.append(objeto)
+
+        return EntradasDeSede
+
+    def getEntradasFechaHoraVenta(entradasObj, duracionEstimada):
+        entradasFechaHora = 0
+        fecha_hora_actual = datetime.now()
+        
+        for i in range(0, len(entradasObj)):   
+            horaVentaString = entradasObj[i].horaVenta.strftime('%H:%M:%S')
+            
+            lista = horaVentaString.split(":")
+            lista2 = duracionEstimada.split(":")
+            
+            hora=int(lista[0])
+            minuto=int(lista[1])
+            segundo=int(lista[2])
+           
+            dh = timedelta(hours=hora) 
+            dm = timedelta(minutes=minuto)          
+            ds = timedelta(seconds=segundo) 
+            hora2=int(lista2[0])
+            minuto2=int(lista2[1])
+            segundo2=int(lista2[2])
+            
+            dh2 = timedelta(hours=hora2) 
+            dm2 = timedelta(minutes=minuto2)          
+            ds2 = timedelta(seconds=segundo2) 
+            
+            resultado1 = ds2 + ds
+            resultado2 = resultado1 + dm +dm2
+            hora_fin = resultado2 + dh + dh2
+           
+            E = datetime.combine(entradasObj[i].fechaVenta, datetime.min.time())
+            
+            fecha_fin = hora_fin + E           
+            dia1=fecha_fin.day
+            dia2=fecha_hora_actual.day
+            
+            if (fecha_fin > fecha_hora_actual) and (dia1 == dia2):
+                entradasFechaHora += 1
+        return entradasFechaHora

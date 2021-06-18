@@ -1,4 +1,7 @@
 
+from BaseDeDatos import CapaConexion
+from Modelo.Estado import *
+
 class Cambio_Estado():
     estado = ""
     fechaHoraFin = ""
@@ -12,14 +15,22 @@ class Cambio_Estado():
     def conocerEstado(self):
         return self.estado
 
-    def getCambiosEstado(self):
-        pass
+    def getCambiosEstado(cambios_estadosObj):
+        estados = Estado.getEstadoReservaConfirmada(cambios_estadosObj)
+        return estados
 
     def new(self, estado, fechaHoraInicio, fechaHoraFin):
         return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
 
-    def esEstadoActual(self):
-        if self.fechaHoraFin == '':
-            return True
-        else:
-            return False
+    def esEstadoActual():
+        cambios_estados = CapaConexion.obtenerCambiosEstados()
+        cambios_estadosObj = []
+        for row in cambios_estados:
+            print(row)
+            objeto = Cambio_Estado(row[0], row[2], row[1])
+            if row[2] == 'NULL':
+                cambios_estadosObj.append(objeto)
+                break
+        return cambios_estadosObj
+
+    

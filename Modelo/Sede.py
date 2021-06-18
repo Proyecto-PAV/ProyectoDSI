@@ -3,6 +3,7 @@ from BaseDeDatos.CapaConexion import *
 from Modelo.Exposicion import *
 
 
+from Modelo.Entrada import *
 class Sede():
     
     cantidadMaximaPorGuia = 0
@@ -48,11 +49,8 @@ class Sede():
         pass
     #Se sigue con los def
 
-    def getCantidadMaximaVisitantes(self):
-        return self.cantidadMaximaVisitantes
-
-    def getEntradaVendidas(self): #sede en ningun momento conoce la cantidad de entradas vendidas
-        pass
+    def getCantidadMaximaVisitantes(sede_actual):
+        return sede_actual.cantidadMaximaVisitantes
 
     def getAdicionalPorGuia(sedeNombre):
         #obtiene el mondo adicional de la bd
@@ -81,3 +79,15 @@ class Sede():
         return duracion_resumida
 
     
+    #!APARTIR DE ACA MODIFICAMOS
+    def getReservaVisita(sede_actual, duracionEstimada):
+        reservasObj = ReservaVisita.esParaFechaYHora(duracionEstimada, sede_actual)
+        cantidadAlumnosConfirmados = ReservaVisita.getCantidadAlumnosConfirmados(reservasObj)
+        return cantidadAlumnosConfirmados
+
+    def getEntradaVendidas(sede_actual, duracionEstimada):
+        
+        entradasObj = Entrada.esSedeActual(sede_actual)
+        EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
+        print (EntradasVendidasActual)
+        return EntradasVendidasActual
