@@ -90,6 +90,15 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
+def obtenerEntradas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from Entradas")
+    entradas = cursor.fetchall()
+    return entradas
+
+
+#!hay q eliminar esto o no
 if __name__ == '__main__':
         ObtenerTodasLasSedes()
         

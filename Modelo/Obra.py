@@ -1,4 +1,4 @@
-#from Modelo import Tipo_Entrada
+from Modelo import Empleado
 class Obra():
     
     alto = 0
@@ -12,8 +12,10 @@ class Obra():
     nombreObra = ""
     peso = 0
     valuacion = 0
+    empleado = []
+    cambioEstado = []
 
-    def __init__(self, alto, ancho, codigoSensor, descripcion, duracionExtendida, duracionResumida, fechaCreacion, fechaPrimerIngreso, nombreObra, peso, valuacion):
+    def __init__(self, alto, ancho, codigoSensor, descripcion, duracionExtendida, duracionResumida, fechaCreacion, fechaPrimerIngreso, nombreObra, peso, valuacion, empleado, cambioEstado):
         self.alto = alto
         self.ancho = ancho
         self.codigoSensor = codigoSensor
@@ -25,12 +27,14 @@ class Obra():
         self.nombreObra = nombreObra
         self.peso = peso
         self.valuacion = valuacion
+        self.empleado = empleado
+        self.cambioEstado = cambioEstado
    
     def conocerArtista(self):
         pass
     
     def conocerCambioEstado(self):
-        pass
+        return self.cambioEstado
     
     def conocerCompra(self):
         pass
@@ -39,7 +43,7 @@ class Obra():
         pass
     
     def conocerEmpleado(self):
-        pass
+        return self.empleado
     
     def conocerEstilo(self):
         pass
@@ -69,5 +73,5 @@ class Obra():
         pass
     
     def getDuracionResumida(self):
-        pass
+        return self.duracionResumida
     
