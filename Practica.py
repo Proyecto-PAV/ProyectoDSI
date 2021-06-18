@@ -2,6 +2,7 @@ from BaseDeDatos.CapaConexion import *
 #from Modelo.Entrada import *
 
 class Entrada():
+
     
     def __init__(self, numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
         self.numero = numero
@@ -16,7 +17,11 @@ class Entrada():
         
 nombre_sede = 'Museo Telon'
 
-ultimo = getNro(nombre_sede)
 
 
-print(ultimo)
+
+
+
+
+
+

@@ -122,13 +122,14 @@ class GestorVentaEntradas():
         self.numeroEntrada = numeroEntrada
         nombreSede = self.sedeActual.nombre
         empleado = self.empleado
+        FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
+        FechayHora = FechayHora.split(" ")
 
         if self.hayGuia == True:
-            #Los None son la fecha y la hora que estan juntas y las necesitamos separadas
-            Entrada.new(numeroEntrada, NONE, NONE, self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre, empleado.dni)
+            Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre, empleado.dni)
         else:
-            Entrada.new(numeroEntrada, NONE, NONE, self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre)
-
+            Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre)
+        #? El metodo new de Entrada devuelve el objeto nuevo pero donde hay que guardarlo?
         
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
