@@ -41,8 +41,13 @@ class Ui_TarifaEntradas(object):
         if self.RB_con_guia.isChecked():
             tarifasVigentes, adicionalPorGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
             montoTotal = float(monto) + adicionalPorGuia
+            print(tipo_entrada)
+            print(tipo_visita)
             print(montoTotal)
-
+        else:
+            print(tipo_entrada)
+            print(tipo_visita)
+            print(monto)
 
     def setupUi(self, TarifaEntradas):
         TarifaEntradas.setObjectName("TarifaEntradas")

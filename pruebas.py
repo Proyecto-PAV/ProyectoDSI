@@ -1,4 +1,3 @@
-
 from Modelo.Sesion import Sesion
 from Modelo.Usuario import Usuario
 from BaseDeDatos.CapaConexion import *
@@ -8,17 +7,30 @@ from Modelo.Tarifa import Tarifa
 from Modelo.Sede import Sede
 
 gestor = GestorVentaEntradas()
-sede = gestor.tomarOpciónRegistrarVentaDeEntradas()
+tarifasVigentes, montoAdicionalGuia = gestor.tomarOpciónRegistrarVentaDeEntradas()
+print(montoAdicionalGuia)
+for tarifa in tarifasVigentes:
+    print(tarifa.str())
+
+gestor = GestorVentaEntradas()
+sede = gestor.ObtenerSedeActual()
 print(sede)
 
 fecha_hora_actual = datetime.now()
-sede = Sede(None, None, None, None,'Museo Telon', None, None)
-monto = sede.getAdicionalPorGuia()
-print(monto)
-
+sede = Sede(None, None, None, None,'Museo Telon', None, None, None)
 tarifas = sede.getTarifasVigentes("Museo Telon", fecha_hora_actual)
 for tarifa in tarifas:
     print(tarifa.str())
+
+
+
+tarifasVigentes, montoAdicionalGuia = gestor.tomarOpciónRegistrarVentaDeEntradas()
+print(tarifasVigentes, montoAdicionalGuia)
+
+
+monto = sede.getAdicionalPorGuia()
+print(monto)
+
 
 tarifa = Tarifa(None, None, None, 1, 1)
 tarifa.getMonto('Museo Telon')

@@ -1,5 +1,5 @@
+from PyQt5.QtCore import pyqtRemoveInputHook
 from BaseDeDatos.CapaConexion import *
-
 
 class TipoEntrada():
 
@@ -16,7 +16,7 @@ class TipoEntrada():
     def getTipoEntrada(numero):
         tiposEntrasdasBd = obtenerTiposEntradas()
         for tipo in tiposEntrasdasBd:
-            tipoEntrada = TipoEntrada(tipo[0], tipo[1])
+            tipoEntrada = TipoEntrada(tipo[1], tipo[0])
             if tipoEntrada.tipoEntrada == numero:
                 nombre = tipoEntrada.nombre
                 return nombre

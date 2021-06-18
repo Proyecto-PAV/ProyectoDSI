@@ -15,7 +15,7 @@ class TipoVisita():
     def getTipoVisita(numero):
         tiposVisitasBd = obtenerTiposVisitas()
         for tipo in tiposVisitasBd:
-            tipoVisita = TipoVisita(tipo[0], tipo[1])
+            tipoVisita = TipoVisita(tipo[1], tipo[0])
             if tipoVisita.tipoVisita == numero:
                 nombre = tipoVisita.nombre
                 return nombre
