@@ -56,16 +56,16 @@ class GestorVentaEntradas():
     def actualizarPantallas(self):
         pass
 
-    def buscarEstadoConfirmada(self):
+    def buscarEstadoConfirmada():
         estado_reservaVisitaObj = []
         estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
         estado_reservaConfirmadaObj = []
         estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, estadosConfirmados, entradasAEmitir):
-        sede_actual = self.sedeActual
-        cantidadReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estadosConfirmados)
+    def validarCantidadDeEntradasMenorCapaMaxima(duracionEstimada, estadosConfirmados, entradasAEmitir):
+        sede_actual = GestorVentaEntradas.sedeActual
+        cantidadReservas = Sede.getReservaVisita(sede_actual, duracionEstimada)
         cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estadosConfirmados)
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
         sum = cantidadReservas + cantidadEntradasVendidas
@@ -77,7 +77,7 @@ class GestorVentaEntradas():
             print("No hay cupo disponible")
             return False
         #?Finaliza aca?
-        return
+        #return
 
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):

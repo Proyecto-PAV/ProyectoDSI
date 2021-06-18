@@ -54,7 +54,7 @@ class ReservaVisita():
         print(reservas)
         for row in reservas:
             
-            objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[5], row[4], row[0], 'NULL', 'NULL', row[8])      
+            objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[5], row[4], row[0], 'NULL', 'NULL', row[8], 'NULL')      
          
             if (row[4] < (datetime.now().time()) < row[5]) and ((datetime.today().date()) == (row[2].date()) and row[8] == sede_actual):
             
@@ -63,7 +63,7 @@ class ReservaVisita():
         return reservasObj
 
     def getCantidadAlumnosConfirmados(reservasObj):
-        cambios_estadosObj = Cambio_Estado.esEstadoActual(reservasObj)
+        cambios_estadosObj = Cambio_Estado.esEstadoActual()
         estados = Cambio_Estado.getCambiosEstado(cambios_estadosObj)
         cantidadAlumnosConfirmada = 0
         for i in range(0, len(reservasObj)):          

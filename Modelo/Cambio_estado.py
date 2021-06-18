@@ -1,5 +1,5 @@
+from BaseDeDatos import CapaConexion
 from Modelo.Estado import *
-
 
 class Cambio_Estado():
     estado = ""
@@ -24,7 +24,8 @@ class Cambio_Estado():
     def esEstadoActual():
         cambios_estados = CapaConexion.obtenerCambiosEstados()
         cambios_estadosObj = []
-        for row in range(cambios_estados):
+        for row in cambios_estados:
+            print(row)
             objeto = Cambio_Estado(row[0], row[2], row[1])
             if row[2] == 'NULL':
                 cambios_estadosObj.append(objeto)

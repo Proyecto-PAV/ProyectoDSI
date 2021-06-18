@@ -8,8 +8,13 @@ import datetime
 from Modelo.Reserva_Visita import *
 
 def prueba1():
-    c = Sede.getReservaVisita('Museo Telon','00:30:00')
-    print(c)
-
+    estado_reservaConfirmadaObj = GestorVentaEntradas.buscarEstadoConfirmada()
+    for i in range(0, len(estado_reservaConfirmadaObj)):  
+        print(estado_reservaConfirmadaObj[i].ambito)
+    return estado_reservaConfirmadaObj
+    
+def prueba2(estadosConfirmados):
+    GestorVentaEntradas.validarCantidadDeEntradasMenorCapaMaxima('00:30:00', estadosConfirmados, 5)
 if __name__ == "__main__":
-    prueba1()
+    estado_reservaConfirmadaObj = prueba1()
+    prueba2(estado_reservaConfirmadaObj)
