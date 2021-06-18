@@ -88,9 +88,9 @@ class GestorVentaEntradas():
         return monto
         
         
-        
-    def generarNumeroEntrada(self, ultimo_numero):
-        numero_entrada = ultimo_numero + 1
+    def generarNumeroEntrada(self):
+        numero_entrada = self.numeroEntrada + 1
+        return numero_entrada
 
     def imprimirEntradasGeneradas(self):
         pass
@@ -106,15 +106,30 @@ class GestorVentaEntradas():
 
     def obtenerUltimoNúmero(self, sedeActual):
         nombre = sedeActual.nombre
-        ultimoNumero = getNro(nombre)
-        return ultimoNumero
+        self.numeroEntrada = Entrada.getNro(nombre)
+        numeroEntrada = self.numeroEntrada
+        return numeroEntrada
 
     def solicitarSeleccionTipoEntraTipoVisitayGuia(self):
         pass
 
     def tomarConfirmacionVenta(self):
-        pass
+        # Guarda en el atributo del gestor el ultimo numero para poder llamar al generar ultimo numero y que ya tenga este
+        self.numeroEntrada = self.obtenerUltimoNúmero(self.sedeActual)
+        # Guarda en la variable numero entrada el numero que se le va a poner la entrada
+        numeroEntrada = self.generarNumeroEntrada()
+        # Guarda en el atributo del gestor el ultimo numero de entrada generado
+        self.numeroEntrada = numeroEntrada
+        nombreSede = self.sedeActual.nombre
+        empleado = self.empleado
 
+        if self.hayGuia == True:
+            #Los None son la fecha y la hora que estan juntas y las necesitamos separadas
+            Entrada.new(numeroEntrada, NONE, NONE, self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre, empleado.dni)
+        else:
+            Entrada.new(numeroEntrada, NONE, NONE, self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre)
+
+        
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
         pass
