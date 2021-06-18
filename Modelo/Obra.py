@@ -79,6 +79,5 @@ class Obra():
             obj = Obra(obra[2],obra[3],obra[9],obra[4],obra[5],obra[6],obra[7],obra[8],obra[0],obra[1],obra[11])
             if obj.nombreObra==nombre_obra:
                 return obj.duracionResumida
-            else:
-                return 0
+
     

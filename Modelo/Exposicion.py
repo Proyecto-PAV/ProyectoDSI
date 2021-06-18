@@ -66,18 +66,30 @@ class Exposicion():
         v=[]
         for expo in vigentes:
             v.append(Detalle_Exposicion.getObra(expo.nombre))
-
-        return v
         
         duracion_total = 0
         for e in vigentes:
             duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
 
-        return duracion_total
+        return Exposicion.convertirTiempo(duracion_total)
 
 
     def getNombre(self):
         return self.nombre
+
+
+    def convertirTiempo(min):
+        #convertir los minutos en h/m/s
+        hs = min/60
+        ms = (hs - int(hs)) * 60
+        ss = (ms - int(ms)) * 60
+        hs = int(hs)
+        ms = int(ms)
+        ss = int(ss)
+        
+        tiempo_final = time(hour=hs, minute=ms, second=ss) 
+        return tiempo_final
+
 
 #?solo de test, borrar dps
     def mostrarExpo(expo):

@@ -91,7 +91,7 @@ def obtenerMontoGuiaSede(nombre):
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
-def obtenerDetalleExposiciones(nombre_expo):
+def obtenerDetalleExposiciones():
     cnxn = conexion()
     cursor = cnxn.cursor()
     #fijarse que en los detalles los nombres no se repiten y deberian/es recomendable

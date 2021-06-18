@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time, timedelta
 from Modelo import Obra
 from BaseDeDatos import CapaConexion
 from Modelo.Obra import *
@@ -25,20 +25,37 @@ class Detalle_Exposicion():
 
     def getObra(nombre_expo):
         #buscar todos los detalles de esa expo
-        detalles = CapaConexion.obtenerDetalleExposiciones(nombre_expo)
+        detalles = CapaConexion.obtenerDetalleExposiciones()
         #instancia los objetos y suma la duracion de esta exposicion
         detalles_obj =[]
+        # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
+        
         duracion_resumida = 0
+        #comienzo del ciclo
         for d in detalles:
             detalle = Detalle_Exposicion(d[2], d[1], d[0])
             detalles_obj.append(detalle)
-            #obtener duracion resumida de la obra del detalle
+            #obtener duracion resumida de la obra del detalle y separar sus unidades
             tiempo = Obra.getDuracionResumida(detalle.obra)
+            t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
             #!Revisar la suma con sus tipos 
-            duracion_resumida += (tiempo)
+            duracion_resumida = duracion_resumida + t_obra
         
+        #duracion_res = Detalle_Exposicion.convertirTiempo(duracion_resumida, True)
         return duracion_resumida
 
+
+    
+    def convertirMinutos(t_obra):
+        #convierte el tiempo h/m/s a minutos
+        t_str = t_obra.strftime('%H:%M:%S')
+        t_vec = t_str.split(":")
+        hh = int(t_vec[0])
+        mm = int(t_vec[1])
+        ss = int(t_vec[2])
+        tiempo_final_min = hh*60 + mm + (ss/60)
+        return tiempo_final_min
+         
 
 
     #para mi este metodo no va
