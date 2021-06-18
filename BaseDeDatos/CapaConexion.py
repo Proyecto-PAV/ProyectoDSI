@@ -93,16 +93,10 @@ def ObtenerMontoGuiaSede(nombre):
     monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
     return monto
 
-def ObtenerCantidadDeAlumnosConfirmados(fechaHora):
+def btenerCantidadAlumnosConfirmado():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas where fecha_hora_reserva ='" + fechaHora + "'")
-    return cantidad
-
-def ObtenerCantidadAlumnosConfirmado():
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas where fecha_hora_reserva ='" +  + "'")
+    cantidad = cursor.execute("select SUM(cantidad_alumnos_confirmada) from reservasVisitas")
     return cantidad
 
 def obtenerEstadosReservaVisita():
@@ -119,6 +113,12 @@ def obtenerEntradasPorSede():
     entradas = cursor.fetchall()
     return entradas
 
+def obtenerReservas():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from reservasVisitas")
+    reservas = cursor.fetchall()
+    return reservas 
 
 if __name__ == '__main__':
         ObtenerTodasLasSedes()

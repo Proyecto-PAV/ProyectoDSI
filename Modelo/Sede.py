@@ -61,7 +61,9 @@ class Sede():
         return datos_tarifas, adicional_guia
     #!APARTIR DE ACA MODIFICAMOS
     def getReservaVisita(sede_actual, duracionEstimada):
-        reservasFechaHora = ReservaVisita.esParaFechaYHora(duracionEstimada)
+        reservasObj = ReservaVisita.esParaFechaYHora(duracionEstimada, sede_actual)
+        cantidadAlumnosConfirmados = ReservaVisita.getCantidadAlumnosConfirmados(reservasObj)
+        return cantidadAlumnosConfirmados
 
     def getEntradaVendidas(sede_actual, duracionEstimada):
         

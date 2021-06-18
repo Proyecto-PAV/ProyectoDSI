@@ -37,6 +37,7 @@ class Estado():
             if estado_reservaVisitaObj[i].nombre == 'Confirmado':
                objeto = Estado(estado_reservaVisitaObj[i].ambito, estado_reservaVisitaObj[i].descripcion, estado_reservaVisitaObj[i].nombre)
                EstadosConfirmados.append(objeto)
+               
         return EstadosConfirmados
 
 

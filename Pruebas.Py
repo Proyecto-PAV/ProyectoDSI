@@ -4,8 +4,12 @@ from Gestor.Gestor import *
 from datetime import datetime
 from Modelo.Entrada import *
 from Modelo.Sede import *
+import datetime
+from Modelo.Reserva_Visita import *
 
 def prueba1():
-    Sede.getEntradaVendidas('Museo Telon', '23:25:00')
+    c = Sede.getReservaVisita('Museo Telon','00:30:00')
+    print(c)
+
 if __name__ == "__main__":
     prueba1()

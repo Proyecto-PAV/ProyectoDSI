@@ -21,7 +21,4 @@ class Cambio_Estado():
         return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
 
     def esEstadoActual(self):
-        if self.fechaHoraFin == '':
-            return True
-        else:
-            return False
+        pass
