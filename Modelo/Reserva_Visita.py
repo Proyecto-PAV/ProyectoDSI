@@ -14,7 +14,7 @@ class ReservaVisita():
     horaInicioReal = 0
     numeroReserva = 0
 
-    def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, fechaReal, numeroReserva, empleado, exposicion, sede):
+    def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, numeroReserva, empleado, exposicion, sede, cambiosEstados):
        #!TUVIMOS QUE AGREGAR Y CAMBIAR ATRIBUTOS: fechaReal
         self.cantidadAlumnos = cantidadAlumnos
         self.cantidadAlumnosConfirmada = cantidadAlumnosConfirmada
@@ -27,6 +27,7 @@ class ReservaVisita():
         self.empleado = empleado
         self.exposicion = exposicion
         self.sede = sede
+        self.cambiosEstados = cambiosEstados
 
 
     def conocerAsignacionGuia(self):
@@ -50,19 +51,23 @@ class ReservaVisita():
     def esParaFechaYHora(duracionEstimada,sede_actual):
         reservas = CapaConexion.obtenerReservas()
         reservasObj = []
+        print(reservas)
         for row in reservas:
-            objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[4], row[5], row[0], 'NULL', 'NULL', row[8])      
+            
+            objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[5], row[4], row[0], 'NULL', 'NULL', row[8])      
          
-            if (row[4] < (datetime.now().time()) < row[5]) and ((datetime.today().date()) == row[5] and row[8] == sede_actual):
+            if (row[4] < (datetime.now().time()) < row[5]) and ((datetime.today().date()) == (row[2].date()) and row[8] == sede_actual):
             
                 reservasObj.append(objeto)
     
         return reservasObj
 
     def getCantidadAlumnosConfirmados(reservasObj):
+        cambios_estadosObj = Cambio_Estado.esEstadoActual(reservasObj)
+        estados = Cambio_Estado.getCambiosEstado(cambios_estadosObj)
         cantidadAlumnosConfirmada = 0
         for i in range(0, len(reservasObj)):          
-            cantidadAlumnosConfirmada =+ reservasObj[i].cantidadAlumnosConfirmada        
+            if reservasObj[i].cambioEstado == estados[i].ambito:
+                cantidadAlumnosConfirmada =+ reservasObj[i].cantidadAlumnosConfirmada        
         return cantidadAlumnosConfirmada
-
         

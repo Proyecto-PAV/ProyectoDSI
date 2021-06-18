@@ -17,8 +17,12 @@ class Estado():
     def esPendienteAsigDeposito(self):
         pass
 
-    def getEstadoReservaConfirmada(self):
-        pass
+    def getEstadoReservaConfirmada(cambios_estadosObj):
+        estadosConfirmados = []
+        for i in range(0, len(cambios_estadosObj)):
+            if cambios_estadosObj[i].ambito == 'Confirmado':
+                estadosConfirmados.append(cambios_estadosObj[i])
+        return estadosConfirmados
 
     def esAmbitoReservaaVisita():
         estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
@@ -26,8 +30,8 @@ class Estado():
         estados_reservaVisita_obj = []  
         for row in estados_reservaVisita:    
             objeto = Estado(row[1], row[2], row[3]) #? Con que atributo creamos el objeto
-            
-            estados_reservaVisita_obj.append(objeto)
+            if(row[1] == 'ReservaVisita'):
+                estados_reservaVisita_obj.append(objeto)
         return estados_reservaVisita_obj
 
     def esConfirmada(estado_reservaVisitaObj):

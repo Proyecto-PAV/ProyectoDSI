@@ -14,11 +14,21 @@ class Cambio_Estado():
     def conocerEstado(self):
         return self.estado
 
-    def getCambiosEstado(self):
-        estado = Estado.getEstadoReservaConfirmada()
+    def getCambiosEstado(cambios_estadosObj):
+        estados = Estado.getEstadoReservaConfirmada(cambios_estadosObj)
+        return estados
 
     def new(self, estado, fechaHoraInicio, fechaHoraFin):
         return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
 
-    def esEstadoActual(self):
-        pass
+    def esEstadoActual():
+        cambios_estados = CapaConexion.obtenerCambiosEstados()
+        cambios_estadosObj = []
+        for row in range(cambios_estados):
+            objeto = Cambio_Estado(row[0], row[2], row[1])
+            if row[2] == 'NULL':
+                cambios_estadosObj.append(objeto)
+                break
+        return cambios_estadosObj
+
+    

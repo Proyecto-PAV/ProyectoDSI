@@ -63,12 +63,21 @@ class GestorVentaEntradas():
         estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, estadosConfirmados):
+    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, estadosConfirmados, entradasAEmitir):
         sede_actual = self.sedeActual
-        Sede.getReservaVisita(sede_actual, duracionEstimada, estadosConfirmados)
-        Sede.getEntradaVendidas(sede_actual, duracionEstimada, estadosConfirmados)
+        cantidadReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estadosConfirmados)
+        cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estadosConfirmados)
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
-        pass
+        sum = cantidadReservas + cantidadEntradasVendidas
+        cuposDisp = cantidadMaximaVisitantes - sum
+        if(entradasAEmitir <= cuposDisp):
+            print("se puden comprar")
+            return True
+        else:
+            print("No hay cupo disponible")
+            return False
+        #?Finaliza aca?
+        return
 
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
