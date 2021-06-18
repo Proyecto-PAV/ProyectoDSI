@@ -57,7 +57,6 @@ class GestorVentaEntradas():
 
 
     def actualizarPantallas(self, pantallaSala, pantallaPrincipal):
-        #* atibutos del gestor necesarios: CantidadEntradas, nombre de salas y capacidad Maxima
      
         #crear objeto pantalla y actualizar la pantalla principal
         self.pantallaCantidadActualPrincipal = pantallaPrincipal
@@ -67,10 +66,9 @@ class GestorVentaEntradas():
         #buscar todas las salas de la sede
         salas = Sala.conocerSalas(self.sedeActual)
         #actualizar pantallas de estas salas primero creando el objeto
-        for s in salas:
-            sl = Sala(s.nombre, s.numero, s.superficie, s.nombreSede)
-            if sl.nombre == self.pantallaCantidadActualSala.nombreSala:
-               PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
+        for i in range(len(salas)):
+            PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
+    
             
 
        

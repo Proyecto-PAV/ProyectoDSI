@@ -1,5 +1,5 @@
 from Interfaz.PantallaCantidadActualPrinci import PantallaCantidadActualPrinci
-from BaseDeDatos import CapaConexion
+
 
 class PantallaCantActualSala():
     
@@ -15,8 +15,6 @@ class PantallaCantActualSala():
 
     
     def actualizarCantidadActualSala(self, agregado):
-        print('Cantidad Vieja Sede:' ,self.cantidadActual)
         self.nombreSala
         cant_nueva = self.cantidadActual + agregado
         self.cantidadActual = cant_nueva
-        print('Cantidad nueva Sede:', self.cantidadActual)
