@@ -29,7 +29,7 @@ class GestorVentaEntradas():
     tipoEntrada = None
     tipoVisita = None
 
-    def _init_(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEventos, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
+    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEventos, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
                  hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
@@ -105,7 +105,7 @@ class GestorVentaEntradas():
         return fecha_hora_actual
 
     def obtenerUltimoNúmero(self, sedeActual):
-        nombre = sedeActual.nombre
+        nombre = sedeActual
         self.numeroEntrada = Entrada.getNro(nombre)
         numeroEntrada = self.numeroEntrada
         return numeroEntrada
@@ -120,7 +120,7 @@ class GestorVentaEntradas():
         numeroEntrada = self.generarNumeroEntrada()
         # Guarda en el atributo del gestor el ultimo numero de entrada generado
         self.numeroEntrada = numeroEntrada
-        nombreSede = self.sedeActual.nombre
+        nombreSede = self.sedeActual
         empleado = self.empleado
         FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
         FechayHora = FechayHora.split(" ")

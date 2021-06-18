@@ -1,27 +1,13 @@
-from BaseDeDatos.CapaConexion import *
-#from Modelo.Entrada import *
+from Gestor.Gestor import *
 
-class Entrada():
+gestor1 = GestorVentaEntradas(None, None,None,None,None,None,25,700,None,None,None,None,None,None,None,None,None,None)
 
-    
-    def __init__(self, numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
-        self.numero = numero
-        self.fechaVenta = fechaVenta
-        self.horaVenta = horaVenta
-        self.monto = monto
-        self.id_tipo_entrada = id_tipo_entrada
-        self.id_tipo_visita = id_tipo_visita
-        self.nombre_sede = nombre_sede
-        self.dni_guia = dni_guia
-        
-        
-nombre_sede = 'Museo Telon'
+gestor1.sedeActual = gestor1.ObtenerSedeActual()
 
+ultimonumero = gestor1.obtenerUltimoNúmero(gestor1.sedeActual)
 
+nuevo = gestor1.generarNumeroEntrada()
 
+gestor1.fechaHoraActual=gestor1.getFechaYHoraActual()
 
-
-
-
-
-
+print(nuevo)
