@@ -5,6 +5,7 @@ import time
 
 class ReservaVisita():
 
+    #!agregar atributos
     cantidadAlumnos = 0
     cantidadAlumnosConfirmada = 0
     duracionEstimada = 0 
@@ -15,7 +16,7 @@ class ReservaVisita():
     numeroReserva = 0
 
     def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, numeroReserva, empleado, exposicion, sede, cambiosEstados):
-       #!TUVIMOS QUE AGREGAR Y CAMBIAR ATRIBUTOS: fechaReal
+ 
         self.cantidadAlumnos = cantidadAlumnos
         self.cantidadAlumnosConfirmada = cantidadAlumnosConfirmada
         self.duracionEstimada = duracionEstimada
@@ -48,26 +49,29 @@ class ReservaVisita():
     def conocerSede(self):
         return self
 
-    def esParaFechaYHora(duracionEstimada,sede_actual):
+    def esParaFechaYHora(duracionEstimada,sede_actual, fecha):
+        #obtiene todas las reservas de la BD
         reservas = CapaConexion.obtenerReservas()
         reservasObj = []
-        print(reservas)
+        #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual
         for row in reservas:
             
             objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[5], row[4], row[0], 'NULL', 'NULL', row[8], 'NULL')      
          
-            if (row[4] < (datetime.now().time()) < row[5]) and ((datetime.today().date()) == (row[2].date()) and row[8] == sede_actual):
+            if ( objeto.horaInicioReal < (datetime.time(fecha)) < objeto.horaFinReal) and ((datetime.date(fecha)) == (datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual):
             
                 reservasObj.append(objeto)
-    
+        #retorna el vector de objetos con reservas para la fecha y hora estimada
         return reservasObj
 
-    def getCantidadAlumnosConfirmados(reservasObj):
-        cambios_estadosObj = Cambio_Estado.esEstadoActual()
-        estados = Cambio_Estado.getCambiosEstado(cambios_estadosObj)
+    def getCantidadAlumnosConfirmados(reservasObj, estadoConfirmado):
+        #
+        estado = Cambio_Estado.getCambiosEstado(actual_cambio_estado)
         cantidadAlumnosConfirmada = 0
-        for i in range(0, len(reservasObj)):          
-            if reservasObj[i].cambioEstado == estados[i].ambito:
+        for reserva in reservasObj:
+            #busca el estado actual de la reserva
+            actual_cambio_estado = Cambio_Estado.esEstadoActual(reserva)          
+            if reservasObj[i].cambioEstado == estado[i].ambito:
                 cantidadAlumnosConfirmada =+ reservasObj[i].cantidadAlumnosConfirmada        
         return cantidadAlumnosConfirmada
         

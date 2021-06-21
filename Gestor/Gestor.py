@@ -1,20 +1,16 @@
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
-from Modelo.Sede import Sede
+from Modelo.Sede import *
 from Modelo.Entrada import *
 from Modelo.Tarifa import *
-from Modelo.Entrada import *
-
-from Modelo.Sede import *
-from Modelo.Sala import *
 from Interfaz.PantallaCantActualSala import *
 from Interfaz.PantallaCantidadActualPrinci import *
-from Modelo.Sede import *
 from Modelo.Estado import *
 
 class GestorVentaEntradas():
 
+    #atributos de la clase de analisis GestorVentaEntradas
     pantallaVentaEntradas = None
     pantallaCantidadActualPrincipal = None
     impresoraEntrada = None
@@ -34,9 +30,11 @@ class GestorVentaEntradas():
     sedeActual = ""
     tipoEntrada = None
     tipoVisita = None
+    estadoConfirmado_Reserva = []
 
     def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
-                 hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita):
+                 hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita, estadoConfirmadoRes):
+         #constructor del objeto controlador Gestor
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
         self.impresoraEntrada = impresoraEntrada
@@ -55,14 +53,18 @@ class GestorVentaEntradas():
         self.sedeActual = sedeActual
         self.tipoEntrada = tipoEntrada
         self.tipoVisita = tipoVisita
+        self.estadoConfirmado_Reserva = estadoConfirmadoRes
         
 
     def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
+        #guarda al objeto pantalla en los atributos del gestor
         self.pantallaVentaEntradas = pantallaVentaEntradas
-        #este metodo desencadena toda la logica        
+        #este metodo desencadena toda la logica
+        #busca la sede actual y guarda su nombre en el atributo sedeActual        
         self.sedeActual = self.ObtenerSedeActual()
+        #obtiene la fecha y hora actual del sistema
         self.fechaHoraActual = self.getFechaYHoraActual()
-        
+        #busca las tarifas vigentes para la sede actual y ademas obtiene el monto adicional del guia
         tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
         return tarifasVigentes, montoAdicionalGuia
 
@@ -81,28 +83,32 @@ class GestorVentaEntradas():
     
             
 
-       
-        
+    def buscarTarifasVigentes(self):
+        #obtiene las tarifas vigentes a al fecha de hoy de la sede actual y el monto adicional del guia
+        tarifasVigentes, montoAdicional = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+                
+        return tarifasVigentes, montoAdicional
+
 
     def buscarEstadoConfirmada(self):
-        pass
-    
-    def buscarTarifasVigentes(self):
-        tarifasVigentes = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
-        montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
-    def buscarEstadoConfirmada():
-        estado_reservaVisitaObj = []
-        estado_reservaVisitaObj = Estado.esAmbitoReservaaVisita()
-        estado_reservaConfirmadaObj = []
+        #busca todos los estados de ReservaVisita
+        estado_reservaVisitaObj = Estado.esAmbitoReservaVisita()
+        #busca el estado Confirmado de Reserva Visita
         estado_reservaConfirmadaObj = Estado.esConfirmada(estado_reservaVisitaObj)
+        #retorna el vector de objetos EstadoConfirmado y lo almacena en su atributo
+        self.estadoConfirmado_Reserva = estado_reservaConfirmadaObj
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(duracionEstimada, estadosConfirmados, entradasAEmitir):
-        sede_actual = GestorVentaEntradas.sedeActual
-        cantidadReservas = Sede.getReservaVisita(sede_actual, duracionEstimada)
-        cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estadosConfirmados)
+    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, entradasAEmitir):
+        #recupera el nombre de la sede actual y el estado confirmado de Rerserva Visita
+        sede_actual = self.sedeActual
+        estado_confirmado = self.estadoConfirmado_Reserva
+        fecha_actual = self.fechaHoraActual
+        #obtiene la cantidad de alumnos dentro del museo con reserva para el momento de la venta
+        cantidadAlumnosConReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estado_confirmado, fecha_actual)
+        cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estado_confirmado)
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
-        sum = cantidadReservas + cantidadEntradasVendidas
+        sum = cantidadAlumnosConReservas + cantidadEntradasVendidas
         cuposDisp = cantidadMaximaVisitantes - sum
         if(entradasAEmitir <= cuposDisp):
             print("se puden comprar")
@@ -149,11 +155,13 @@ class GestorVentaEntradas():
         pass
 
     def ObtenerSedeActual(self):
-        #preguntar si hay que inicializar con none la fecha de inicio
+        #?preguntar si hay que inicializar con none la fecha de inicio
+        #Llama al logueado:Usuario para obtener la sede
         sede_actual = Sesion.getEmpleadoenSesion()
         return sede_actual
 
     def getFechaYHoraActual(self):
+        #obtiene la fecha y hora actual
         fecha_hora_actual = datetime.now()
         return fecha_hora_actual
 

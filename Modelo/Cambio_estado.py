@@ -3,11 +3,13 @@ from BaseDeDatos import CapaConexion
 from Modelo.Estado import *
 
 class Cambio_Estado():
-    estado = ""
+    #atributos de la clase Cambio_Estado
+    estado = 0
     fechaHoraFin = ""
     fechaHoraInicio = ""
 
     def __init__(self, estado, fechaHoraFin, fechaHoraInicio):
+         #constructor del objeto Cambio_Estado
         self.estado = estado
         self.fechaHoraFin = fechaHoraFin
         self.fechaHoraInicio = fechaHoraInicio
@@ -15,22 +17,20 @@ class Cambio_Estado():
     def conocerEstado(self):
         return self.estado
 
-    def getCambiosEstado(cambios_estadosObj):
-        estados = Estado.getEstadoReservaConfirmada(cambios_estadosObj)
+    def getCambiosEstado(cambio_estadoObj):
+        estados = Estado.getEstadoReservaConfirmada(cambio_estadoObj)
         return estados
 
     def new(self, estado, fechaHoraInicio, fechaHoraFin):
         return Cambio_Estado(self, estado, fechaHoraInicio, fechaHoraFin)
 
-    def esEstadoActual():
+    def esEstadoActual(reserva):
+        #obtener todos los cambios de estados de la BD
         cambios_estados = CapaConexion.obtenerCambiosEstados()
-        cambios_estadosObj = []
+        #por cada cambio de estado lo crea como objeto y si no tiene fecha fin y coincide con el ambito ReservaVisita corta el ciclo y retorna
         for row in cambios_estados:
-            print(row)
-            objeto = Cambio_Estado(row[0], row[2], row[1])
-            if row[2] == 'NULL':
-                cambios_estadosObj.append(objeto)
-                break
-        return cambios_estadosObj
+            objeto = Cambio_Estado(row[0], row[3], row[2])
+            if objeto.fechaHoraFin == None and objeto.estado==estadoConfirmado.id:
+                return objeto
 
     

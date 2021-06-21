@@ -14,7 +14,7 @@ def conexion():
     
     return cnxn
 
-
+#! CAMBIAR OS SELECT Y FROM IGUALES
 
 
 def obtenerTodasLasSedes():
@@ -25,7 +25,7 @@ def obtenerTodasLasSedes():
         print(row)
 
 
-def obtenerSesionActiva():
+def obtenerSesionesBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM sesiones')
@@ -33,7 +33,7 @@ def obtenerSesionActiva():
     return sesiones
 
 
-def obtenerDniUsuario(nombre):
+def obtenerUsuariosBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM usuarios")
@@ -58,7 +58,11 @@ def obtenerTarifas():
 
 
 def obtenerTiposEntradas():
-    pass
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("SELECT * FROM tipoEntradas")
+    tiposEntradas = cursor.fetchall()
+    return tiposEntradas
 
 def obtenerSedeEmpleado(dni):
     cnxn = conexion()
@@ -82,13 +86,6 @@ def obtenerExposiciones():
       
     return exposiciones
 
-
-def obtenerNombreEntrada(nro):
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cursor.execute("SELECT * FROM tipoEntradas")
-    tiposEntradas = cursor.fetchall()
-    return tiposEntradas
 
 def obtenerTiposVisitas():
     pass
@@ -141,7 +138,7 @@ def obtenerDetalleExposiciones():
 def obtenerEstadosReservaVisita():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select * from estados ")
+    cursor.execute("select * from estados")
     estados = cursor.fetchall()
     return estados
 
