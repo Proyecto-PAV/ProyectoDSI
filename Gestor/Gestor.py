@@ -1,3 +1,4 @@
+'''
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
@@ -9,6 +10,13 @@ from Interfaz.PantallaCantidadActualPrinci import *
 from Modelo.Estado import *
 from Interfaz.ImpresorEntrada import *
 from Modelo.Sala import *
+'''
+
+from BaseDeDatos.CapaConexion import *
+from Modelo.Sesion import Sesion
+from datetime import datetime
+from Modelo.Sede import Sede
+from Modelo.Tarifa import *
 
 class GestorVentaEntradas():
 
@@ -58,15 +66,13 @@ class GestorVentaEntradas():
         self.estadoConfirmado_Reserva = estadoConfirmadoRes
         
 
-    def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
-        #guarda al objeto pantalla en los atributos del gestor
+    def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         #este metodo desencadena toda la logica
-        #busca la sede actual y guarda su nombre en el atributo sedeActual        
+        
         self.sedeActual = self.ObtenerSedeActual()
-        #obtiene la fecha y hora actual del sistema
         self.fechaHoraActual = self.getFechaYHoraActual()
-        #busca las tarifas vigentes para la sede actual y ademas obtiene el monto adicional del guia
+        
         tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
         return tarifasVigentes, montoAdicionalGuia
 
@@ -86,8 +92,9 @@ class GestorVentaEntradas():
 
 
     def buscarTarifasVigentes(self):
-        #obtiene las tarifas vigentes a al fecha de hoy de la sede actual y el monto adicional del guia
-        tarifasVigentes, montoAdicional = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        tarifasVigentes = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
+        montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
+
         return tarifasVigentes, montoAdicional
 
 

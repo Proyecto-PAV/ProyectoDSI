@@ -35,25 +35,23 @@ class Tarifa():
 
 
     def getMonto(self):
-        #obtiene los objetos tipo entrada y tipo visita de la tarifa y almacena en sus atributos
-        tEntrada = self.conocerTipoEntrada(self.tipo_entrada)
-        tVisita = self.conocerTipoVisita(self.tipo_visita)
-        self.tipo_entrada = tEntrada
-        self.tipo_visita = tVisita
+        #esta funcio obtiene los nombres de los tipos 
+            tEntrada = self.conocerTipoEntrada(self.tipo_entrada)
+            tVisita = self.conocerTipoVisita(self.tipo_visita)
+            self.tipo_entrada = tEntrada
+            self.tipo_visita = tVisita
 
     def esVigente(nombre_sede, fecha):
-        #busca todas las tarifas de la BD
         tarifasBd = obtenerTarifas()
         t_vigentes_obj = []
         for tarifa in tarifasBd:
-            #por cada tarifa obtenida crea su objeto
             objTarifa = Tarifa(tarifa[3], tarifa[4], tarifa[5], tarifa[0], tarifa[1])
-            # si el objeto tarifa es de la sede y la fecha pasada por parametro, lo guarda en el vector 
+    
             if (tarifa[2] == nombre_sede) and (datetime.date(fecha) > objTarifa.fechaInicioVifencia) and (datetime.date(fecha) < objTarifa.fechaFinVigencia):
                 t_vigentes_obj.append(objTarifa)
 
-        #retorna el vector de objeto tarifa que estan vigentes y son de la sede pasada por parametros
         return t_vigentes_obj  
+ 
  
 
  

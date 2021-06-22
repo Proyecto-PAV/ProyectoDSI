@@ -87,9 +87,7 @@ def obtenerExposiciones():
     return exposiciones
 
 
-def obtenerTiposVisitas():
-    pass
-def obtenerNombreVisita(nro):
+def obtenerNombreVisita():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM tipoVisitas")

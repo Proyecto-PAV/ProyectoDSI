@@ -1,7 +1,12 @@
-from Modelo.Tarifa import Tarifa
+'''
+from Modelo.Tarifa import *
 from BaseDeDatos.CapaConexion import *
 from Modelo.Exposicion import *
 from Modelo.Entrada import *
+'''
+
+from Modelo.Tarifa import Tarifa
+from BaseDeDatos.CapaConexion import *
 
 
 class Sede():
@@ -66,24 +71,20 @@ class Sede():
                 return sedeObj.cantidadMaximaVisitantes
 
     def getAdicionalPorGuia(sedeNombre):
-        #obtiene las sede de la BD e instancia como objetos
+        #obtiene el mondo adicional de la bd
         sedesBd = obtenerSedes()
         for sede in sedesBd:
             sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
             if sedeObj.nombre == sedeNombre:
-                #Retorna el objeto cuyo nombre coincida con el pasado por parametro
                 return sedeObj.adicionalGuia
 
     def getTarifasVigentes(nombre_sede, fecha_hora_actual):
-        #busca las tarifas vigentes a la fecha actual
         tarifasVigentes = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
-        #por cada tarifa vigente obtenida, obtiene su monto, tipo visita y tipo entrada
+
         for t in tarifasVigentes:
             t.getMonto()
-        #obtener el monto adicional definido para cada sede
-        montoAdicional = Sede.getAdicionalPorGuia(nombre_sede)
         
-        return tarifasVigentes, montoAdicional
+        return tarifasVigentes
     
     def getExposicionesCompletasVigentes(nombre):
         #levantamos todos las exposiciones de la BD que sean vigentes
