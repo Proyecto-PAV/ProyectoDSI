@@ -137,7 +137,7 @@ class GestorVentaEntradas():
 
 
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia, sedeActual):
-        #!Tomando en cuanta que se le pasa un objeto de tarifa
+        #!Tomando en cuanta que se le pasa un objeto de tarifa y de sede
         monto = 0
         montoAdicional = 0
         monto = tarifa_seleccionada.monto * cantidad_seleccionada
@@ -166,7 +166,7 @@ class GestorVentaEntradas():
         return fecha_hora_actual
 
     def obtenerUltimoNúmero(self, sedeActual):
-        nombre = sedeActual.nombre
+        nombre = sedeActual
         self.numeroEntrada = Entrada.getNro(nombre)
         numeroEntrada = self.numeroEntrada
         return numeroEntrada
@@ -181,7 +181,7 @@ class GestorVentaEntradas():
         numeroEntrada = self.generarNumeroEntrada()
         # Guarda en el atributo del gestor el ultimo numero de entrada generado
         self.numeroEntrada = numeroEntrada
-        nombreSede = self.sedeActual.nombre
+        nombreSede = self.sedeActual
         empleado = self.empleado
         FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
         FechayHora = FechayHora.split(" ")
