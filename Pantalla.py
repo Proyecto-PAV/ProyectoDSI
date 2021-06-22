@@ -18,8 +18,8 @@ class PantallaVentaEntradas:
     def tomarOpcionRegistrarVentaEntradas(self):
         #self.habilitarPantalla()
         #aca se crea el objeto gestprVentaEntrada
-        self.gestorVentaEntradas = GestorVentaEntradas()
-        tarifasVigentes, montoAdicionalGuia = self.gestorVentaEntradas.tomarOpciónRegistrarVentaDeEntradas(self)
+        self.gestorVentaEntradas = GestorVentaEntradas(None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)
+        tarifasVigentes, montoAdicionalGuia = self.gestorVentaEntradas.tomarOpcionRegistrarVentaDeEntradas(self)
         return tarifasVigentes, montoAdicionalGuia
     
 

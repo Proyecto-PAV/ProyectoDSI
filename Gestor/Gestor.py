@@ -1,7 +1,7 @@
 from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
-from Modelo.Sede import *
+from Modelo.Sede import Sede
 from Modelo.Entrada import *
 from Modelo.Tarifa import *
 from Interfaz.PantallaCantActualSala import *
@@ -83,13 +83,11 @@ class GestorVentaEntradas():
         #actualizar pantallas de estas salas 
         for s in salas:
             PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
-    
-            
+
 
     def buscarTarifasVigentes(self):
         #obtiene las tarifas vigentes a al fecha de hoy de la sede actual y el monto adicional del guia
         tarifasVigentes, montoAdicional = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
-                
         return tarifasVigentes, montoAdicional
 
 

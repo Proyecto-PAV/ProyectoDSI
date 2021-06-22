@@ -70,7 +70,6 @@ class Ui_MenuRV(object):
         self.lbl_hora.setText("Hora: " + datetime.strftime(datetime.now(), "%H:%M:%S"))
         self.lbl_hora.setObjectName("lbl_hora")
         self.btn_registrar_venta_entradas.clicked.connect(self.ventaEntrada)
-        self.btn_registrar_venta_entradas.clicked.connect(Ui_TarifaEntradas.obtenerTarifas)
 
         self.retranslateUi(MenuRV)
         self.btn_cerrar_sesion.clicked.connect(MenuRV.reject)

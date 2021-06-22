@@ -19,7 +19,7 @@ class Ui_TarifaEntradas(object):
         pantallaVentaEntradas = pantallaVentaEntradas
 
     def obtenerTarifas(self):
-        self.pantallaVentaEntradas = PantallaVentaEntradas(None, None, None, None, None, None, None, None, None, None )
+        self.pantallaVentaEntradas = PantallaVentaEntradas(None, None, None, None, None, None, None, None, None, None)
         tarifasVigentes, montoAdicionalGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
         self.lbl_adicional_guia.setText("$" + str(montoAdicionalGuia))
         for tarifa in tarifasVigentes:
