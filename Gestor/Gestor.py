@@ -7,6 +7,8 @@ from Modelo.Tarifa import *
 from Interfaz.PantallaCantActualSala import *
 from Interfaz.PantallaCantidadActualPrinci import *
 from Modelo.Estado import *
+from Interfaz.ImpresorEntrada import *
+from Modelo.Sala import *
 
 class GestorVentaEntradas():
 
@@ -69,16 +71,17 @@ class GestorVentaEntradas():
         return tarifasVigentes, montoAdicionalGuia
 
     def actualizarPantallas(self, pantallaSala, pantallaPrincipal):
-     
-        #crear objeto pantalla y actualizar la pantalla principal
+        #! verificar si este es necesario o simplemente es un actualizar en interfaz
+        #actualiza la pantalla principal a partir de pasado por el parametro
         self.pantallaCantidadActualPrincipal = pantallaPrincipal
         PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
-        #crear objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
+        #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
         self.pantallaCantidadActualSala= pantallaSala
         #buscar todas las salas de la sede
+        #! agregar la dependencia del gestor a la sala
         salas = Sala.conocerSalas(self.sedeActual)
-        #actualizar pantallas de estas salas primero creando el objeto
-        for i in range(len(salas)):
+        #actualizar pantallas de estas salas 
+        for s in salas:
             PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
     
             
@@ -107,7 +110,7 @@ class GestorVentaEntradas():
         #obtiene la cantidad de alumnos dentro del museo con reserva para el momento de la venta
         cantidadAlumnosConReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estado_confirmado, fecha_actual)
         #obtiene la cantidad de personas que compraron una entrada hasta el momento de la venta
-        cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estado_confirmado)
+        cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, fecha_actual)
         #busca la capacidad maxima de la sede 
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
         #Suma la cantidad de gente total que se encuentra en este instante en el museo
@@ -115,13 +118,10 @@ class GestorVentaEntradas():
         cuposDisp = cantidadMaximaVisitantes - total_visitantes
         #valida que la cantidad de entradas a emitir no supere la capacidad maxima de la sede
         if(entradasAEmitir <= cuposDisp):
-            #print("se puden comprar")
             return True
         else:
-            #print("No hay cupo disponible")
             return False
-        #?Finaliza aca?
-        #return
+        
 
     """
     def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
@@ -136,13 +136,14 @@ class GestorVentaEntradas():
         self.duracionEstimada=duracion
 
 
-    def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia, sedeActual):
+    def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
         #!Tomando en cuanta que se le pasa un objeto de tarifa
-        monto = 0
+        #definimos el monto inicial en base a los datos pasados por parametro
         montoAdicional = 0
         monto = tarifa_seleccionada.monto * cantidad_seleccionada
         if hayGuia == True:
-            montoAdicional = sedeActual.getAdicionalPorGuia()
+            # si se define una entrada con guia, se le suma al monto total su adicional
+            montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
             monto = monto + montoAdicional
         return monto
         
@@ -151,8 +152,9 @@ class GestorVentaEntradas():
         numero_entrada = self.numeroEntrada + 1
         return numero_entrada
 
-    def imprimirEntradasGeneradas(self):
-        pass
+    def imprimirEntradasGeneradas(entras_emitidas):
+        impresor = ImpresorEntrada.imprimirEntradasGeneradas(entras_emitidas)
+        
 
     def ObtenerSedeActual(self):
         #?preguntar si hay que inicializar con none la fecha de inicio
@@ -165,8 +167,8 @@ class GestorVentaEntradas():
         fecha_hora_actual = datetime.now()
         return fecha_hora_actual
 
-    def obtenerUltimoNúmero(self, sedeActual):
-        nombre = sedeActual.nombre
+    def obtenerUltimoNumero(self):
+        nombre = self.sedeActual
         self.numeroEntrada = Entrada.getNro(nombre)
         numeroEntrada = self.numeroEntrada
         return numeroEntrada
@@ -175,22 +177,34 @@ class GestorVentaEntradas():
         pass
 
     def tomarConfirmacionVenta(self):
+        #por cada una de las entradas lo ejecura
         # Guarda en el atributo del gestor el ultimo numero para poder llamar al generar ultimo numero y que ya tenga este
         self.numeroEntrada = self.obtenerUltimoNúmero(self.sedeActual)
-        # Guarda en la variable numero entrada el numero que se le va a poner la entrada
-        numeroEntrada = self.generarNumeroEntrada()
-        # Guarda en el atributo del gestor el ultimo numero de entrada generado
-        self.numeroEntrada = numeroEntrada
-        nombreSede = self.sedeActual.nombre
-        empleado = self.empleado
-        FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
-        FechayHora = FechayHora.split(" ")
-
-        if self.hayGuia == True:
-            Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre, empleado.dni)
-        else:
-            Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.nombre)
-        #? El metodo new de Entrada devuelve el objeto nuevo pero donde hay que guardarlo?
+        #recupero la cantidad de entradas a emitir e inicializo el contador y el vector de entradas emitidas
+        entradas_emitidas = []
+        n=0
+        cantidad = self.cantidadEntradasEmitir
+        while n < cantidad:
+            # Guarda en la variable numero entrada el numero que se le va a poner la entrada
+            numeroEntrada = self.generarNumeroEntrada()
+            # Guarda en el atributo del gestor el ultimo numero de entrada generado y recupero los datos del gestor
+            self.numeroEntrada = numeroEntrada
+            nombreSede = self.sedeActual
+            empleado = self.empleado
+            FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
+            FechayHora = FechayHora.split(" ")
+            #valida si la entrada tiene asignado un guia o no, crea su objeto y almacena en el vector
+            if self.hayGuia == True:
+                ent = Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.dni)
+                entradas_emitidas.append(ent)
+            else:
+                ent = Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)
+                entradas_emitidas.append(ent)
+            #sumo 1 al contador
+            n+=1
+        
+        #retornamos las entradas emitidas
+        return entradas_emitidas
         
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self):

@@ -156,13 +156,6 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
-def obtenerEntradas():
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cursor.execute("select * from Entradas")
-    entradas = cursor.fetchall()
-    return entradas
-
 
 #!hay q eliminar esto o no
 def obtenerSalas():
@@ -171,10 +164,12 @@ def obtenerSalas():
     cursor.execute ("select * from salas")
     salas = cursor.fetchall()
     return salas
-def obtenerEntradasPorSede():
+
+
+def obtenerEntradas():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("select numero, fecha_venta, hora_venta, monto, nombre_sede from entradas")
+    cursor.execute("select * from entradas")
     entradas = cursor.fetchall()
     return entradas
 
@@ -191,6 +186,19 @@ def obtenerCambiosEstados():
     cursor.execute("select * from cambiosEstados")
     cambiosEstados = cursor.fetchall()
     return cambiosEstados
+
+def obtenerEstados():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from estados")
+    estados = cursor.fetchall()
+    return estados
+
+def almacenarEntrada(entrada):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("INSERT INTO entradas VALUES (?,?,?,?,?,?,?,?)", entrada.numero, entrada.fechaVenta, entrada.horaVenta, entrada.monto, entrada.id_tipo_entrada, entrada.id_tipo_visita, entrada.sede, entrada.guia)
+
 
 '''
 if __name__ == '__main__':

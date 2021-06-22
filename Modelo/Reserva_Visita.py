@@ -53,14 +53,17 @@ class ReservaVisita():
         #obtiene todas las reservas de la BD
         reservas = CapaConexion.obtenerReservas()
         reservasObj = []
-        #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual
+        #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual o si comienza la reserva en un tiempo proximo
         for row in reservas:
-            
-            objeto = ReservaVisita(row[6], row[7], duracionEstimada, row[1], row[2], row[5], row[4], row[0], 'NULL', 'NULL', row[8], 'NULL')      
-         
-            if ( objeto.horaInicioReal < (datetime.time(fecha)) < objeto.horaFinReal) and ((datetime.date(fecha)) == (datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual):
-            
+            objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)      
+            #Calculo de la duracion estimada de la/s persona/s interesada/s en la venta
+            hora_fin = datetime.time(fecha) + objeto.duracionEstimada
+            if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and ((datetime.date(fecha)) == (datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual):
                 reservasObj.append(objeto)
+                    # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy                      Y es de la sede actual
+            elif ( (objeto.horaInicioReal <= hora_fin or datetime.time(objeto.fechaHoraReserva)<=hora_fin) and (datetime.date(fecha) == datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual): 
+                reservasObj.append(objeto)
+    
         #retorna el vector de objetos con reservas para la fecha y hora estimada
         return reservasObj
 
@@ -70,10 +73,10 @@ class ReservaVisita():
         cantidadAlumnosConfirmada = 0
         for reserva in reservasObj:
             #busca el estado actual de la reserva
-            actual_cambio_estado = Cambio_Estado.esEstadoActual(reserva)          
-            if actual_cambio_estado.estado == estadoConfirmado.id:
+            es_confirmada = Cambio_Estado.esEstadoActual(reserva, estadoConfirmado)          
+            if es_confirmada:
                 #si el estado de esta reserva es Confirmada, suma su cantidad de alumnos confirmada
-                cantidadAlumnosConfirmada =+ reserva.cantidadAlumnosConfirmada        
-        #despues de recorrer todas las reservas de la fecha, retorna la cantidad sumada total
+                cantidadAlumnosConfirmada += reserva.cantidadAlumnosConfirmada        
+        #despues de recorrer todas las reservas de la fecha, retorna la cantidad sumada total de alumnos
         return cantidadAlumnosConfirmada
         

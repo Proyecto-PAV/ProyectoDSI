@@ -15,6 +15,5 @@ class PantallaCantActualSala():
 
     
     def actualizarCantidadActualSala(self, agregado):
-        self.nombreSala
         cant_nueva = self.cantidadActual + agregado
         self.cantidadActual = cant_nueva

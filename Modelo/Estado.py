@@ -21,12 +21,16 @@ class Estado():
     def esPendienteAsigDeposito(self):
         pass
 
-    def getEstadoReservaConfirmada(cambio_estadoObj):
-        estadosConfirmados = []
-        for i in range(0, len(cambio_estadoObj)):
-            if cambio_estadoObj[i].ambito == 'Confirmado':
-                estadosConfirmados.append(cambio_estadoObj[i])
-        return estadosConfirmados
+    def getEstadoReservaConfirmada(cambio_estado, estadoConfirmado):
+        #busca todos los estados de la BD
+        estados = CapaConexion.obtenerEstados()
+        #crea los objetos estado y busca el estado confirmado y valida si la reserva esta Confirmada
+        for est in estados:
+            estado = Estado(est[1], est[2], est[3], est[0])
+            if estado.id == cambio_estado.nroAmbito and estado.id == estadoConfirmado.id:
+                return True
+        
+        return False
 
     def esAmbitoReservaVisita():
         #Busca en la BD todos los estados de Reserva Visita
