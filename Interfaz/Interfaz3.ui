@@ -9,152 +9,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
+    <width>695</width>
     <height>310</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1050</width>
+    <width>695</width>
     <height>310</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1050</width>
+    <width>695</width>
     <height>310</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Registrar venta de entradas</string>
   </property>
-  <widget class="QComboBox" name="CB_tipo_entrada">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>50</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>General</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Menores</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Jubilados</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Estudiantes</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Otra</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="lbl_tipo_entrada">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Seleccionar tipo de entrada:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_tipo_visita">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>90</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Seleccionar tipo de visita:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="CB_tipo_visita">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>110</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Completa</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Por exposicion</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QRadioButton" name="RB_con_guia">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>82</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Con guía</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="RB_sin_guia">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>150</y>
-     <width>82</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Sin guía</string>
-   </property>
-  </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>30</y>
-     <width>681</width>
+     <x>30</x>
+     <y>40</y>
+     <width>631</width>
      <height>211</height>
     </rect>
    </property>
-   <row>
-    <property name="text">
-     <string>Total</string>
-    </property>
-    <property name="textAlignment">
-     <set>AlignLeading|AlignBottom</set>
-    </property>
-   </row>
    <column>
     <property name="text">
      <string>Tipo entrada</string>
@@ -182,53 +67,14 @@
    </column>
    <column>
     <property name="text">
-     <string>Eliminar</string>
+     <string>Total</string>
     </property>
    </column>
-  </widget>
-  <widget class="QSpinBox" name="SB_cantidad">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>200</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>1000</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_cantidad">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>180</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cantidad:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_agregar">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>240</y>
-     <width>71</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Agregar</string>
-   </property>
   </widget>
   <widget class="QPushButton" name="btn_confirmar">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>250</x>
      <y>260</y>
      <width>75</width>
      <height>23</height>
@@ -241,7 +87,7 @@
   <widget class="QPushButton" name="btn_cancelar">
    <property name="geometry">
     <rect>
-     <x>710</x>
+     <x>340</x>
      <y>260</y>
      <width>75</width>
      <height>23</height>
@@ -249,58 +95,6 @@
    </property>
    <property name="text">
     <string>Cancelar</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_precio_tipo_entrada">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>50</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Precio: $</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_precio_tipo_visita">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>110</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Precio: $</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_adicional_guia">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>150</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Adicional: $</string>
-   </property>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>40</y>
-     <width>16</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
    </property>
   </widget>
  </widget>

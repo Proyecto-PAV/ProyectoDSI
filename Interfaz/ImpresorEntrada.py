@@ -11,4 +11,4 @@ class ImpresorEntrada():
 
     def imprimirEntradasGeneradas():
         #imprime las entradas en formato consola
-        pass
+        print("Hola")

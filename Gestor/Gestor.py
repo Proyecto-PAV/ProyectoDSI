@@ -122,14 +122,7 @@ class GestorVentaEntradas():
         else:
             return False
         
-
-    """
-    def buscarTarifasVigentes(self, sede_actual, fecha_hora_actual):
-        tarifas = Sede.getTarifasVigentes(sede_actual, fecha_hora_actual)
-
-        return tarifasVigentes, montoAdicional
-        return tarifas
-    """
+    
     def calcularDuracionEstimada(self):
         actual = self.sedeActual
         duracion = Sede.getExposicionesCompletasVigentes(actual)
@@ -218,7 +211,7 @@ class GestorVentaEntradas():
     
 
     def finCU(self):
-        pass
+        exit()
 
 
 
