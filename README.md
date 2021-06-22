@@ -11,5 +11,3 @@
 ### https://trello.com/b/58aXLT2a/trabajo                    LINK DE TRELLO (TARJETAS DE ACTIVIDADES)
 
 ### pip install pyodbc                                       LIBRERIA PARA CONECTAR CON SQL SERVER
-
-### pip install peewee                                       LIBRERIA PARA EL ORM PEEWEE
