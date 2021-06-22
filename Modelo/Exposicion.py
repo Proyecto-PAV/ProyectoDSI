@@ -5,6 +5,7 @@ import time
 
 class Exposicion():
 
+     #atributos de la clase Exposicion
     detalleExposicion = []
     fechaFin = ""
     fechaFinReplanificada = ""
@@ -15,6 +16,7 @@ class Exposicion():
     nombre = ""
 
     def __init__(self, detalleExposicion, fechaFin, fechaFinReplanificada, fechaInicio, fechaInicioReplanificada, horaApertura, horaCierre, nombreExpo, nombreSede, empleado):
+        #constructor del objeto Exposicion
         self.detalleExposicion = detalleExposicion
         self.fechaFin = fechaFin
         self.fechaFinReplanificada = fechaFinReplanificada
@@ -23,6 +25,7 @@ class Exposicion():
         self.horaApertura = horaApertura 
         self.horaCierre = horaCierre
         self.nombre = nombreExpo
+        #! falta en las clases porque sede conoce exposicion
         self.nombreSede = nombreSede
         self.empleado = empleado
 
@@ -69,9 +72,9 @@ class Exposicion():
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
         return Exposicion.convertirTiempo(duracion_total)
 
+    #! controlar si lo usamos en gestor/sede si no borrar
     def getNombre(self):
         return self.nombre
-
 
     def convertirTiempo(min):
         #convertir los minutos en 'h/m/s'
@@ -83,19 +86,6 @@ class Exposicion():
         ss = int(ss)
         tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
         return tiempo_final
-
-
-#?solo de test, borrar dps
-    def mostrarExpo(expo):
-        print ( str(expo.detalleExposicion)+ '- - -'+
-        str(expo.fechaFin)+ '- - -'+
-        str(expo.fechaFinReplanificada)+'- - -'+
-        str(expo.fechaInicio)+'- - -'+
-        str(expo.fechaInicioReplanificada )+'- - -'+
-        str(expo.horaApertura )+'- - -'+
-        str(expo.horaCierre )+'- - -'+
-        str(expo.nombre )+'- - -'+
-        str(expo.empleado) )
 
 
     

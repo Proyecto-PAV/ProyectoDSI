@@ -5,11 +5,13 @@ from Modelo.Obra import *
 
 class Detalle_Exposicion():
 
+     #atributos de la clase DetalleExposicion
     lugarAsignado = ""
     obra = ""
     exposicion = ""
 
     def __init__(self, lugarAsignado, obra, exposicion):
+        #constructor del objeto DetalleExposicion
         self.lugarAsignado = lugarAsignado
         self.obra = obra
         self.exposicion = exposicion
@@ -55,7 +57,3 @@ class Detalle_Exposicion():
         return tiempo_final_min
          
 
-
-    #para mi este metodo no va
-    def getDetalleExposicion(self, exposiciones):
-        pass

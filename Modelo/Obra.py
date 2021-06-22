@@ -4,6 +4,7 @@ from BaseDeDatos import CapaConexion
 
 class Obra():
     
+     #atributos de la clase Obra
     alto = 0
     ancho = 0
     codigoSensor = 0
@@ -19,6 +20,7 @@ class Obra():
     cambioEstado = []
 
     def __init__(self, alto, ancho, codigoSensor, descripcion, duracionExtendida, duracionResumida, fechaCreacion, fechaPrimerIngreso, nombreObra, peso, valuacion, empleado, cambioEstado):
+        #constructor del objeto Obras
         self.alto = alto
         self.ancho = ancho
         self.codigoSensor = codigoSensor

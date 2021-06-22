@@ -19,6 +19,9 @@ class Usuario():
         self.usuarioLogueado = usuarioLogueado
         self.dni = dni
         self.empleado = empleado
+
+    def conocerEmpleado():
+        pass
     
     def getUsuario(sesionActiva):
         #busca todos los usuarios en la BD y crea sus objetos

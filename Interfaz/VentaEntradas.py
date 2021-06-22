@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+#!Revisar con las clases del EA
 
 class Ui_RegistrarVentaDeEntradas(object):
     def setupUi(self, RegistrarVentaDeEntradas):

@@ -5,7 +5,7 @@ import time
 
 class ReservaVisita():
 
-    #!agregar atributos
+     #atributos de la clase ReservaVisita
     cantidadAlumnos = 0
     cantidadAlumnosConfirmada = 0
     duracionEstimada = 0 
@@ -14,9 +14,13 @@ class ReservaVisita():
     horaFinReal = 0
     horaInicioReal = 0
     numeroReserva = 0
+    empleado = []
+    exposicion = []
+    sede = []
+    cambiosEstados = []
 
     def __init__(self, cantidadAlumnos, cantidadAlumnosConfirmada, duracionEstimada, fechaCreacion, fechaHoraReserva, horaFinReal, horaInicioReal, numeroReserva, empleado, exposicion, sede, cambiosEstados):
- 
+        #constructor del objeto ReservaVisita
         self.cantidadAlumnos = cantidadAlumnos
         self.cantidadAlumnosConfirmada = cantidadAlumnosConfirmada
         self.duracionEstimada = duracionEstimada
@@ -43,7 +47,7 @@ class ReservaVisita():
     def conocerEscuela(self):
         pass
 
-    def conocerExposición(self):
+    def conocerExposicion(self):
         return self.exposicion
 
     def conocerSede(self):

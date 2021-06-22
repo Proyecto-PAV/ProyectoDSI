@@ -8,6 +8,8 @@ class Tarifa():
     fechaFinVigencia = ""
     fechaInicioVifencia = ""
     monto = 0
+    tipo_entrada = []
+    tipo_visita = []
     
 
     def __init__(self, fechaFinVigencia, fechaInicioVifencia, monto, tipo_entrada, tipo_visita):

@@ -1,9 +1,9 @@
 from Modelo.Tarifa import Tarifa
 from BaseDeDatos.CapaConexion import *
 from Modelo.Exposicion import *
-
-
 from Modelo.Entrada import *
+
+
 class Sede():
     
     #atributos de la clase Sede
@@ -13,11 +13,13 @@ class Sede():
     exposicionesVigentes = []
     nombre = ''
     reservaVisita = ''
-    tarifasVigentes = [] 
+    tarifasVigentes = []
+    adicionalGuia = 0
+
 
     def __init__(self, cantidadMaximaPorGuia, cantidadMaximaVisitantes,
     duracionExposicionesVigentes,exposicionesVigentes,nombre,reservaVisita, tarifasVigentes, adicionalGuia):
-         #constructor del objeto Sede
+        #constructor del objeto Sede
         self.cantidadMaximaPorGuia = cantidadMaximaPorGuia
         self.cantidadMaximaVisitantes = cantidadMaximaVisitantes
         self.duracionExposicionesVigentes = duracionExposicionesVigentes
@@ -49,7 +51,11 @@ class Sede():
         pass
     def conocerHorario(self):
         pass
-    #Se sigue con los def
+    def conocerPlanta(self):
+        pass
+    def conocerTarifa(self):
+        pass
+
 
     def getCantidadMaximaVisitantes(sede_actual):
         #Busca todas las sede y para aquella cuyo nombre coincida con el de parametro, retorna su cantidad max de visitantes
@@ -78,7 +84,6 @@ class Sede():
         montoAdicional = Sede.getAdicionalPorGuia(nombre_sede)
         
         return tarifasVigentes, montoAdicional
-
     
     def getExposicionesCompletasVigentes(nombre):
         #levantamos todos las exposiciones de la BD que sean vigentes
@@ -86,7 +91,6 @@ class Sede():
         #de esas vigentes obtenemos su duracion resumida
         duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
         return duracion_resumida
-
 
     def getReservaVisita(sede_actual, duracionEstimada, estadoConfirmado, fecha_actual):
         #busca las reservas para la fecha y hora de hoy

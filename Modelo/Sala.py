@@ -2,12 +2,14 @@ from BaseDeDatos import CapaConexion
 
 class Sala():
     
-    sala = ""
+     #atributos de la clase Sala
+    nombre = ""
     numero  = 0
     superficie = 0
     nombreSede = ''
 
     def __init__(self, nombre, numero, superficie, nombre_sede):
+        #constructor del objeto Sala
         self.nombre = nombre
         self.numero = numero
         self.superficie = superficie
