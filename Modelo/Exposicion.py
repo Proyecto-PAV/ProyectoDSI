@@ -66,7 +66,7 @@ class Exposicion():
         duracion_total = 0
         for e in vigentes:
             duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
-        
+        #retrorna el total de la exposicion como un str en formato HH:MM:SS
         return Exposicion.convertirTiempo(duracion_total)
 
     def getNombre(self):

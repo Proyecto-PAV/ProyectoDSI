@@ -30,7 +30,9 @@ class Cambio_Estado():
         #por cada cambio de estado lo crea como objeto y si no tiene fecha fin y coincide con el ambito ReservaVisita corta el ciclo y retorna
         for row in cambios_estados:
             objeto = Cambio_Estado(row[0], row[3], row[2])
-            if objeto.fechaHoraFin == None and objeto.estado==estadoConfirmado.id:
+            #retorna el objeto que no tiene fechaFin y que pertence a la reserva que se pasa por parametro
+            #* se debe agregar el ambito a los atributos de Cambio estado? para poder hacer esta validacion
+            if objeto.fechaHoraFin == None and objeto.nroAmbito==reserva.numeroReserva:
                 return objeto
 
     

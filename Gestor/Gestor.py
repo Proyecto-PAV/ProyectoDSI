@@ -106,15 +106,19 @@ class GestorVentaEntradas():
         fecha_actual = self.fechaHoraActual
         #obtiene la cantidad de alumnos dentro del museo con reserva para el momento de la venta
         cantidadAlumnosConReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estado_confirmado, fecha_actual)
+        #obtiene la cantidad de personas que compraron una entrada hasta el momento de la venta
         cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, duracionEstimada, estado_confirmado)
+        #busca la capacidad maxima de la sede 
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
-        sum = cantidadAlumnosConReservas + cantidadEntradasVendidas
-        cuposDisp = cantidadMaximaVisitantes - sum
+        #Suma la cantidad de gente total que se encuentra en este instante en el museo
+        total_visitantes = cantidadAlumnosConReservas + cantidadEntradasVendidas
+        cuposDisp = cantidadMaximaVisitantes - total_visitantes
+        #valida que la cantidad de entradas a emitir no supere la capacidad maxima de la sede
         if(entradasAEmitir <= cuposDisp):
-            print("se puden comprar")
+            #print("se puden comprar")
             return True
         else:
-            print("No hay cupo disponible")
+            #print("No hay cupo disponible")
             return False
         #?Finaliza aca?
         #return
@@ -131,10 +135,6 @@ class GestorVentaEntradas():
         duracion = Sede.getExposicionesCompletasVigentes(actual)
         self.duracionEstimada=duracion
 
-
-
-    def calcularDuracionEstimada(self):
-        pass
 
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia, sedeActual):
         #!Tomando en cuanta que se le pasa un objeto de tarifa

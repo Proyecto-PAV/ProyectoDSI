@@ -65,13 +65,15 @@ class ReservaVisita():
         return reservasObj
 
     def getCantidadAlumnosConfirmados(reservasObj, estadoConfirmado):
-        #
-        estado = Cambio_Estado.getCambiosEstado(actual_cambio_estado)
+        #para cada reserva que viene por parametro, busca su cantidad de alumnos confirmada y lo suma al contador
+        #estado = Cambio_Estado.getCambiosEstado(actual_cambio_estado)
         cantidadAlumnosConfirmada = 0
         for reserva in reservasObj:
             #busca el estado actual de la reserva
             actual_cambio_estado = Cambio_Estado.esEstadoActual(reserva)          
-            if reservasObj[i].cambioEstado == estado[i].ambito:
-                cantidadAlumnosConfirmada =+ reservasObj[i].cantidadAlumnosConfirmada        
+            if actual_cambio_estado.estado == estadoConfirmado.id:
+                #si el estado de esta reserva es Confirmada, suma su cantidad de alumnos confirmada
+                cantidadAlumnosConfirmada =+ reserva.cantidadAlumnosConfirmada        
+        #despues de recorrer todas las reservas de la fecha, retorna la cantidad sumada total
         return cantidadAlumnosConfirmada
         

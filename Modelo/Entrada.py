@@ -48,22 +48,25 @@ class Entrada():
     
 
     def esSedeActual(sede_actual):
+        #busca todas las entradas de la sede de la BD
         entradas = CapaConexion.obtenerEntradasPorSede()      
+        #crea el objeto entrada y almacena aquellas cuya sede sea la pasada por parametro
         EntradasDeSede = []
-      
         for row in entradas:           
-            objeto = Entrada(row[1],row[2],row[3],row[0], row[4])
-       
-            if row[4] == sede_actual:    
+            objeto = Entrada(row[1],row[2],row[3],row[0], row[4])    
+            if objeto.sede == sede_actual:    
                 EntradasDeSede.append(objeto)
-
+        #devuelve la coleccion de objetos completa
         return EntradasDeSede
 
     def getEntradasFechaHoraVenta(entradasObj, duracionEstimada):
+        #incializa el contador de entradas y obtiene la fecha actual
+        #! la fecha podemos pasarla por parametro
         entradasFechaHora = 0
         fecha_hora_actual = datetime.now()
-        
+        #por cada una de las entradas que nos pasa por parametro, validamos su fecha
         for i in range(0, len(entradasObj)):   
+            #! si suponemos que la entrada cuenta para todo el dia, esto seria mas sencillo
             horaVentaString = entradasObj[i].horaVenta.strftime('%H:%M:%S')
             
             lista = horaVentaString.split(":")
@@ -94,6 +97,8 @@ class Entrada():
             dia1=fecha_fin.day
             dia2=fecha_hora_actual.day
             
+            #si la fecha de la entrada es la correspondiente, incrementa el contador en 1
             if (fecha_fin > fecha_hora_actual) and (dia1 == dia2):
                 entradasFechaHora += 1
+        #retorna la cantidad de entradas vendidas para el momento de venta
         return entradasFechaHora

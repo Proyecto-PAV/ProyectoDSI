@@ -52,6 +52,7 @@ class Sede():
     #Se sigue con los def
 
     def getCantidadMaximaVisitantes(sede_actual):
+        #! verificar esto porque la sede no es un objeto si no el nombre solo y deberia ser un self
         return sede_actual.cantidadMaximaVisitantes
 
     def getAdicionalPorGuia(sedeNombre):
@@ -91,8 +92,10 @@ class Sede():
         return cantidadAlumnosConfirmados
 
     def getEntradaVendidas(sede_actual, duracionEstimada):
-        
+        #busca toda la coleccion de entradas registradas de la sede pasada por parametro
         entradasObj = Entrada.esSedeActual(sede_actual)
+        #filtra aquellas entradas que son para la fecha y hora de hoy y retorna la cantidad que coincide
+        #! la duracion estimada creo que no va
         EntradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, duracionEstimada)
-        print (EntradasVendidasActual)
+        #retorna la cantidad de personas en el museo que han ido particular
         return EntradasVendidasActual
