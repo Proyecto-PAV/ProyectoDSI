@@ -14,9 +14,6 @@ def conexion():
     
     return cnxn
 
-#! CAMBIAR OS SELECT Y FROM IGUALES
-
-
 def obtenerTodasLasSedes():
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -24,14 +21,12 @@ def obtenerTodasLasSedes():
     for row in cursor:
         print(row)
 
-
 def obtenerSesionesBd():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM sesiones')
     sesiones = cursor.fetchall()
     return sesiones
-
 
 def obtenerUsuariosBd():
     cnxn = conexion()
@@ -47,15 +42,12 @@ def obtenerEmpleados():
     empleados = cursor.fetchall()
     return empleados
 
-
-
 def obtenerTarifas():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM tarifas")
     tarifas = cursor.fetchall()
     return tarifas
-
 
 def obtenerTiposEntradas():
     cnxn = conexion()
@@ -83,9 +75,7 @@ def obtenerExposiciones():
     cursor = cnxn.cursor()
     cursor.execute("SELECT * FROM exposiciones") 
     exposiciones = cursor.fetchall()
-      
     return exposiciones
-
 
 def obtenerNombreVisita():
     cnxn = conexion()
@@ -117,7 +107,6 @@ def obtenerMonto(te, tv):
             where id_tipo_entrada = ' " + te + " ' \
                  and id_tipo_visita = ' " + tv + " ' ")
     return monto
-
 
 def obtenerMontoGuiaSede(nombre):
     cnxn = conexion()
@@ -154,7 +143,6 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
-
 #!hay q eliminar esto o no
 def obtenerSalas():
     cnxn = conexion()
@@ -162,7 +150,6 @@ def obtenerSalas():
     cursor.execute ("select * from salas")
     salas = cursor.fetchall()
     return salas
-
 
 def obtenerEntradas():
     cnxn = conexion()
@@ -203,6 +190,20 @@ def insertarEntrada(tipo_entrada, tipo_visita, monto, cantidad, total, guia):
     cursor = cnxn.cursor()
     cursor.execute("INSERT INTO detalle_entrada VALUES (?,?,?,?,?,?)", tipo_entrada, tipo_visita, monto, guia, total, cantidad)
     cursor.commit()
+
+def borrarDetalles():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("DELETE FROM detalle_entrada")
+    cursor.commit()
+
+def obtenerDetalles():
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("select * from detalle_entrada")
+    detalles = cursor.fetchone()
+    borrarDetalles()
+    return detalles
 
 '''
 if __name__ == '__main__':
