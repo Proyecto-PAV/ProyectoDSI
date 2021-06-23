@@ -9,8 +9,10 @@
 import sys
 sys.path.append('../')
 from Pantalla import PantallaVentaEntradas
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QAbstractItemView
+from VentaEntradas import Ui_RegistrarVentaDeEntradas
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5.QtWidgets import QAbstractItemView, QDialog
+from BaseDeDatos.CapaConexion import *
 
 
 class Ui_TarifaEntradas(object):
@@ -41,13 +43,40 @@ class Ui_TarifaEntradas(object):
         if self.RB_con_guia.isChecked():
             tarifasVigentes, adicionalPorGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
             montoTotal = float(monto) + adicionalPorGuia
-            print(tipo_entrada)
-            print(tipo_visita)
-            print(montoTotal)
-        else:
-            print(tipo_entrada)
-            print(tipo_visita)
-            print(monto)
+            if self.SP_cantidad.isHidden():
+                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, False)
+                self.SP_cantidad.show()
+            else:
+                valor_spin = self.SP_cantidad.value()
+                if valor_spin > 0:
+                    validacion = self.pantallaVentaEntradas.tomarSeleccionDeCantidadEntradasEmitir(valor_spin)
+                    if validacion:
+                        total = valor_spin * montoTotal
+                        insertarEntrada(tipo_entrada, tipo_visita, montoTotal, valor_spin, total, True)
+                        self.vtaEntradas = QDialog()
+                        self.ui = Ui_RegistrarVentaDeEntradas()
+                        self.ui.setupUi(self.vtaEntradas)
+                        self.vtaEntradas.show()
+
+        elif self.RB_sin_guia.isChecked():
+            if self.SP_cantidad.isHidden():
+                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, False)
+                self.SP_cantidad.show()
+            else:
+                valor_spin = self.SP_cantidad.value()
+                if valor_spin > 0:
+                    validacion = self.pantallaVentaEntradas.tomarSeleccionDeCantidadEntradasEmitir(valor_spin)
+                    if validacion:
+                        total = valor_spin * float(monto)
+                        insertarEntrada(tipo_entrada, tipo_visita, monto, valor_spin, total, False)
+                        self.vtaEntradas = QDialog()
+                        self.ui = Ui_RegistrarVentaDeEntradas()
+                        self.ui.setupUi(self.vtaEntradas)
+                        self.vtaEntradas.show()
+                else:
+                    print("Macaco")
+        
+
 
     def setupUi(self, TarifaEntradas):
         TarifaEntradas.setObjectName("TarifaEntradas")
@@ -111,6 +140,8 @@ class Ui_TarifaEntradas(object):
         self.SP_cantidad = QtWidgets.QSpinBox(TarifaEntradas)
         self.SP_cantidad.setGeometry(QtCore.QRect(510, 220, 161, 22))
         self.SP_cantidad.setObjectName("SP_cantidad")
+        self.SP_cantidad.setMaximum(999)
+        self.SP_cantidad.hide()
         self.btn_confirmar_seleccion_tarifa = QtWidgets.QPushButton(TarifaEntradas)
         self.btn_confirmar_seleccion_tarifa.setGeometry(QtCore.QRect(510, 270, 75, 23))
         self.btn_confirmar_seleccion_tarifa.setObjectName("btn_confirmar_seleccion_tarifa")
@@ -129,6 +160,7 @@ class Ui_TarifaEntradas(object):
         self.btn_buscar_tarifas.setObjectName("btn_buscar_tarifas")
         self.btn_buscar_tarifas.clicked.connect(self.obtenerTarifas)
         self.btn_confirmar_seleccion_tarifa.clicked.connect(self.seleccionTarifa)
+        #self.btn_confirmar_seleccion_tarifa.clicked.connect(self.seleccionTarifa)
         self.retranslateUi(TarifaEntradas)
         QtCore.QMetaObject.connectSlotsByName(TarifaEntradas)
 

@@ -64,11 +64,11 @@ class Exposicion():
 
         return vigentes
   
-    def getDetalleExposición(vigentes):
+    def getDetalleExposición(vigentes, tipo_visita):
         #calcular el total de la duracion 
         duracion_total = 0
         for e in vigentes:
-            duracion_total +=  Detalle_Exposicion.getObra(e.nombre)
+            duracion_total +=  Detalle_Exposicion.getObra(e.nombre, tipo_visita)
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
         return Exposicion.convertirTiempo(duracion_total)
 

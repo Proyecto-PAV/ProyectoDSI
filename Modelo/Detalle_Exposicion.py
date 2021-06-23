@@ -25,7 +25,7 @@ class Detalle_Exposicion():
     def conocerPared(self):
         pass
 
-    def getObra(nombre_expo):
+    def getObra(nombre_expo, tipo_visita):
         #buscar todos los detalles de esa expo
         detalles = CapaConexion.obtenerDetalleExposiciones()
         #instancia los objetos y suma la duracion de esta exposicion
@@ -37,7 +37,7 @@ class Detalle_Exposicion():
             detalle = Detalle_Exposicion(d[2], d[1], d[0])
             if detalle.exposicion==nombre_expo:
                 #obtener duracion resumida de la obra del detalle y separar sus unidades
-                tiempo = Obra.getDuracionResumida(detalle.obra)
+                tiempo = Obra.getDuracion(detalle.obra, tipo_visita)
                 #convertir el formato a int en minutos
                 t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
                 #sumar al contador de minutos

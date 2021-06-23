@@ -19,7 +19,7 @@ class Entrada():
     nombre_sede = ""
     dni_guia = 0
 
-    def init(self, numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
+    def __init__(self, numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
         self.numero = numero
         self.fechaVenta = fechaVenta
         self.horaVenta = horaVenta
@@ -62,8 +62,8 @@ class Entrada():
         #crea el objeto entrada y almacena aquellas cuya sede sea la pasada por parametro
         EntradasDeSede = []
         for row in entradas:           
-            objeto = Entrada(row[1],row[2],row[3],row[0], row[6])    
-            if objeto.sede == sede_actual:    
+            objeto = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])   
+            if objeto.nombre_sede == sede_actual:    
                 EntradasDeSede.append(objeto)
 
         #devuelve la coleccion de objetos completa
@@ -71,7 +71,6 @@ class Entrada():
 
     def getEntradasFechaHoraVenta(entradasObj, fechaHoraActual):
         #incializa el contador de entradas y obtiene la fecha actual
-        #! la fecha podemos pasarla por parametro
         entradasFechaHora = 0
         fecha_actual = datetime.date(fechaHoraActual)
         #por cada una de las entradas que nos pasa por parametro, validamos su fecha

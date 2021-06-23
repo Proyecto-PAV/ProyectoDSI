@@ -15,9 +15,9 @@ class Ui_RegistrarVentaDeEntradas(object):
     def setupUi(self, RegistrarVentaDeEntradas):
         RegistrarVentaDeEntradas.setObjectName("RegistrarVentaDeEntradas")
         RegistrarVentaDeEntradas.setEnabled(True)
-        RegistrarVentaDeEntradas.resize(695, 310)
-        RegistrarVentaDeEntradas.setMinimumSize(QtCore.QSize(695, 310))
-        RegistrarVentaDeEntradas.setMaximumSize(QtCore.QSize(695, 310))
+        RegistrarVentaDeEntradas.resize(695, 340)
+        RegistrarVentaDeEntradas.setMinimumSize(QtCore.QSize(695, 340))
+        RegistrarVentaDeEntradas.setMaximumSize(QtCore.QSize(695, 340))
         self.tableWidget = QtWidgets.QTableWidget(RegistrarVentaDeEntradas)
         self.tableWidget.setEnabled(True)
         self.tableWidget.setGeometry(QtCore.QRect(30, 40, 631, 211))
@@ -37,11 +37,14 @@ class Ui_RegistrarVentaDeEntradas(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
         self.btn_confirmar = QtWidgets.QPushButton(RegistrarVentaDeEntradas)
-        self.btn_confirmar.setGeometry(QtCore.QRect(250, 260, 75, 23))
+        self.btn_confirmar.setGeometry(QtCore.QRect(250, 300, 75, 23))
         self.btn_confirmar.setObjectName("btn_confirmar")
         self.btn_cancelar = QtWidgets.QPushButton(RegistrarVentaDeEntradas)
-        self.btn_cancelar.setGeometry(QtCore.QRect(340, 260, 75, 23))
+        self.btn_cancelar.setGeometry(QtCore.QRect(340, 300, 75, 23))
         self.btn_cancelar.setObjectName("btn_cancelar")
+        self.btn_mostrar_detalles = QtWidgets.QPushButton(RegistrarVentaDeEntradas)
+        self.btn_mostrar_detalles.setGeometry(QtCore.QRect(30, 260, 101, 23))
+        self.btn_mostrar_detalles.setObjectName("btn_mostrar_detalles")
 
         self.retranslateUi(RegistrarVentaDeEntradas)
         self.btn_cancelar.clicked.connect(RegistrarVentaDeEntradas.reject)
@@ -64,6 +67,7 @@ class Ui_RegistrarVentaDeEntradas(object):
         item.setText(_translate("RegistrarVentaDeEntradas", "Total"))
         self.btn_confirmar.setText(_translate("RegistrarVentaDeEntradas", "Confirmar"))
         self.btn_cancelar.setText(_translate("RegistrarVentaDeEntradas", "Cancelar"))
+        self.btn_mostrar_detalles.setText(_translate("RegistrarVentaDeEntradas", "Mostrar detalles"))
 
 
 if __name__ == "__main__":

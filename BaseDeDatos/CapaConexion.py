@@ -196,7 +196,13 @@ def almacenarEntrada(entrada):
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute("INSERT INTO entradas VALUES (?,?,?,?,?,?,?,?)", entrada.numero, entrada.fechaVenta, entrada.horaVenta, entrada.monto, entrada.id_tipo_entrada, entrada.id_tipo_visita, entrada.sede, entrada.guia)
+    cursor.commit()
 
+def insertarEntrada(tipo_entrada, tipo_visita, monto, cantidad, total, guia):
+    cnxn = conexion()
+    cursor = cnxn.cursor()
+    cursor.execute("INSERT INTO detalle_entrada VALUES (?,?,?,?,?,?)", tipo_entrada, tipo_visita, monto, guia, total, cantidad)
+    cursor.commit()
 
 '''
 if __name__ == '__main__':

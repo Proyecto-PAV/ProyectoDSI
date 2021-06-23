@@ -52,22 +52,51 @@ class ReservaVisita():
 
     def conocerSede(self):
         return self
+    
+    def convertirMinutos(tiempo):
+        #convierte el tiempo h/m/s a minutos
+        if isinstance(tiempo, str):
+            t_vec = tiempo.split(":")
+        else:
+            t_str = tiempo.strftime('%H:%M:%S')
+            t_vec = t_str.split(":")
+        hh = int(t_vec[0])
+        mm = int(t_vec[1])
+        ss = int(t_vec[2])
+        tiempo_final_min = hh*60 + mm + (ss/60)
+        return tiempo_final_min
 
-    def esParaFechaYHora(duracionEstimada,sede_actual, fecha):
+    def convertirTiempo(min):
+        #convertir los minutos en 'h/m/s'
+        hs = min/60
+        ms = (hs - int(hs)) * 60
+        ss = (ms - int(ms)) * 60
+        hs = int(hs)
+        ms = int(ms)
+        ss = int(ss)
+        tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
+        return tiempo_final
+
+    def esParaFechaYHora(duracionEstimada, sede_actual, fecha):
         #obtiene todas las reservas de la BD
         reservas = CapaConexion.obtenerReservas()
         reservasObj = []
         #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual o si comienza la reserva en un tiempo proximo
         for row in reservas:
-            objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)      
+            objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)
             #Calculo de la duracion estimada de la/s persona/s interesada/s en la venta
-            hora_fin = datetime.time(fecha) + objeto.duracionEstimada
-            if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and ((datetime.date(fecha)) == (datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual):
+            duracion = ReservaVisita.convertirMinutos(duracionEstimada)
+            fechaActualEnMinutos = ReservaVisita.convertirMinutos(datetime.time(fecha))
+            #! Al ser None el duracionEstimada no se puede sumar con el datetime
+            hora_fin = fechaActualEnMinutos + duracion
+            hora_fin = ReservaVisita.convertirTiempo(hora_fin)
+
+            if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and (fecha) == (objeto.fechaCreacion) and objeto.sede == sede_actual:
                 reservasObj.append(objeto)
                     # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy                      Y es de la sede actual
-            elif ( (objeto.horaInicioReal <= hora_fin or datetime.time(objeto.fechaHoraReserva)<=hora_fin) and (datetime.date(fecha) == datetime.date(objeto.fechaCreacion)) and objeto.sede == sede_actual): 
+            elif ((str(objeto.horaInicioReal) <= hora_fin or datetime.strftime(datetime.time(objeto.fechaHoraReserva), '%H:%M:%S') <= hora_fin) and (fecha == objeto.fechaCreacion) and objeto.sede == sede_actual): 
                 reservasObj.append(objeto)
-    
+
         #retorna el vector de objetos con reservas para la fecha y hora estimada
         return reservasObj
 

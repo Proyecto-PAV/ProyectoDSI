@@ -46,11 +46,11 @@ class Estado():
 
     def esConfirmada(estado_reservaVisitaObj):
         #Almacena todos los estados confirmados, si es que hay, de la ReservaVisita
-       
-        for i in range(0, len(estado_reservaVisitaObj)):
-            
-            if estado_reservaVisitaObj[i].nombre == 'Confirmado':
-                objeto = Estado(estado_reservaVisitaObj[i].ambito, estado_reservaVisitaObj[i].descripcion, estado_reservaVisitaObj[i].nombre)
+
+        for estado_reserva in estado_reservaVisitaObj:
+
+            if estado_reserva.nombre == 'Confirmado':
+                objeto = Estado(estado_reserva.ambito, estado_reserva.descripcion, estado_reserva.nombre, estado_reserva.id)
                 #devuelve el objeto confirmado
                 return objeto
        

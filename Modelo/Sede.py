@@ -1,12 +1,12 @@
 '''
 from Modelo.Tarifa import *
 from BaseDeDatos.CapaConexion import *
-from Modelo.Exposicion import *
-from Modelo.Entrada import *
-'''
 
+'''
+from Modelo.Entrada import *
 from Modelo.Tarifa import Tarifa
 from BaseDeDatos.CapaConexion import *
+from Modelo.Exposicion import *
 
 
 class Sede():
@@ -86,11 +86,11 @@ class Sede():
         
         return tarifasVigentes
     
-    def getExposicionesCompletasVigentes(nombre):
+    def getExposicionesCompletasVigentes(nombre, tipo_visita):
         #levantamos todos las exposiciones de la BD que sean vigentes
         expo_vigentes = Exposicion.esVigente(nombre)
         #de esas vigentes obtenemos su duracion resumida
-        duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes)
+        duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes, tipo_visita)
         return duracion_resumida
 
     def getReservaVisita(sede_actual, duracionEstimada, estadoConfirmado, fecha_actual):

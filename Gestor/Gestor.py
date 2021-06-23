@@ -7,7 +7,6 @@ from Modelo.Entrada import *
 from Modelo.Tarifa import *
 from Interfaz.PantallaCantActualSala import *
 from Interfaz.PantallaCantidadActualPrinci import *
-from Modelo.Estado import *
 from Interfaz.ImpresorEntrada import *
 from Modelo.Sala import *
 '''
@@ -17,6 +16,7 @@ from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
 from Modelo.Tarifa import *
+from Modelo.Estado import *
 
 class GestorVentaEntradas():
 
@@ -66,7 +66,7 @@ class GestorVentaEntradas():
         self.estadoConfirmado_Reserva = estadoConfirmadoRes
         
 
-    def tomarOpciónRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
+    def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
         #este metodo desencadena toda la logica
         
@@ -107,13 +107,12 @@ class GestorVentaEntradas():
         self.estadoConfirmado_Reserva = estado_reservaConfirmadaObj
         return estado_reservaConfirmadaObj
     
-    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, entradasAEmitir):
+    def validarCantidadDeEntradasMenorCapaMaxima(self, duracionEstimada, entradasAEmitir, estadoConfirmado):
         #recupera el nombre de la sede actual y el estado confirmado de Rerserva Visita
         sede_actual = self.sedeActual
-        estado_confirmado = self.estadoConfirmado_Reserva
         fecha_actual = self.fechaHoraActual
         #obtiene la cantidad de alumnos dentro del museo con reserva para el momento de la venta
-        cantidadAlumnosConReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estado_confirmado, fecha_actual)
+        cantidadAlumnosConReservas = Sede.getReservaVisita(sede_actual, duracionEstimada, estadoConfirmado, fecha_actual)
         #obtiene la cantidad de personas que compraron una entrada hasta el momento de la venta
         cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, fecha_actual)
         #busca la capacidad maxima de la sede 
@@ -128,10 +127,11 @@ class GestorVentaEntradas():
             return False
         
     
-    def calcularDuracionEstimada(self):
+    def calcularDuracionEstimada(self, tipo_visita):
         actual = self.sedeActual
-        duracion = Sede.getExposicionesCompletasVigentes(actual)
+        duracion = Sede.getExposicionesCompletasVigentes(actual, tipo_visita)
         self.duracionEstimada=duracion
+        return duracion
 
 
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
@@ -205,14 +205,15 @@ class GestorVentaEntradas():
         return entradas_emitidas
         
 
-    def tomarSeleccionDeCantidadDeEntradasAEmitir(self):
-        #? Que atributo se pone en el igual
-        estadosConfirmados = self.buscarEstadoConfirmada(self)
-        self.validarCantidadDeEntradasMenorCapaMaxima(self, estadosConfirmados, estadosConfirmados)
+    def tomarSeleccionDeCantidadDeEntradasAEmitir(self, cantidad):
+        estadosConfirmados = self.buscarEstadoConfirmada()
+        validacion = self.validarCantidadDeEntradasMenorCapaMaxima(self.duracionEstimada, cantidad, estadosConfirmados)
+        return validacion
 
-    def tomarSeleccionTipoVisitaYTipoEntradaYGuia(self):
-        pass
 
+    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
+        self.calcularDuracionEstimada(tipo_visita)
+        return self.duracionEstimada
     
 
     def finCU(self):
