@@ -35,6 +35,7 @@ class Ui_RegistrarVentaDeEntradas(object):
         self.tableWidget.setItem(rowPosition , 3, QtWidgets.QTableWidgetItem(str(cantidad)))
         self.tableWidget.setItem(rowPosition , 4, QtWidgets.QTableWidgetItem(str(monto)))
         self.tableWidget.setItem(rowPosition , 5, QtWidgets.QTableWidgetItem(str(total)))
+        
 
     def setupUi(self, RegistrarVentaDeEntradas):
         RegistrarVentaDeEntradas.setObjectName("RegistrarVentaDeEntradas")
