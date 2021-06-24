@@ -9,6 +9,6 @@ class ImpresorEntrada():
         self.entradas = entradas
 
 
-    def imprimirEntradasGeneradas():
+    def imprimirEntradasGeneradas(entras_emitidas):
         #imprime las entradas en formato consola
-        print("Hola")
+        print(entras_emitidas)

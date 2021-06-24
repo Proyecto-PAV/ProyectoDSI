@@ -4,7 +4,6 @@ from BaseDeDatos import CapaConexion
 from datetime import datetime, timedelta
 import time
 from Modelo.Empleado import Empleado
-from Modelo import Sede
 from Modelo import Tarifa 
 
 

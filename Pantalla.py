@@ -39,7 +39,8 @@ class PantallaVentaEntradas:
         pass
 
     def tomarConfirmacionVenta(self):
-        pass
+        #! Este gestor no va aca
+        entradas = self.gestorVentaEntradas.tomarConfirmacionVenta()
 
     def tomarSeleccionDeCantidadEntradasEmitir(self, cantidad):
         validacion = self.gestorVentaEntradas.tomarSeleccionDeCantidadDeEntradasAEmitir(cantidad)
@@ -47,5 +48,6 @@ class PantallaVentaEntradas:
 
     def tomarDatosEntrada(self, tipo_visita, tipo_entrada, guia):
         duracion = self.gestorVentaEntradas.tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(tipo_visita, tipo_entrada, guia)
+    
 
 

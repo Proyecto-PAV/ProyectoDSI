@@ -1,22 +1,16 @@
 '''
-from BaseDeDatos.CapaConexion import *
-from Modelo.Sesion import Sesion
-from datetime import datetime
-from Modelo.Sede import Sede
-from Modelo.Entrada import *
-from Modelo.Tarifa import *
 from Interfaz.PantallaCantActualSala import *
 from Interfaz.PantallaCantidadActualPrinci import *
 from Interfaz.ImpresorEntrada import *
 from Modelo.Sala import *
 '''
-
-from BaseDeDatos.CapaConexion import *
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
 from Modelo.Tarifa import *
 from Modelo.Estado import *
+from Interfaz.ImpresorEntrada import *
+from Modelo.Entrada import *
 
 class GestorVentaEntradas():
 
@@ -42,14 +36,14 @@ class GestorVentaEntradas():
     tipoVisita = None
     estadoConfirmado_Reserva = []
 
-    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entrada, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
+    def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entradas, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
                  hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita, estadoConfirmadoRes):
          #constructor del objeto controlador Gestor
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
         self.impresoraEntrada = impresoraEntrada
         self.pantallaCantidadActualSala = pantallaCantidadActualSala
-        self.entrada = entrada
+        self.entradas = entradas
         self.sesion = sesion
         self.cantidadEntradasEmitir = cantidadEntradas
         self.capacidadMaximaSede = capacidadMaximaSede
@@ -150,8 +144,9 @@ class GestorVentaEntradas():
         numero_entrada = self.numeroEntrada + 1
         return numero_entrada
 
-    def imprimirEntradasGeneradas(entras_emitidas):
-        impresor = ImpresorEntrada.imprimirEntradasGeneradas(entras_emitidas)
+    def imprimirEntradasGeneradas(self):
+        entras_emitidas = self.entradas
+        ImpresorEntrada.imprimirEntradasGeneradas(entras_emitidas)
         
 
     def ObtenerSedeActual(self):
@@ -177,7 +172,7 @@ class GestorVentaEntradas():
     def tomarConfirmacionVenta(self):
         #por cada una de las entradas lo ejecura
         # Guarda en el atributo del gestor el ultimo numero para poder llamar al generar ultimo numero y que ya tenga este
-        self.numeroEntrada = self.obtenerUltimoNúmero(self.sedeActual)
+        self.numeroEntrada = self.obtenerUltimoNumero()
         #recupero la cantidad de entradas a emitir e inicializo el contador y el vector de entradas emitidas
         entradas_emitidas = []
         n=0
@@ -189,31 +184,34 @@ class GestorVentaEntradas():
             self.numeroEntrada = numeroEntrada
             nombreSede = self.sedeActual
             empleado = self.empleado
-            FechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
-            FechayHora = FechayHora.split(" ")
+            fechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
+            fechayHora = fechayHora.split(" ")
             #valida si la entrada tiene asignado un guia o no, crea su objeto y almacena en el vector
             if self.hayGuia == True:
-                ent = Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado.dni)
+                ent = Entrada.new(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado)
                 entradas_emitidas.append(ent)
             else:
-                ent = Entrada.new(numeroEntrada, FechayHora[0], FechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)
+                ent = Entrada.new(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)
                 entradas_emitidas.append(ent)
             #sumo 1 al contador
             n+=1
-        
-        #retornamos las entradas emitidas
-        return entradas_emitidas
-        
+        self.entradas = entradas_emitidas
+        self.imprimirEntradasGeneradas()    
+
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self, cantidad):
         estadosConfirmados = self.buscarEstadoConfirmada()
         validacion = self.validarCantidadDeEntradasMenorCapaMaxima(self.duracionEstimada, cantidad, estadosConfirmados)
+        if validacion:
+            self.cantidadEntradasEmitir = cantidad
         return validacion
 
 
     def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
-        self.calcularDuracionEstimada(tipo_visita)
-        return self.duracionEstimada
+        duracion = self.calcularDuracionEstimada(tipo_visita)
+        self.hayGuia = guia
+        self.duracionEstimada = duracion
+        return duracion
     
 
     def finCU(self):

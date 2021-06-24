@@ -182,7 +182,7 @@ def obtenerEstados():
 def almacenarEntrada(entrada):
     cnxn = conexion()
     cursor = cnxn.cursor()
-    cursor.execute("INSERT INTO entradas VALUES (?,?,?,?,?,?,?,?)", entrada.numero, entrada.fechaVenta, entrada.horaVenta, entrada.monto, entrada.id_tipo_entrada, entrada.id_tipo_visita, entrada.sede, entrada.guia)
+    cursor.execute("INSERT INTO entradas VALUES (?,?,?,?,?,?,?,?)", entrada.numero, entrada.fechaVenta, entrada.horaVenta, entrada.monto, entrada.id_tipo_entrada, entrada.id_tipo_visita, entrada.nombre_sede, entrada.dni_guia)
     cursor.commit()
 
 def insertarEntrada(tipo_entrada, tipo_visita, monto, cantidad, total, guia):
@@ -202,7 +202,6 @@ def obtenerDetalles():
     cursor = cnxn.cursor()
     cursor.execute("select * from detalle_entrada")
     detalles = cursor.fetchone()
-    borrarDetalles()
     return detalles
 
 '''

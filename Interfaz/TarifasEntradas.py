@@ -33,6 +33,7 @@ class Ui_TarifaEntradas(object):
             self.t_tarifas.setItem(rowPosition , 0, QtWidgets.QTableWidgetItem(tipo_entrada))
             self.t_tarifas.setItem(rowPosition , 1, QtWidgets.QTableWidgetItem(tipo_visita))
             self.t_tarifas.setItem(rowPosition , 2, QtWidgets.QTableWidgetItem(str(monto)))
+            borrarDetalles()
 
     
     def seleccionTarifa(self):
@@ -44,7 +45,7 @@ class Ui_TarifaEntradas(object):
             tarifasVigentes, adicionalPorGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
             montoTotal = float(monto) + adicionalPorGuia
             if self.SP_cantidad.isHidden():
-                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, False)
+                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, True)
                 self.SP_cantidad.show()
             else:
                 valor_spin = self.SP_cantidad.value()
@@ -54,8 +55,9 @@ class Ui_TarifaEntradas(object):
                         total = valor_spin * montoTotal
                         insertarEntrada(tipo_entrada, tipo_visita, montoTotal, valor_spin, total, True)
                         self.vtaEntradas = QDialog()
-                        self.ui = Ui_RegistrarVentaDeEntradas()
+                        self.ui = Ui_RegistrarVentaDeEntradas(self.pantallaVentaEntradas)
                         self.ui.setupUi(self.vtaEntradas)
+                        self.ui.pantallaVentaEntradas = self.pantallaVentaEntradas
                         self.vtaEntradas.show()
 
         elif self.RB_sin_guia.isChecked():
@@ -70,8 +72,9 @@ class Ui_TarifaEntradas(object):
                         total = valor_spin * float(monto)
                         insertarEntrada(tipo_entrada, tipo_visita, monto, valor_spin, total, False)
                         self.vtaEntradas = QDialog()
-                        self.ui = Ui_RegistrarVentaDeEntradas()
+                        self.ui = Ui_RegistrarVentaDeEntradas(self.pantallaVentaEntradas)
                         self.ui.setupUi(self.vtaEntradas)
+                        self.ui.pantallaVentaEntradas = self.pantallaVentaEntradas
                         self.vtaEntradas.show()
                 else:
                     print("Macaco")

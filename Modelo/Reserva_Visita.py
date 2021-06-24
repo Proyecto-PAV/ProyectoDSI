@@ -81,16 +81,16 @@ class ReservaVisita():
         #obtiene todas las reservas de la BD
         reservas = CapaConexion.obtenerReservas()
         reservasObj = []
+        duracion = ReservaVisita.convertirMinutos(duracionEstimada)
+        hora_de_fecha = datetime.time(fecha)
+        fechaActualEnMinutos = ReservaVisita.convertirMinutos(hora_de_fecha)
+        hora_fin = fechaActualEnMinutos + duracion
+        hora_fin = ReservaVisita.convertirTiempo(hora_fin)
         #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual o si comienza la reserva en un tiempo proximo
         for row in reservas:
             objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)
             #Calculo de la duracion estimada de la/s persona/s interesada/s en la venta
-            duracion = ReservaVisita.convertirMinutos(duracionEstimada)
-            fechaActualEnMinutos = ReservaVisita.convertirMinutos(datetime.time(fecha))
             #! Al ser None el duracionEstimada no se puede sumar con el datetime
-            hora_fin = fechaActualEnMinutos + duracion
-            hora_fin = ReservaVisita.convertirTiempo(hora_fin)
-
             if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and (fecha) == (objeto.fechaCreacion) and objeto.sede == sede_actual:
                 reservasObj.append(objeto)
                     # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy                      Y es de la sede actual
@@ -112,4 +112,3 @@ class ReservaVisita():
                 cantidadAlumnosConfirmada += reserva.cantidadAlumnosConfirmada        
         #despues de recorrer todas las reservas de la fecha, retorna la cantidad sumada total de alumnos
         return cantidadAlumnosConfirmada
-        
