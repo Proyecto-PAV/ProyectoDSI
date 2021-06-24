@@ -23,7 +23,7 @@ class Sala():
         # por cada sala obtenida, creamos el objeto sala cuya sede sea la pasada por parametro
         for s in salas:
             sala = Sala(s[2],s[0],None,s[1])
-            if sala.nombreSede==sede.nombre:
+            if sala.nombreSede==sede:
                 salas_obj.append(sala)
         
         return salas_obj

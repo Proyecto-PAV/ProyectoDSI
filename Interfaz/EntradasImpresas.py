@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon, QPixmap
 
 
 class Ui_Entradas_impresas(object):
@@ -25,11 +26,13 @@ class Ui_Entradas_impresas(object):
         self.pushButton.setGeometry(QtCore.QRect(160, 150, 75, 23))
         self.pushButton.setObjectName("pushButton")
         self.label = QtWidgets.QLabel(Entradas_impresas)
-        self.label.setGeometry(QtCore.QRect(120, 50, 151, 81))
+        self.label.setGeometry(QtCore.QRect(170, 50, 151, 81))
         self.label.setText("")
         self.label.setObjectName("label")
-
+        pixmap = QPixmap('../Recursos/tilde.png')
+        self.label.setPixmap(pixmap)
         self.retranslateUi(Entradas_impresas)
+        self.pushButton.clicked.connect(Entradas_impresas.reject)
         QtCore.QMetaObject.connectSlotsByName(Entradas_impresas)
 
     def retranslateUi(self, Entradas_impresas):

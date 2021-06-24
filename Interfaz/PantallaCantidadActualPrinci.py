@@ -13,6 +13,5 @@ class PantallaCantidadActualPrinci():
 
     
     def actualizarCantidadActualPrincipal(self, cantidad):
-        #! CORROBORAR
         nueva_cant = self.cantidadActual + cantidad
         self.cantidadActual = nueva_cant

@@ -10,5 +10,7 @@ class ImpresorEntrada():
 
 
     def imprimirEntradasGeneradas(entras_emitidas):
-        #imprime las entradas en formato consola
-        print(entras_emitidas)
+        if len(entras_emitidas) > 0:
+            return True
+        else:
+            return False

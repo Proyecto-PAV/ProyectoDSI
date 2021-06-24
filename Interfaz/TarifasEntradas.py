@@ -77,7 +77,7 @@ class Ui_TarifaEntradas(object):
                         self.ui.pantallaVentaEntradas = self.pantallaVentaEntradas
                         self.vtaEntradas.show()
                 else:
-                    print("Macaco")
+                    pass
         
 
 

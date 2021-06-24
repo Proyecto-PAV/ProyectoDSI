@@ -1,9 +1,6 @@
-'''
+from Modelo.Sala import *
 from Interfaz.PantallaCantActualSala import *
 from Interfaz.PantallaCantidadActualPrinci import *
-from Interfaz.ImpresorEntrada import *
-from Modelo.Sala import *
-'''
 from Modelo.Sesion import Sesion
 from datetime import datetime
 from Modelo.Sede import Sede
@@ -70,19 +67,20 @@ class GestorVentaEntradas():
         tarifasVigentes, montoAdicionalGuia = self.buscarTarifasVigentes()
         return tarifasVigentes, montoAdicionalGuia
 
-    def actualizarPantallas(self, pantallaSala, pantallaPrincipal):
-        #! verificar si este es necesario o simplemente es un actualizar en interfaz
+    def actualizarPantallas(self):
         #actualiza la pantalla principal a partir de pasado por el parametro
-        self.pantallaCantidadActualPrincipal = pantallaPrincipal
+        
+        self.pantallaCantidadActualPrincipal = PantallaCantidadActualPrinci(0, self.capacidadMaximaSede)
         PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
         #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
-        self.pantallaCantidadActualSala= pantallaSala
         #buscar todas las salas de la sede
         #! agregar la dependencia del gestor a la sala
         salas = Sala.conocerSalas(self.sedeActual)
         #actualizar pantallas de estas salas 
         for s in salas:
+            self.pantallaCantidadActualSala = PantallaCantActualSala(s.nombre, 0, self.capacidadMaximaSede)
             PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
+        print(self.capacidadMaximaSede)
 
 
     def buscarTarifasVigentes(self):
@@ -111,6 +109,7 @@ class GestorVentaEntradas():
         cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, fecha_actual)
         #busca la capacidad maxima de la sede 
         cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
+        self.capacidadMaximaSede = cantidadMaximaVisitantes
         #Suma la cantidad de gente total que se encuentra en este instante en el museo
         total_visitantes = cantidadAlumnosConReservas + cantidadEntradasVendidas
         cuposDisp = cantidadMaximaVisitantes - total_visitantes
@@ -124,7 +123,7 @@ class GestorVentaEntradas():
     def calcularDuracionEstimada(self, tipo_visita):
         actual = self.sedeActual
         duracion = Sede.getExposicionesCompletasVigentes(actual, tipo_visita)
-        self.duracionEstimada=duracion
+        self.duracionEstimada = duracion
         return duracion
 
 
@@ -196,7 +195,8 @@ class GestorVentaEntradas():
             #sumo 1 al contador
             n+=1
         self.entradas = entradas_emitidas
-        self.imprimirEntradasGeneradas()    
+        impresion = self.imprimirEntradasGeneradas()
+        self.actualizarPantallas()    
 
 
     def tomarSeleccionDeCantidadDeEntradasAEmitir(self, cantidad):
@@ -206,13 +206,10 @@ class GestorVentaEntradas():
             self.cantidadEntradasEmitir = cantidad
         return validacion
 
-
     def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
         duracion = self.calcularDuracionEstimada(tipo_visita)
         self.hayGuia = guia
-        self.duracionEstimada = duracion
         return duracion
-    
 
     def finCU(self):
         exit()

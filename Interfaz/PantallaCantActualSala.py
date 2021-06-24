@@ -1,3 +1,4 @@
+from typing import Type
 from Interfaz.PantallaCantidadActualPrinci import PantallaCantidadActualPrinci
 
 

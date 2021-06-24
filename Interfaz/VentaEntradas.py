@@ -11,8 +11,9 @@
 import sys
 sys.path.append('../')
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QAbstractItemView
+from PyQt5.QtWidgets import QAbstractItemView, QDialog
 from BaseDeDatos.CapaConexion import *
+from EntradasImpresas import Ui_Entradas_impresas
 
 
 
@@ -52,6 +53,12 @@ class Ui_RegistrarVentaDeEntradas(object):
         total = (self.tableWidget.item(row, 5).text())
         if isinstance(tipo_visita, str) != None:
             self.pantallaVentaEntradas.tomarConfirmacionVenta()
+            self.entradasImpresas = QDialog()
+            self.ui = Ui_Entradas_impresas()
+            self.ui.setupUi(self.entradasImpresas)
+            self.entradasImpresas.show()
+
+
 
 
     def setupUi(self, RegistrarVentaDeEntradas):
