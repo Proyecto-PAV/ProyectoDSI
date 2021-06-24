@@ -63,13 +63,6 @@ def obtenerSedeEmpleado(dni):
     sedes = cursor.fetchone()
     return sedes[0]
    
-"""
-def ObtenerSedeEmpleado():
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    sede = cursor.execute("select nombre_sede from empleados where dni=42439269" )
-    return sede
-"""
 def obtenerExposiciones():
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -84,22 +77,6 @@ def obtenerNombreVisita():
     tiposVisitas = cursor.fetchall()
     return tiposVisitas
 
-#?para mi no tiene sentido dejarla porque el monto ya lo obtenemos por medio de la bd
-"""
-def ObtenerMonto(te, tv, ns):
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cursor.execute("select monto from tarifas where id_tipo_entrada =?  and id_tipo_visita =? and nombre_sede =?", te, tv, ns)
-    monto = cursor.fetchone()
-    return monto[0]
-"""
-'''
-def cambiarFechaSesion(te, tv, ns):
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    cursor.execute("select monto from tarifas where id_tipo_entrada =?  and id_tipo_visita =? and nombre_sede =?", te, tv, ns)
-    monto = cursor.fetchone()
-'''
 def obtenerMonto(te, tv):
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -117,7 +94,6 @@ def obtenerMontoGuiaSede(nombre):
 def obtenerDetalleExposiciones():
     cnxn = conexion()
     cursor = cnxn.cursor()
-    #fijarse que en los detalles los nombres no se repiten y deberian/es recomendable
     cursor.execute ("select * from detalleExposiciones")
     detalles = cursor.fetchall()
     return detalles
@@ -143,7 +119,6 @@ def obtenerSedes():
     sedes = cursor.fetchall()
     return sedes
 
-#!hay q eliminar esto o no
 def obtenerSalas():
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -203,8 +178,3 @@ def obtenerDetalles():
     cursor.execute("select * from detalle_entrada")
     detalles = cursor.fetchone()
     return detalles
-
-'''
-if __name__ == '__main__':
-        ObtenerTodasLasSedes()
-        '''

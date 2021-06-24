@@ -51,7 +51,6 @@ class Ui_InicioSesion(object):
         self.centralwidget.setObjectName("centralwidget")
         self.btn_iniciar_sesion = QtWidgets.QPushButton(self.centralwidget)
         self.btn_iniciar_sesion.setGeometry(QtCore.QRect(280, 280, 81, 23))
-        #! Hacer metodo para cambiar la fecha de la sesion
         self.btn_iniciar_sesion.clicked.connect(self.menu)
         self.btn_iniciar_sesion.clicked.connect(InicioSesion.close)
         font = QtGui.QFont()

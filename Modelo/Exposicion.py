@@ -25,7 +25,6 @@ class Exposicion():
         self.horaApertura = horaApertura 
         self.horaCierre = horaCierre
         self.nombre = nombreExpo
-        #! falta en las clases porque sede conoce exposicion
         self.nombreSede = nombreSede
         self.empleado = empleado
 
@@ -46,7 +45,6 @@ class Exposicion():
         pass
 
     def esVigente(nombre_sede):
-        #? preguntar como saber si es completa -con conocerTipoExposicion?
         #obtener fecha actual y todas las exposiciones
         fecha = datetime.date(datetime.now())
         exposiciones = obtenerExposiciones()
@@ -72,7 +70,6 @@ class Exposicion():
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
         return Exposicion.convertirTiempo(duracion_total)
 
-    #! controlar si lo usamos en gestor/sede si no borrar
     def getNombre(self):
         return self.nombre
 

@@ -74,7 +74,6 @@ class GestorVentaEntradas():
         PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
         #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
         #buscar todas las salas de la sede
-        #! agregar la dependencia del gestor a la sala
         salas = Sala.conocerSalas(self.sedeActual)
         #actualizar pantallas de estas salas 
         for s in salas:
@@ -127,7 +126,6 @@ class GestorVentaEntradas():
 
 
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
-        #!Tomando en cuanta que se le pasa un objeto de tarifa
         #definimos el monto inicial en base a los datos pasados por parametro
         montoAdicional = 0
         monto = tarifa_seleccionada.monto * cantidad_seleccionada
@@ -148,7 +146,6 @@ class GestorVentaEntradas():
         
 
     def ObtenerSedeActual(self):
-        #?preguntar si hay que inicializar con none la fecha de inicio
         #Llama al logueado:Usuario para obtener la sede
         sede_actual = Sesion.getEmpleadoenSesion()
         return sede_actual
