@@ -80,7 +80,6 @@ class GestorVentaEntradas():
         for s in salas:
             self.pantallaCantidadActualSala = PantallaCantActualSala(s.nombre, 0, self.capacidadMaximaSede)
             PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
-        print(self.capacidadMaximaSede)
 
 
     def buscarTarifasVigentes(self):

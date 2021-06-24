@@ -90,11 +90,12 @@ class ReservaVisita():
         for row in reservas:
             objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)
             #Calculo de la duracion estimada de la/s persona/s interesada/s en la venta
-            #! Al ser None el duracionEstimada no se puede sumar con el datetime
+            v_reserva = datetime.strftime(objeto.fechaHoraReserva, "%Y-%m-%d %H:%M:%S")
+            fechaHoraReserva = v_reserva.split(" ")
             if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and (fecha) == (objeto.fechaCreacion) and objeto.sede == sede_actual:
                 reservasObj.append(objeto)
                     # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy                      Y es de la sede actual
-            elif ((str(objeto.horaInicioReal) <= hora_fin or datetime.strftime(datetime.time(objeto.fechaHoraReserva), '%H:%M:%S') <= hora_fin) and (fecha == objeto.fechaCreacion) and objeto.sede == sede_actual): 
+            elif ((str(objeto.horaInicioReal) <= hora_fin or fechaHoraReserva[1] <= hora_fin) and (fecha == objeto.fechaCreacion) and objeto.sede == sede_actual): 
                 reservasObj.append(objeto)
 
         #retorna el vector de objetos con reservas para la fecha y hora estimada
