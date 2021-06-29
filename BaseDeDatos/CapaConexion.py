@@ -85,6 +85,7 @@ def obtenerMonto(te, tv):
                  and id_tipo_visita = ' " + tv + " ' ")
     return monto
 
+#! sacar
 def obtenerMontoGuiaSede(nombre):
     cnxn = conexion()
     cursor = cnxn.cursor()
@@ -105,7 +106,7 @@ def obtenerEstadosReservaVisita():
     estados = cursor.fetchall()
     return estados
 
-def getDuracionResumidaObra():
+def getObras():
     cnxn = conexion()
     cursor = cnxn.cursor()
     cursor.execute ("select * from obras")

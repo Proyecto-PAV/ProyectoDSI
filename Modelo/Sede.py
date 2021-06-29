@@ -77,18 +77,49 @@ class Sede():
                     t_montos.append(objTarifa)
         return t_montos
     
-    def getExposicionesCompletasVigentes(nombre, tipo_visita):
-        #levantamos todos las exposiciones de la BD que sean vigentes
-        expo_vigentes = Exposicion.esVigente(nombre)
-        #de esas vigentes obtenemos su duracion resumida
-        duracion_resumida = Exposicion.getDetalleExposición(expo_vigentes, tipo_visita)
+    def getExposicionesCompletasVigentes(nombre, fecha):
+        #levantamos todos las exposiciones de la BD
+        exposiciones = obtenerExposiciones()
+        duracion_resumida = 0
+        for exp in exposiciones:
+            expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[0], exp[7], exp[8])
+            if expo.nombreSede == nombre:
+                #Se determina si la exposicion de la sede actual es vigente para la fecha actual
+                rdo = expo.esVigente(fecha)
+                if rdo:
+                    #si es vigente, obtiene la duracion de su/s detalle/s
+                    duracion_resumida += expo.getDetalleExposicionRes()
+
         return duracion_resumida
 
-    def getReservaVisita(sede_actual, duracionEstimada, estadoConfirmado, fecha_actual):
-        #busca las reservas para la fecha y hora de hoy
-        reservasObj = ReservaVisita.esParaFechaYHora(duracionEstimada, sede_actual, fecha_actual)
-        #busca la cantidad de alumnos confirmados en las reservas 
-        cantidadAlumnosConfirmados = ReservaVisita.getCantidadAlumnosConfirmados(reservasObj, estadoConfirmado)
+    def getPorExposicionVigentes(self, fecha):
+        #levantamos todos las exposiciones de la BD
+        exposiciones = obtenerExposiciones()
+  
+        duracion_ext = 0
+        for exp in exposiciones:
+            expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[0], exp[7], exp[8])
+            if expo.nombreSede == self.nombre:
+                #Se determina si la exposicion de la sede actual es vigente para la fecha actual
+                rdo = expo.esVigente(fecha)
+                if rdo:
+                    #si es vigente, obtiene la duracion de su/s detalle/s
+                    duracion_ext += expo.getDetalleExposicionRes()
+
+        return duracion_ext
+
+    def getReservaVisita(self, duracionEstimada, estadoConfirmado, fecha_actual):
+        #busca las reservas de la BD y crea su objeto
+        reservas = CapaConexion.obtenerReservas()
+        cantidadAlumnosConfirmados = 0
+        for row in reservas:
+            res = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)
+            #filtro la reserva para la sede actual
+            if res.sede == self.nombre: 
+                #Filtro la reserva si es de la fecha y hora actual para la duracion estimada de la venta
+                reservaFH = res.esParaFechaYHora(duracionEstimada, fecha_actual)
+                if reservaFH:
+                    cantidadAlumnosConfirmados += res.getCantidadAlumnosConfirmados(estadoConfirmado)
         return cantidadAlumnosConfirmados
 
     def getEntradaVendidas(sede_actual, fechaHoraActual):

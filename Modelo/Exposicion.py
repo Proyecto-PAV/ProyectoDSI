@@ -1,11 +1,11 @@
 from Modelo.Detalle_Exposicion import Detalle_Exposicion
 from datetime import datetime
-from BaseDeDatos.CapaConexion import *
+from BaseDeDatos import CapaConexion
 import time
 
 class Exposicion():
 
-     #atributos de la clase Exposicion
+    #atributos de la clase Exposicion
     detalleExposicion = []
     fechaFin = ""
     fechaFinReplanificada = ""
@@ -44,31 +44,40 @@ class Exposicion():
     def conocerTipoExposicion(self):
         pass
 
-    def esVigente(nombre_sede):
-        #obtener fecha actual y todas las exposiciones
-        fecha = datetime.date(datetime.now())
-        exposiciones = obtenerExposiciones()
-                
-        #filtrar exposiciones por las vigentes y almacenarlas en un nuevo vector como objetos
-        vigentes=[]
-        for exp in exposiciones:
-            expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[0], exp[7], exp[8])
-            
-            if (expo.fechaFin>fecha and expo.fechaInicio<fecha) and (expo.nombreSede==nombre_sede):
-                vigentes.append(expo)
-                
-            elif (expo.fechaFinReplanificada>=fecha and expo.fechaInicioReplanificada<=fecha) and (expo.nombreSede==nombre_sede):
-                vigentes.append(expo)
-
-        return vigentes
+    def esVigente(self, fecha):                
+        #determinar si una exposicion es vigente o no, devolviendo false o true respectivamente
+        if (self.fechaFin>fecha and self.fechaInicio<fecha):
+            return True
+        elif (self.fechaFinReplanificada>=fecha and self.fechaInicioReplanificada<=fecha):
+            return True
+        else:
+            return False
   
-    def getDetalleExposición(vigentes, tipo_visita):
-        #calcular el total de la duracion 
-        duracion_total = 0
-        for e in vigentes:
-            duracion_total +=  Detalle_Exposicion.getObra(e.nombre, tipo_visita)
+    def getDetalleExposicionRes(self):
+        #buscar todos los detalles de esa expo
+        detalles = CapaConexion.obtenerDetalleExposiciones()
+        # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
+        duracion_resumida = 0
+        #comienzo del ciclo
+        for d in detalles:
+            detalle = Detalle_Exposicion(d[2], d[1], d[0])
+            if self.detalleExposicion== detalle.exposicion:
+                duracion_resumida +=  detalle.getObraResumida()
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
-        return Exposicion.convertirTiempo(duracion_total)
+        return Exposicion.convertirTiempo(duracion_resumida)
+
+    def getDetalleExposicionExtendida(self):
+        #buscar todos los detalles de esa expo
+        detalles = CapaConexion.obtenerDetalleExposiciones()
+        # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
+        duracion_resumida = 0
+        #comienzo del ciclo
+        for d in detalles:
+            detalle = Detalle_Exposicion(d[2], d[1], d[0])
+            if self.detalleExposicion== detalle.exposicion:
+                duracion_resumida +=  detalle.getObraExtendida()
+        #retrorna el total de la exposicion como un str en formato HH:MM:SS
+        return Exposicion.convertirTiempo(duracion_resumida)
 
     def getNombre(self):
         return self.nombre

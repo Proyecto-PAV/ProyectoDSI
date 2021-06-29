@@ -25,26 +25,33 @@ class Detalle_Exposicion():
     def conocerPared(self):
         pass
 
-    def getObra(nombre_expo, tipo_visita):
-        #buscar todos los detalles de esa expo
-        detalles = CapaConexion.obtenerDetalleExposiciones()
-        #instancia los objetos y suma la duracion de esta exposicion
-
-        # creacion del contador en tipo hh/mm/ss para contar el tiempo de la obra
-        duracion_resumida = 0
-        #comienzo del ciclo
-        for d in detalles:
-            detalle = Detalle_Exposicion(d[2], d[1], d[0])
-            if detalle.exposicion==nombre_expo:
+    def getObraResumida(self):
+        #levantar todas las Obras de la BD
+        obras = CapaConexion.getObras()
+        #creamos los objetos obras hasta encontrar la que nos pasa por parametro y obtenemos su duracion
+        for obra in obras:
+            obj = Obra(obra[2],obra[3],obra[9],obra[4],obra[5],obra[6],obra[7],obra[8],obra[0],obra[1],obra[11], None, None)
+            if self.obra == obj.nombreObra:
                 #obtener duracion resumida de la obra del detalle y separar sus unidades
-                tiempo = Obra.getDuracion(detalle.obra, tipo_visita)
+                tiempo = obj.getDuracionResumida()
                 #convertir el formato a int en minutos
-                t_obra = Detalle_Exposicion.convertirMinutos(tiempo)
-                #sumar al contador de minutos
-                duracion_resumida += t_obra
-        #retornamos la duracion en minutos
-        return duracion_resumida
+                t_obra = self.convertirMinutos(tiempo)
+                #retornamos la duracion en minutos
+                return t_obra
 
+    def getObraExtendida(self):
+        #levantar todas las Obras de la BD
+        obras = CapaConexion.getObras()
+        #creamos los objetos obras hasta encontrar la que nos pasa por parametro y obtenemos su duracion
+        for obra in obras:
+            obj = Obra(obra[2],obra[3],obra[9],obra[4],obra[5],obra[6],obra[7],obra[8],obra[0],obra[1],obra[11], None, None)
+            if self.obra == obj.nombreObra:
+                #obtener duracion resumida de la obra del detalle y separar sus unidades
+                tiempo = obj.getDuracionExtendida()
+                #convertir el formato a int en minutos
+                t_obra = self.convertirMinutos(tiempo)
+                #retornamos la duracion en minutos
+                return t_obra
 
     def convertirMinutos(t_obra):
         #convierte el tiempo h/m/s a minutos

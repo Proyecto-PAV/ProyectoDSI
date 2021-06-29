@@ -77,39 +77,43 @@ class ReservaVisita():
         tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
         return tiempo_final
 
-    def esParaFechaYHora(duracionEstimada, sede_actual, fecha):
-        #obtiene todas las reservas de la BD
-        reservas = CapaConexion.obtenerReservas()
-        reservasObj = []
-        duracion = ReservaVisita.convertirMinutos(duracionEstimada)
+    def esParaFechaYHora(self, duracionEstimada, fecha):
+        #inicializacion de variables para determinar la franja horaria de la visita
+        duracion = self.convertirMinutos(duracionEstimada)
         hora_de_fecha = datetime.time(fecha)
-        fechaActualEnMinutos = ReservaVisita.convertirMinutos(hora_de_fecha)
+        fechaActualEnMinutos = self.convertirMinutos(hora_de_fecha)
         hora_fin = fechaActualEnMinutos + duracion
-        hora_fin = ReservaVisita.convertirTiempo(hora_fin)
-        #por cada reserva obtenida, instancia el objeto y almacena si pertenece a la sede y es de la fecha y hora actual o si comienza la reserva en un tiempo proximo
-        for row in reservas:
-            objeto = ReservaVisita(row[6], row[7], None, row[1], row[2], row[5], row[4], row[0], None, None, row[8], None)
-            #Calculo de la duracion estimada de la/s persona/s interesada/s en la venta
-            v_reserva = datetime.strftime(objeto.fechaHoraReserva, "%Y-%m-%d %H:%M:%S")
-            fechaHoraReserva = v_reserva.split(" ")
-            if ( objeto.horaInicioReal <= (datetime.time(fecha)) <= objeto.horaFinReal) and (fecha) == (objeto.fechaCreacion) and objeto.sede == sede_actual:
-                reservasObj.append(objeto)
-                    # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy                      Y es de la sede actual
-            elif ((str(objeto.horaInicioReal) <= hora_fin or fechaHoraReserva[1] <= hora_fin) and (fecha == objeto.fechaCreacion) and objeto.sede == sede_actual): 
-                reservasObj.append(objeto)
+        hora_fin = self.convertirTiempo(hora_fin)
+        #para la reserva, devuelvo True si es de este horario o False si no
+        v_reserva = datetime.strftime(self.fechaHoraReserva, "%Y-%m-%d %H:%M:%S")
+        fechaHoraReserva = v_reserva.split(" ")
+        #                           Si no funciona cambiar por datetime.time(fecha)
+        if ( self.horaInicioReal <= (hora_de_fecha) <= self.horaFinReal) and ((fecha) == (self.fechaCreacion)):
+            return True
+                # Si la reserva no inicio y esta reservada en el tiempo estimado de la venta de entrada Y           es una reserva de la fecha de hoy  
+        elif ((str(self.horaInicioReal) <= hora_fin or fechaHoraReserva[1] <= hora_fin) and (fecha == self.fechaCreacion)): 
+            return True
+        else:
+            return False
 
-        #retorna el vector de objetos con reservas para la fecha y hora estimada
-        return reservasObj
-
-    def getCantidadAlumnosConfirmados(reservasObj, estadoConfirmado):
-        #para cada reserva que viene por parametro, busca su cantidad de alumnos confirmada y lo suma al contador
-        #estado = Cambio_Estado.getCambiosEstado(actual_cambio_estado)
-        cantidadAlumnosConfirmada = 0
-        for reserva in reservasObj:
+    def getCantidadAlumnosConfirmados(self, estadoConfirmado):
+        #busca su cantidad de alumnos confirmada y lo retorna
+        #busca entre todos los cambios de estado, el que coincide con el del parametro
+        cambios_estados = CapaConexion.obtenerCambiosEstados()
+        #p or cada cambio de estado lo crea como objeto 
+        for row in cambios_estados:
+            cambio = Cambio_Estado(row[0], row[1], row[3], row[2])
             #busca el estado actual de la reserva
-            es_confirmada = Cambio_Estado.esEstadoActual(reserva, estadoConfirmado)          
+            es_confirmada = cambio.esEstadoActual(self.numeroReserva)          
             if es_confirmada:
-                #si el estado de esta reserva es Confirmada, suma su cantidad de alumnos confirmada
-                cantidadAlumnosConfirmada += reserva.cantidadAlumnosConfirmada        
-        #despues de recorrer todas las reservas de la fecha, retorna la cantidad sumada total de alumnos
-        return cantidadAlumnosConfirmada
+                actual = cambio
+                break
+        #para el estado actual de la reserva, determina si es Confirmado
+        actual_confir = actual.getCambiosEstado(estadoConfirmado)      
+        if actual_confir:
+            #si es confirmado, suma la cantidad de alumnos confirmados de esta reserva
+            cantidadAlumnosConfirmada = self.cantidadAlumnosConfirmada
+            return cantidadAlumnosConfirmada
+        else:
+            #si no se devuelve 0
+            return 0
