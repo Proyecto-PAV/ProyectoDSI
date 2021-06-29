@@ -69,7 +69,6 @@ class GestorVentaEntradas():
 
     def actualizarPantallas(self):
         #actualiza la pantalla principal a partir de pasado por el parametro
-        
         self.pantallaCantidadActualPrincipal = PantallaCantidadActualPrinci(0, self.capacidadMaximaSede)
         PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
         #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
@@ -146,8 +145,15 @@ class GestorVentaEntradas():
         
 
     def ObtenerSedeActual(self):
-        #Llama al logueado:Usuario para obtener la sede
-        sede_actual = Sesion.getEmpleadoenSesion()
+        #Trae todas las sesiones de la BD y crea los objetos correspondientes a cada sesión
+        sesionesBd = obtenerSesionesBd()
+        for sesion in sesionesBd:
+            sesionObj = Sesion(None, sesion[2], sesion[1], sesion[4], sesion[3], sesion[0])
+            if sesionObj.fechaFin == None:
+                #se trabaja sobre la sesión cuya fecha de fin sea none ya que esa será la actual
+                sesionActiva = sesionObj
+        #de dicha sesion se obtiene el empleado
+        sede_actual = sesionActiva.getEmpleadoenSesion()
         return sede_actual
 
     def getFechaYHoraActual(self):

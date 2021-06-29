@@ -34,17 +34,6 @@ class Sede():
         self.tarifasVigentes = tarifasVigentes
         self.adicionalGuia = adicionalGuia
 
-
-    def calcularDuracionAExposicionesVigentes(self, duracionExposicionesVigentes):
-        '''for exposicionesVigentes in self.exposicionesVigentes:
-                if (exposicionesVigentes.esVigente() == True):
-                    duracionExposicionesVigentes += exposicionesVigentes.
-                    return duracionExposicionesVigentes
-                else:
-                    return None
-        '''
-        #Revisar y borrar este metodo
-        pass
     
     def conocerColeccion(self):
         pass
@@ -79,12 +68,19 @@ class Sede():
                 return sedeObj.adicionalGuia
 
     def getTarifasVigentes(nombre_sede, fecha_hora_actual):
-        tarifasVigentes = Tarifa.esVigente(nombre_sede, fecha_hora_actual)
-
-        for t in tarifasVigentes:
-            t.getMonto()
-        
-        return tarifasVigentes
+        #traemos todas las tarifas de la BD
+        tarifasBd = obtenerTarifas()
+        t_montos = []
+        for tarifa in tarifasBd:
+            if tarifa[2] == nombre_sede:
+                objTarifa = Tarifa(tarifa[3], tarifa[4], tarifa[5], tarifa[0], tarifa[1])
+                #validamos que las tarifas sean vigentes
+                resultado = objTarifa.esVigente(fecha_hora_actual)
+                if resultado:
+                    #para todas las tarifas vigentes traemos su monto
+                    objTarifa.getMonto()
+                    t_montos.append(objTarifa)
+        return t_montos
     
     def getExposicionesCompletasVigentes(nombre, tipo_visita):
         #levantamos todos las exposiciones de la BD que sean vigentes

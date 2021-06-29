@@ -39,7 +39,6 @@ class PantallaVentaEntradas:
         pass
 
     def tomarConfirmacionVenta(self):
-        #! Este gestor no va aca
         entradas = self.gestorVentaEntradas.tomarConfirmacionVenta()
 
     def tomarSeleccionDeCantidadEntradasEmitir(self, cantidad):

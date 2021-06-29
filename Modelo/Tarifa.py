@@ -23,34 +23,40 @@ class Tarifa():
     def str(self):
         return "fechaFinVigencia: ", self.fechaFinVigencia, "fechaInicioVifencia: ", self.fechaInicioVifencia, "monto: ", self.monto, "tipo entrada: ", self.tipo_entrada, "tipo visita: ", self.tipo_visita
      
-    def conocerTipoEntrada(self, tipo_entrada):
-        #le mando por parametro el numero del tipo para q me devuelva el nombre
-        nombre_entrada = TipoEntrada.getTipoEntrada(tipo_entrada)
-        return nombre_entrada
+    def conocerTipoEntrada(self):
+        #traemos todos los tipos de entrada de la BD
+        tiposEntrasdasBd = obtenerTiposEntradas()
+        for tipo in tiposEntrasdasBd:
+            tE = TipoEntrada(tipo[1], tipo[0])
+            #Si el tipo entrada creado coincide con el pasado por el parametro lo retorna
+            if  self.tipo_entrada == tE.tipoEntrada:
+                nombre_entrada = tE.getTipoEntrada()
+                return nombre_entrada
 
 
-    def conocerTipoVisita(self, visita):
-        nombre_visita = TipoVisita.getTipoVisita(visita)
-        return nombre_visita
+    def conocerTipoVisita(self):
+        #traemos todos los tipos de visita de la BD
+        tiposVisitasBd = obtenerNombreVisita()
+        for tipo in tiposVisitasBd:
+            tV = TipoVisita(tipo[1], tipo[0])
+            #Si el tipo visita creado coincide con el atributo del tipo de visita del ojeto que lo llama lo retorna
+            if self.tipo_visita == tV.tipoVisita:
+                nombre_visita = tV.getTipoVisita()
+                return nombre_visita
 
 
     def getMonto(self):
         #esta funcio obtiene los nombres de los tipos 
-            tEntrada = self.conocerTipoEntrada(self.tipo_entrada)
-            tVisita = self.conocerTipoVisita(self.tipo_visita)
+            tEntrada = self.conocerTipoEntrada()
+            tVisita = self.conocerTipoVisita()
             self.tipo_entrada = tEntrada
             self.tipo_visita = tVisita
 
-    def esVigente(nombre_sede, fecha):
-        tarifasBd = obtenerTarifas()
-        t_vigentes_obj = []
-        for tarifa in tarifasBd:
-            objTarifa = Tarifa(tarifa[3], tarifa[4], tarifa[5], tarifa[0], tarifa[1])
-    
-            if (tarifa[2] == nombre_sede) and (datetime.date(fecha) > objTarifa.fechaInicioVifencia) and (datetime.date(fecha) < objTarifa.fechaFinVigencia):
-                t_vigentes_obj.append(objTarifa)
-
-        return t_vigentes_obj  
+    def esVigente(self, fecha):
+        if ((datetime.date(fecha) > self.fechaInicioVifencia) and (datetime.date(fecha) < self.fechaFinVigencia)):
+            return True
+        else:
+            return False  
  
  
 

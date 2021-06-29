@@ -23,17 +23,14 @@ class Usuario():
     def conocerEmpleado():
         pass
     
-    def getUsuario(sesionActiva):
-        #busca todos los usuarios en la BD y crea sus objetos
-        usuariosBd = obtenerUsuariosBd()
-        for usuario in usuariosBd:
-            usuarioObj = Usuario(usuario[1], usuario[2], usuario[0], usuario[3], usuario[4], None)
-            if usuarioObj.nombre == sesionActiva.usuario:
-                usu = usuarioObj
-
+    def getUsuario(self):
         #Para el usuario cuya sesion coincide con la pasada por parametro solicita su sede
-        empleado = Empleado.getSedeDondeTrabaja(usu)
-        usu.empleado = empleado
-        return empleado.sedeDondeTrabaja, usu
+        empleadosBd = obtenerEmpleados()
+        for e in empleadosBd:
+            empleadoObj = Empleado(e[2], e[3], e[6], e[1], e[0], e[7], e[8], e[9], e[10], e[11], e[4], e[5])
+            if empleadoObj.dni == self.dni:
+                emp = empleadoObj
+        sede = emp.getSedeDondeTrabaja()
+        return sede
 
 

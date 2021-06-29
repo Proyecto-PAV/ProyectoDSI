@@ -14,13 +14,8 @@ class TipoVisita():
     def getNombre(self):
         pass
 
-    def getTipoVisita(numero):
-        tiposVisitasBd = obtenerNombreVisita()
-        for tipo in tiposVisitasBd:
-            tipoVisita = TipoVisita(tipo[1], tipo[0])
-            if tipoVisita.tipoVisita == numero:
-                nombre = tipoVisita.nombre
-                return tipo
+    def getTipoVisita(self):
+        return self.nombre
 
     def mostrarNombre(self):
         return "Nombre: "+ self.nombre

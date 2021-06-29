@@ -25,8 +25,8 @@ class Ui_TarifaEntradas(object):
         tarifasVigentes, montoAdicionalGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
         self.lbl_adicional_guia.setText("$" + str(montoAdicionalGuia))
         for tarifa in tarifasVigentes:
-            tipo_entrada = tarifa.tipo_entrada.nombre
-            tipo_visita = tarifa.tipo_visita.nombre
+            tipo_entrada = tarifa.tipo_entrada
+            tipo_visita = tarifa.tipo_visita
             monto = tarifa.monto
             rowPosition = self.t_tarifas.rowCount()
             self.t_tarifas.insertRow(rowPosition)

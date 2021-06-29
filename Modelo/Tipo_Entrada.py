@@ -15,14 +15,9 @@ class TipoEntrada():
     def getNombre(self):
         pass
 
-    def getTipoEntrada(numero):
-        #buscamos todas las entradas en la BD y creamos el obtejo
-        tiposEntrasdasBd = obtenerTiposEntradas()
-        for tipo in tiposEntrasdasBd:
-            TE = TipoEntrada(tipo[1], tipo[0])
-            #Si el tipo entrada creado coincide con el pasado por el parametro lo retorna
-            if  TE.tipoEntrada == numero:
-                return TE
+    def getTipoEntrada(self):
+        #retornamos el tipo de entrada
+        return self.nombre
 
     def mostrarNombre(self):
         return "Nombre: "+ self.nombre

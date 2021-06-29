@@ -26,18 +26,16 @@ class Sesion():
         #metodo para retornar el usuario de la Sesion
         usuario.getUsuarios()
 
-    def getEmpleadoenSesion():
-        #obtener todas las sesiones de la BD y crear sus objetos
-        sesionesBd = obtenerSesionesBd()
-        for sesion in sesionesBd:
-            sesionObj = Sesion(None, sesion[2], sesion[1], sesion[4], sesion[3], sesion[0])
-            if sesionObj.fechaFin == None:
-                sesionActiva = sesionObj
-        
+    def getEmpleadoenSesion(self):
         #para la sesion activa busca el usuario de la misma, lo define como atributo de la Sesion
         # y retorna la sede
-        sedeEmpleado, usuario = Usuario.getUsuario(sesionActiva)
-        sesionActiva.empleadoSesion = usuario.nombre
+        usuariosBd = obtenerUsuariosBd()
+        for usuario in usuariosBd:
+            usuarioObj = Usuario(usuario[1], usuario[2], usuario[0], usuario[3], usuario[4], None)
+            if usuarioObj.nombre == self.usuario:
+                usu = usuarioObj
+        self.empleadoSesion = usu.nombre
+        sedeEmpleado = usu.getUsuario()
         return sedeEmpleado
 
 
