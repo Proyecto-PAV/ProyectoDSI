@@ -56,23 +56,18 @@ class Sede():
         sedesBd = obtenerSedes()
         for sede in sedesBd:
             sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
-            if sedeObj.nombre == sede_actual:
+            if sedeObj.nombre == sede_actual.nombre:
                 return sedeObj.cantidadMaximaVisitantes
 
-    def getAdicionalPorGuia(sedeNombre):
-        #obtiene el mondo adicional de la bd
-        sedesBd = obtenerSedes()
-        for sede in sedesBd:
-            sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
-            if sedeObj.nombre == sedeNombre:
-                return sedeObj.adicionalGuia
+    def getAdicionalPorGuia(self):
+        return self.adicionalGuia
 
-    def getTarifasVigentes(nombre_sede, fecha_hora_actual):
+    def getTarifasVigentes(self, fecha_hora_actual):
         #traemos todas las tarifas de la BD
         tarifasBd = obtenerTarifas()
         t_montos = []
         for tarifa in tarifasBd:
-            if tarifa[2] == nombre_sede:
+            if tarifa[2] == self.nombre:
                 objTarifa = Tarifa(tarifa[3], tarifa[4], tarifa[5], tarifa[0], tarifa[1])
                 #validamos que las tarifas sean vigentes
                 resultado = objTarifa.esVigente(fecha_hora_actual)

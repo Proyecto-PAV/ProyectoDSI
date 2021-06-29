@@ -81,9 +81,14 @@ class GestorVentaEntradas():
 
 
     def buscarTarifasVigentes(self):
-        tarifasVigentes = Sede.getTarifasVigentes(self.sedeActual, self.fechaHoraActual)
-        montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
-
+        #busca las tarifas vigentes de la sede y el monto adicional de la sede
+        sedesBd = obtenerSedes()
+        for sede in sedesBd:
+            sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
+            if sedeObj.nombre == self.sedeActual:
+                self.sedeActual = sedeObj
+                montoAdicional = sedeObj.getAdicionalPorGuia()
+        tarifasVigentes = self.sedeActual.getTarifasVigentes(self.fechaHoraActual)
         return tarifasVigentes, montoAdicional
 
 
