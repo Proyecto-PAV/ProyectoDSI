@@ -46,6 +46,7 @@ class Exposicion():
 
     def esVigente(self, fecha):                
         #determinar si una exposicion es vigente o no, devolviendo false o true respectivamente
+        fecha = datetime.date(fecha)
         if (self.fechaFin>fecha and self.fechaInicio<fecha):
             return True
         elif (self.fechaFinReplanificada>=fecha and self.fechaInicioReplanificada<=fecha):
@@ -64,7 +65,7 @@ class Exposicion():
             if self.detalleExposicion== detalle.exposicion:
                 duracion_resumida +=  detalle.getObraResumida()
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
-        return Exposicion.convertirTiempo(duracion_resumida)
+        return duracion_resumida
 
     def getDetalleExposicionExtendida(self):
         #buscar todos los detalles de esa expo
@@ -77,21 +78,11 @@ class Exposicion():
             if self.detalleExposicion== detalle.exposicion:
                 duracion_resumida +=  detalle.getObraExtendida()
         #retrorna el total de la exposicion como un str en formato HH:MM:SS
-        return Exposicion.convertirTiempo(duracion_resumida)
+        return duracion_resumida
 
     def getNombre(self):
         return self.nombre
 
-    def convertirTiempo(min):
-        #convertir los minutos en 'h/m/s'
-        hs = min/60
-        ms = (hs - int(hs)) * 60
-        ss = (ms - int(ms)) * 60
-        hs = int(hs)
-        ms = int(ms)
-        ss = int(ss)
-        tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
-        return tiempo_final
 
 
     

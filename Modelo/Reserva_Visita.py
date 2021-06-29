@@ -53,7 +53,7 @@ class ReservaVisita():
     def conocerSede(self):
         return self
     
-    def convertirMinutos(tiempo):
+    def convertirMinutos(self, tiempo):
         #convierte el tiempo h/m/s a minutos
         if isinstance(tiempo, str):
             t_vec = tiempo.split(":")
@@ -66,7 +66,7 @@ class ReservaVisita():
         tiempo_final_min = hh*60 + mm + (ss/60)
         return tiempo_final_min
 
-    def convertirTiempo(min):
+    def convertirTiempo(self, min):
         #convertir los minutos en 'h/m/s'
         hs = min/60
         ms = (hs - int(hs)) * 60

@@ -16,16 +16,11 @@ class Sala():
         self.nombreSede = nombre_sede
 
 
-    def conocerSalas(sede):
-        # buscamos las salas de BD y creamos el vector vacio
-        salas = CapaConexion.obtenerSalas()
-        salas_obj=[]
-        # por cada sala obtenida, creamos el objeto sala cuya sede sea la pasada por parametro
-        for s in salas:
-            sala = Sala(s[2],s[0],None,s[1])
-            if sala.nombreSede==sede:
-                salas_obj.append(sala)
-        
-        return salas_obj
+    def conocerSalasSede(self, nombre):
+        #devuelve true o false segun el nombre de la sede que se pasa por parametro
+        if self.nombreSede == nombre: 
+            return True
+        else:
+            return False
 
         

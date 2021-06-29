@@ -15,19 +15,26 @@ from PyQt5.QtGui import QIcon, QPixmap
 class Ui_Entradas_impresas(object):
     def setupUi(self, Entradas_impresas):
         Entradas_impresas.setObjectName("Entradas_impresas")
-        Entradas_impresas.resize(400, 197)
+        Entradas_impresas.resize(400, 233)
         self.Progreso = QtWidgets.QLabel(Entradas_impresas)
-        self.Progreso.setGeometry(QtCore.QRect(120, 20, 161, 21))
+        self.Progreso.setGeometry(QtCore.QRect(120, 10, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.Progreso.setFont(font)
         self.Progreso.setObjectName("Progreso")
         self.pushButton = QtWidgets.QPushButton(Entradas_impresas)
-        self.pushButton.setGeometry(QtCore.QRect(160, 150, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(160, 180, 75, 23))
         self.pushButton.setObjectName("pushButton")
         self.label = QtWidgets.QLabel(Entradas_impresas)
-        self.label.setGeometry(QtCore.QRect(170, 50, 151, 81))
+        self.label.setGeometry(QtCore.QRect(170, 80, 151, 81))
         self.label.setText("")
+        self.label.setObjectName("label")
+        self.Progreso_2 = QtWidgets.QLabel(Entradas_impresas)
+        self.Progreso_2.setGeometry(QtCore.QRect(120, 40, 161, 21))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.Progreso_2.setFont(font)
+        self.Progreso_2.setObjectName("Progreso_2")
         self.label.setObjectName("label")
         pixmap = QPixmap('../Recursos/tilde.png')
         self.label.setPixmap(pixmap)
@@ -40,6 +47,7 @@ class Ui_Entradas_impresas(object):
         Entradas_impresas.setWindowTitle(_translate("Entradas_impresas", "Entradas impresas"))
         self.Progreso.setText(_translate("Entradas_impresas", "Entradas impresas"))
         self.pushButton.setText(_translate("Entradas_impresas", "Aceptar"))
+        self.Progreso_2.setText(_translate("Entradas_impresas", "Pantallas actualizadas"))
 
 
 if __name__ == "__main__":

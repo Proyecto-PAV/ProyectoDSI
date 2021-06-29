@@ -37,46 +37,35 @@ class Entrada():
     def conocerTarifa(self):
         pass
 
-    def getNro(nombreSede):
+    def getNro(self):
         #buscamos todas las entradas de la BD e incializa el ultimo nro
-        entradas = CapaConexion.obtenerEntradas()
-        ultimoNro = 0
-        for row in entradas:
-            o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
-            if (o.numero > ultimoNro) and (o.nombre_sede == nombreSede):
-                ultimoNro = o.numero
-        return ultimoNro
+        return self.numero
 
-
+    '''
     def new(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
         #crea el objeto nueva entrada y lo almacena en la BD
         nuevaEntrada = Entrada(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia)
         CapaConexion.almacenarEntrada(nuevaEntrada)
         return nuevaEntrada
+    '''
+
+    def new(self):
+        #almacena el objeto en la BD
+        CapaConexion.almacenarEntrada()
 
 
-    def esSedeActual(sede_actual):
-        #busca todas las entradas de la BD
-        entradas = CapaConexion.obtenerEntradas()      
-        #crea el objeto entrada y almacena aquellas cuya sede sea la pasada por parametro
-        EntradasDeSede = []
-        for row in entradas:           
-            objeto = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])   
-            if objeto.nombre_sede == sede_actual:    
-                EntradasDeSede.append(objeto)
-
+    def esSedeActual(self, sede_actual):
         #devuelve la coleccion de objetos completa
-        return EntradasDeSede
+        if self.nombre_sede == sede_actual:
+            return True
+        else:
+            return False
 
-    def getEntradasFechaHoraVenta(entradasObj, fechaHoraActual):
-        #incializa el contador de entradas y obtiene la fecha actual
-        entradasFechaHora = 0
+    def getEntradasFechaHoraVenta(self, fechaHoraActual):
+        #separa la fecha de la hora del atributo del gestor
         fecha_actual = datetime.date(fechaHoraActual)
-        #por cada una de las entradas que nos pasa por parametro, validamos su fecha
-        for entrada in entradasObj:           
-            #si la fecha de la entrada coincide con la pasada por parametro incrementa el contador en 1
-            if (entrada.fechaVenta == fecha_actual):
-                entradasFechaHora += 1
-
-        #retorna la cantidad de entradas vendidas hoy para el momento de la venta
-        return entradasFechaHora
+        if (self.fechaVenta == fecha_actual):
+            #retorna 1 o 0 dependiendo si la entrada fue vendida el dia de la fecha actual u otro día
+            return 1
+        else:
+            return 0

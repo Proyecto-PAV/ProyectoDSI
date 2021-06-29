@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>197</height>
+    <height>233</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>20</y>
+     <y>10</y>
      <width>161</width>
      <height>21</height>
     </rect>
@@ -35,7 +35,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>150</y>
+     <y>180</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -48,13 +48,31 @@
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>50</y>
+     <y>80</y>
      <width>151</width>
      <height>81</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Progreso_2">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>40</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Pantallas actualizadas</string>
    </property>
   </widget>
  </widget>

@@ -27,7 +27,6 @@ class GestorVentaEntradas():
     hayGuia = True
     montoTotalAPagar = 0
     numeroEntrada = 0
-    UltimoNumeroEntrada = 0
     sedeActual = ""
     tipoEntrada = None
     tipoVisita = None
@@ -124,7 +123,7 @@ class GestorVentaEntradas():
         estados_reservaVisita =  CapaConexion.obtenerEstadosReservaVisita()
         #por cada estado obtenido, crea su objeto y si pertenece al ambito reservaVisita lo almacena
         estados_reservaVisita_obj =[]
-        for row in estados_reservaVisita:    
+        for row in estados_reservaVisita:  
             objeto = Estado(row[1], row[2], row[3], row[0]) 
             rdo = objeto.esAmbitoReservaVisita()
             if rdo:
@@ -149,7 +148,7 @@ class GestorVentaEntradas():
         #obtiene la cantidad de personas que compraron una entrada hasta el momento de la venta
         cantidadEntradasVendidas = Sede.getEntradaVendidas(sede_actual, fecha_actual)
         #busca la capacidad maxima de la sede 
-        cantidadMaximaVisitantes = Sede.getCantidadMaximaVisitantes(sede_actual)
+        cantidadMaximaVisitantes = self.sedeActual.getCantidadMaximaVisitantes()
         self.capacidadMaximaSede = cantidadMaximaVisitantes
         #Suma la cantidad de gente total que se encuentra en este instante en el museo
         total_visitantes = cantidadAlumnosConReservas + cantidadEntradasVendidas
@@ -168,19 +167,15 @@ class GestorVentaEntradas():
         PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
         #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
         #buscar todas las salas de la sede
-        salas = Sala.conocerSalas(self.sedeActual)
-        #actualizar pantallas de estas salas 
+        salas = CapaConexion.obtenerSalas()
+        # por cada sala obtenida, creamos el objeto sala cuya sede sea la pasada por parametro
         for s in salas:
-            self.pantallaCantidadActualSala = PantallaCantActualSala(s.nombre, 0, self.capacidadMaximaSede)
-            PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
-
-
-
-
-        
-    
-
-
+            sala = Sala(s[2],s[0],None,s[1])
+            resultado = sala.conocerSalasSede(self.sedeActual.nombre)
+        #actualizar pantallas de estas salas 
+            if resultado:
+                self.pantallaCantidadActualSala = PantallaCantActualSala(sala.nombre, 0, self.capacidadMaximaSede)
+                PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
 
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
         #definimos el monto inicial en base a los datos pasados por parametro
@@ -188,10 +183,9 @@ class GestorVentaEntradas():
         monto = tarifa_seleccionada.monto * cantidad_seleccionada
         if hayGuia == True:
             # si se define una entrada con guia, se le suma al monto total su adicional
-            montoAdicional = Sede.getAdicionalPorGuia(self.sedeActual)
+            montoAdicional = self.sedeActual.getAdicionalPorGuia()
             monto = monto + montoAdicional
         return monto
-        
         
     def generarNumeroEntrada(self):
         numero_entrada = self.numeroEntrada + 1
@@ -203,10 +197,15 @@ class GestorVentaEntradas():
         
 
     def obtenerUltimoNumero(self):
-        nombre = self.sedeActual
-        self.numeroEntrada = Entrada.getNro(nombre)
-        numeroEntrada = self.numeroEntrada
-        return numeroEntrada
+        #obtiene las entradas de la BD
+        entradas = CapaConexion.obtenerEntradas()
+        ultimoNro = 0
+        for row in entradas:
+            o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+            numero = o.getNro()
+            if (numero > ultimoNro) and (o.nombre_sede == self.sedeActual.nombre):
+                ultimoNro = o.numero
+        self.numeroEntrada = ultimoNro
 
     def solicitarSeleccionTipoEntraTipoVisitayGuia(self):
         pass
@@ -214,7 +213,7 @@ class GestorVentaEntradas():
     def tomarConfirmacionVenta(self):
         #por cada una de las entradas lo ejecura
         # Guarda en el atributo del gestor el ultimo numero para poder llamar al generar ultimo numero y que ya tenga este
-        self.numeroEntrada = self.obtenerUltimoNumero()
+        self.obtenerUltimoNumero()
         #recupero la cantidad de entradas a emitir e inicializo el contador y el vector de entradas emitidas
         entradas_emitidas = []
         n=0
@@ -230,7 +229,8 @@ class GestorVentaEntradas():
             fechayHora = fechayHora.split(" ")
             #valida si la entrada tiene asignado un guia o no, crea su objeto y almacena en el vector
             if self.hayGuia == True:
-                ent = Entrada.new(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado)
+                nuevaEntrada = Entrada(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado)
+                nuevaEntrada.new()
                 entradas_emitidas.append(ent)
             else:
                 ent = Entrada.new(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)

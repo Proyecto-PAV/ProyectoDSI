@@ -51,13 +51,9 @@ class Sede():
         pass
 
 
-    def getCantidadMaximaVisitantes(sede_actual):
+    def getCantidadMaximaVisitantes(self):
         #Busca todas las sede y para aquella cuyo nombre coincida con el de parametro, retorna su cantidad max de visitantes
-        sedesBd = obtenerSedes()
-        for sede in sedesBd:
-            sedeObj = Sede(sede[2], sede[1], None, None, sede[0], None, None, sede[3])
-            if sedeObj.nombre == sede_actual.nombre:
-                return sedeObj.cantidadMaximaVisitantes
+        return self.cantidadMaximaVisitantes
 
     def getAdicionalPorGuia(self):
         return self.adicionalGuia
@@ -77,20 +73,30 @@ class Sede():
                     t_montos.append(objTarifa)
         return t_montos
     
-    def getExposicionesCompletasVigentes(nombre, fecha):
+    def getExposicionesCompletasVigentes(self, fecha):
         #levantamos todos las exposiciones de la BD
         exposiciones = obtenerExposiciones()
         duracion_resumida = 0
         for exp in exposiciones:
             expo = Exposicion(None,exp[3], exp[2], exp[1], exp[2], exp[5], exp[6], exp[0], exp[7], exp[8])
-            if expo.nombreSede == nombre:
+            if expo.nombreSede == self.nombre:
                 #Se determina si la exposicion de la sede actual es vigente para la fecha actual
                 rdo = expo.esVigente(fecha)
                 if rdo:
                     #si es vigente, obtiene la duracion de su/s detalle/s
                     duracion_resumida += expo.getDetalleExposicionRes()
+        return self.convertirTiempo(duracion_resumida)
 
-        return duracion_resumida
+    def convertirTiempo(self, min):
+        #convertir los minutos en 'h/m/s'
+        hs = min/60
+        ms = (hs - int(hs)) * 60
+        ss = (ms - int(ms)) * 60
+        hs = int(hs)
+        ms = int(ms)
+        ss = int(ss)
+        tiempo_final = str(hs)+':'+str(ms)+':'+str(ss)
+        return tiempo_final
 
     def getPorExposicionVigentes(self, fecha):
         #levantamos todos las exposiciones de la BD
@@ -122,10 +128,15 @@ class Sede():
                     cantidadAlumnosConfirmados += res.getCantidadAlumnosConfirmados(estadoConfirmado)
         return cantidadAlumnosConfirmados
 
-    def getEntradaVendidas(sede_actual, fechaHoraActual):
-        #busca toda la coleccion de entradas registradas de la sede pasada por parametro
-        entradasObj = Entrada.esSedeActual(sede_actual)
-        #filtra aquellas entradas que son para la fecha y hora de hoy y retorna la cantidad que coincide
-        entradasVendidasActual = Entrada.getEntradasFechaHoraVenta(entradasObj, fechaHoraActual)
+    def getEntradaVendidas(self, fechaHoraActual):
+        #busca todas las entradas de la BD
+        entradas = CapaConexion.obtenerEntradas()
+        entradasVendidasActual = 0    
+        #crea el objeto entrada y almacena aquellas cuya sede sea la pasada por parametro
+        for row in entradas:           
+            objeto = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])   
+            resultado = objeto.esSedeActual(self.nombre)
+            if resultado:
+                entradasVendidasActual += objeto.getEntradasFechaHoraVenta(fechaHoraActual)
         #retorna la cantidad de personas en el museo que han ido particular
         return entradasVendidasActual
