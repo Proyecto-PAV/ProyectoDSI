@@ -1,7 +1,7 @@
 from BaseDeDatos import CapaConexion
-from datetime import datetime, timedelta
+from datetime import datetime
 from Modelo.Cambio_estado import Cambio_Estado
-import time
+
 
 class ReservaVisita():
 

@@ -1,5 +1,4 @@
 from Modelo.Empleado import Empleado
-from BaseDeDatos.CapaConexion import obtenerUsuariosBd
 from BaseDeDatos.CapaConexion import *
 
 

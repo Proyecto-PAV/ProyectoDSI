@@ -85,13 +85,6 @@ def obtenerMonto(te, tv):
                  and id_tipo_visita = ' " + tv + " ' ")
     return monto
 
-#! sacar
-def obtenerMontoGuiaSede(nombre):
-    cnxn = conexion()
-    cursor = cnxn.cursor()
-    monto = cursor.execute("select adicional_por_guia from sedes where nombre='" +nombre+ "'")
-    return monto
-
 def obtenerDetalleExposiciones():
     cnxn = conexion()
     cursor = cnxn.cursor()

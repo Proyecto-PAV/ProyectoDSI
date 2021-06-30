@@ -1,8 +1,3 @@
-'''
-from Modelo.Tarifa import *
-from BaseDeDatos.CapaConexion import *
-
-'''
 from Modelo.Entrada import *
 from Modelo.Tarifa import Tarifa
 from BaseDeDatos.CapaConexion import *

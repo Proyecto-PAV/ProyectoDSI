@@ -1,10 +1,5 @@
 from BaseDeDatos.CapaConexion import *
-from typing import DefaultDict
-from BaseDeDatos import CapaConexion
-from datetime import datetime, timedelta
-import time
-from Modelo.Empleado import Empleado
-from Modelo import Tarifa 
+from datetime import datetime
 
 
 class Entrada():
@@ -41,17 +36,10 @@ class Entrada():
         #buscamos todas las entradas de la BD e incializa el ultimo nro
         return self.numero
 
-    '''
-    def new(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia):
-        #crea el objeto nueva entrada y lo almacena en la BD
-        nuevaEntrada = Entrada(numero, fechaVenta, horaVenta, monto, id_tipo_entrada, id_tipo_visita, nombre_sede, dni_guia)
-        CapaConexion.almacenarEntrada(nuevaEntrada)
-        return nuevaEntrada
-    '''
 
     def new(self):
-        #almacena el objeto en la BD
-        CapaConexion.almacenarEntrada()
+        #metodo que gracias a python y su constructor solo utilizamos un pass
+        pass
 
 
     def esSedeActual(self, sede_actual):

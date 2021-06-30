@@ -20,6 +20,10 @@ class Ui_TarifaEntradas(object):
     def __init__(pantallaVentaEntradas):
         pantallaVentaEntradas = pantallaVentaEntradas
 
+    #! Revisar donde va este def
+    def solicitarSeleccionTipoEntraTipoVisitayGui():
+        pass
+
     def obtenerTarifas(self):
         self.pantallaVentaEntradas = PantallaVentaEntradas(None, None, None, None, None, None, None, None, None, None )
         tarifasVigentes, montoAdicionalGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()

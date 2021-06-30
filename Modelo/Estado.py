@@ -1,4 +1,3 @@
-from BaseDeDatos import CapaConexion
 
 class Estado():
 

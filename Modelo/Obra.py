@@ -1,4 +1,3 @@
-#from Modelo import Tipo_Entrada
 from BaseDeDatos import CapaConexion
 
 

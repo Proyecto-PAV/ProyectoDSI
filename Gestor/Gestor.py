@@ -159,24 +159,6 @@ class GestorVentaEntradas():
         else:
             return False        
 
-
-
-    def actualizarPantallas(self):
-        #actualiza la pantalla principal a partir de pasado por el parametro
-        self.pantallaCantidadActualPrincipal = PantallaCantidadActualPrinci(0, self.capacidadMaximaSede)
-        PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
-        #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
-        #buscar todas las salas de la sede
-        salas = CapaConexion.obtenerSalas()
-        # por cada sala obtenida, creamos el objeto sala cuya sede sea la pasada por parametro
-        for s in salas:
-            sala = Sala(s[2],s[0],None,s[1])
-            resultado = sala.conocerSalasSede(self.sedeActual.nombre)
-        #actualizar pantallas de estas salas 
-            if resultado:
-                self.pantallaCantidadActualSala = PantallaCantActualSala(sala.nombre, 0, self.capacidadMaximaSede)
-                PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
-
     def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
         #definimos el monto inicial en base a los datos pasados por parametro
         montoAdicional = 0
@@ -186,29 +168,6 @@ class GestorVentaEntradas():
             montoAdicional = self.sedeActual.getAdicionalPorGuia()
             monto = monto + montoAdicional
         return monto
-        
-    def generarNumeroEntrada(self):
-        numero_entrada = self.numeroEntrada + 1
-        return numero_entrada
-
-    def imprimirEntradasGeneradas(self):
-        entras_emitidas = self.entradas
-        ImpresorEntrada.imprimirEntradasGeneradas(entras_emitidas)
-        
-
-    def obtenerUltimoNumero(self):
-        #obtiene las entradas de la BD
-        entradas = CapaConexion.obtenerEntradas()
-        ultimoNro = 0
-        for row in entradas:
-            o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
-            numero = o.getNro()
-            if (numero > ultimoNro) and (o.nombre_sede == self.sedeActual.nombre):
-                ultimoNro = o.numero
-        self.numeroEntrada = ultimoNro
-
-    def solicitarSeleccionTipoEntraTipoVisitayGuia(self):
-        pass
 
     def tomarConfirmacionVenta(self):
         #por cada una de las entradas lo ejecura
@@ -230,20 +189,52 @@ class GestorVentaEntradas():
             #valida si la entrada tiene asignado un guia o no, crea su objeto y almacena en el vector
             if self.hayGuia == True:
                 nuevaEntrada = Entrada(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, empleado)
-                nuevaEntrada.new()
-                entradas_emitidas.append(ent)
+                CapaConexion.almacenarEntrada(nuevaEntrada)
+                entradas_emitidas.append(nuevaEntrada)
             else:
-                ent = Entrada.new(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)
-                entradas_emitidas.append(ent)
+                nuevaEntrada = Entrada(numeroEntrada, fechayHora[0], fechayHora[1], self.montoTotalAPagar, self.tipoEntrada, self.tipoVisita, nombreSede, None)
+                CapaConexion.almacenarEntrada(nuevaEntrada)
+                entradas_emitidas.append(nuevaEntrada)
             #sumo 1 al contador
             n+=1
         self.entradas = entradas_emitidas
-        impresion = self.imprimirEntradasGeneradas()
+        self.imprimirEntradasGeneradas()
         self.actualizarPantallas()    
 
+    def obtenerUltimoNumero(self):
+        #obtiene las entradas de la BD
+        entradas = CapaConexion.obtenerEntradas()
+        ultimoNro = 0
+        for row in entradas:
+            o = Entrada(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+            numero = o.getNro()
+            if (numero > ultimoNro) and (o.nombre_sede == self.sedeActual.nombre):
+                ultimoNro = o.numero
+        self.numeroEntrada = ultimoNro
 
+    def generarNumeroEntrada(self):
+        numero_entrada = self.numeroEntrada + 1
+        return numero_entrada
 
-
+    def imprimirEntradasGeneradas(self):
+        entras_emitidas = self.entradas
+        ImpresorEntrada.imprimirEntradasGeneradas(entras_emitidas)
+        
+    def actualizarPantallas(self):
+        #actualiza la pantalla principal a partir de pasado por el parametro
+        self.pantallaCantidadActualPrincipal = PantallaCantidadActualPrinci(0, self.capacidadMaximaSede)
+        PantallaCantidadActualPrinci.actualizarCantidadActualPrincipal(self.pantallaCantidadActualPrincipal, self.cantidadEntradasEmitir)
+        #crea el objeto pantallas salas y actualizar la pantalla sala, verificar el que son muchas
+        #buscar todas las salas de la sede
+        salas = CapaConexion.obtenerSalas()
+        # por cada sala obtenida, creamos el objeto sala cuya sede sea la pasada por parametro
+        for s in salas:
+            sala = Sala(s[2],s[0],None,s[1])
+            resultado = sala.conocerSalasSede(self.sedeActual.nombre)
+        #actualizar pantallas de estas salas 
+            if resultado:
+                self.pantallaCantidadActualSala = PantallaCantActualSala(sala.nombre, 0, self.capacidadMaximaSede)
+                PantallaCantActualSala.actualizarCantidadActualSala(self.pantallaCantidadActualSala, self.cantidadEntradasEmitir)
 
     def finCU(self):
         exit()

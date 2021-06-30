@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtRemoveInputHook
 from BaseDeDatos.CapaConexion import *
+#! revisar estos import
 
 class TipoEntrada():
 

@@ -1,4 +1,3 @@
-from BaseDeDatos.CapaConexion import *
 
 class TipoVisita():
 

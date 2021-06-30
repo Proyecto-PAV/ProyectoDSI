@@ -1,7 +1,6 @@
 from Modelo.Detalle_Exposicion import Detalle_Exposicion
 from datetime import datetime
 from BaseDeDatos import CapaConexion
-import time
 
 class Exposicion():
 

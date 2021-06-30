@@ -53,6 +53,7 @@ class Tarifa():
             self.tipo_visita = tVisita
 
     def esVigente(self, fecha):
+        #devuelve true si la tarifa es vigente a la fecha pasada por parametro y si no retorna false
         if ((datetime.date(fecha) > self.fechaInicioVifencia) and (datetime.date(fecha) < self.fechaFinVigencia)):
             return True
         else:
