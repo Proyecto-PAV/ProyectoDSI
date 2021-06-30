@@ -94,10 +94,27 @@ class GestorVentaEntradas():
         tarifasVigentes = self.sedeActual.getTarifasVigentes(self.fechaHoraActual)
         return tarifasVigentes, montoAdicional
 
-    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
-        duracion = self.calcularDuracionEstimada(tipo_visita)
+    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tarifaSeleccionada, guia):
+        duracion = self.calcularDuracionEstimada(tarifaSeleccionada.tipo_visita)
+        self.tipoVisita = self.obtenerIdVisita(tarifaSeleccionada.tipo_visita)
+        self.tipoEntrada = self.obtenerIdEntrada(tarifaSeleccionada.tipo_entrada)
+        self.tarifaSeleccionada = tarifaSeleccionada
         self.hayGuia = guia
         return duracion
+
+    def obtenerIdVisita(self, tipo_visita):
+        visitas = CapaConexion.obtenerNombreVisita()
+        for visita in visitas:
+            visObj = TipoVisita(visita[1], visita[0])
+            if visObj.nombre == tipo_visita:
+                return visObj.tipoVisita
+
+    def obtenerIdEntrada(self, tipo_entrada):
+        entradas = CapaConexion.obtenerTiposEntradas()
+        for entrada in entradas:
+            entradaObj = TipoEntrada(entrada[1],entrada[0])
+            if entradaObj.nombre == tipo_entrada:
+                return entradaObj.tipoEntrada
 
     def calcularDuracionEstimada(self, tipo_visita):
         fecha = self.fechaHoraActual
