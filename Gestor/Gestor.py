@@ -94,11 +94,10 @@ class GestorVentaEntradas():
         tarifasVigentes = self.sedeActual.getTarifasVigentes(self.fechaHoraActual)
         return tarifasVigentes, montoAdicional
 
-    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tarifaSeleccionada, guia):
-        duracion = self.calcularDuracionEstimada(tarifaSeleccionada.tipo_visita)
-        self.tipoVisita = self.obtenerIdVisita(tarifaSeleccionada.tipo_visita)
-        self.tipoEntrada = self.obtenerIdEntrada(tarifaSeleccionada.tipo_entrada)
-        self.tarifaSeleccionada = tarifaSeleccionada
+    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
+        duracion = self.calcularDuracionEstimada(tipo_visita)
+        self.tipoVisita = self.obtenerIdVisita(tipo_visita)
+        self.tipoEntrada = self.obtenerIdEntrada(tipo_entrada)
         self.hayGuia = guia
         return duracion
 
@@ -199,7 +198,7 @@ class GestorVentaEntradas():
             numeroEntrada = self.generarNumeroEntrada()
             # Guarda en el atributo del gestor el ultimo numero de entrada generado y recupero los datos del gestor
             self.numeroEntrada = numeroEntrada
-            nombreSede = self.sedeActual
+            nombreSede = self.sedeActual.nombre
             empleado = self.empleado
             fechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
             fechayHora = fechayHora.split(" ")

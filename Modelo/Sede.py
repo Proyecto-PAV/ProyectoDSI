@@ -107,7 +107,7 @@ class Sede():
                     #si es vigente, obtiene la duracion de su/s detalle/s
                     duracion_ext += expo.getDetalleExposicionRes()
 
-        return duracion_ext
+        return self.convertirTiempo(duracion_ext)
 
     def getReservaVisita(self, duracionEstimada, estadoConfirmado, fecha_actual):
         #busca las reservas de la BD y crea su objeto
