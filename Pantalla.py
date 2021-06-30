@@ -18,7 +18,7 @@ class PantallaVentaEntradas:
     def tomarOpcionRegistrarVentaEntradas(self):
         #self.habilitarPantalla()
         #aca se crea el objeto gestprVentaEntrada
-        self.gestorVentaEntradas = GestorVentaEntradas(None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)
+        self.gestorVentaEntradas = GestorVentaEntradas(None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)
         tarifasVigentes, montoAdicionalGuia = self.gestorVentaEntradas.tomarOpcionRegistrarVentaDeEntradas(self)
         return tarifasVigentes, montoAdicionalGuia
     
@@ -45,8 +45,8 @@ class PantallaVentaEntradas:
         validacion = self.gestorVentaEntradas.tomarSeleccionDeCantidadDeEntradasAEmitir(cantidad)
         return validacion
 
-    def tomarDatosEntrada(self, tipo_visita, tipo_entrada, guia):
-        duracion = self.gestorVentaEntradas.tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(tipo_visita, tipo_entrada, guia)
+    def tomarDatosEntrada(self, tarifaSeleccionada, guia):
+        duracion = self.gestorVentaEntradas.tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(tarifaSeleccionada, guia)
     
 
 

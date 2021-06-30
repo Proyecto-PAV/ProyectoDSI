@@ -8,6 +8,8 @@ from Modelo.Tarifa import *
 from Modelo.Estado import *
 from Interfaz.ImpresorEntrada import *
 from Modelo.Entrada import *
+from Modelo.Tipo_Entrada import *
+from Modelo.Tipo_visita import *
 
 class GestorVentaEntradas():
 
@@ -31,9 +33,10 @@ class GestorVentaEntradas():
     tipoEntrada = None
     tipoVisita = None
     estadoConfirmado_Reserva = []
+    tarifaSeleccionada = None
 
     def __init__(self, pantallaVentaEntradas, pantallaCantidadActualPrincipal, impresoraEntrada, entradas, sesion, pantallaCantidadActualSala, cantidadEntradas, capacidadMaximaSede, confirmacionVenta, duracionEstimada, empleado, fechaHoraActual,
-                 hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita, estadoConfirmadoRes):
+                 hayGuia, montoTotalAPagar, numeroEntrada, sedeActual, tipoEntrada, tipoVisita, estadoConfirmadoRes, tarifaSeleccionada):
          #constructor del objeto controlador Gestor
         self.pantallaVentaEntradas = pantallaVentaEntradas
         self.pantallaCantidadActualPrincipal = pantallaCantidadActualPrincipal
@@ -54,7 +57,7 @@ class GestorVentaEntradas():
         self.tipoEntrada = tipoEntrada
         self.tipoVisita = tipoVisita
         self.estadoConfirmado_Reserva = estadoConfirmadoRes
-        
+        self.tarifaSeleccionada = tarifaSeleccionada
 
     def tomarOpcionRegistrarVentaDeEntradas(self, pantallaVentaEntradas):
         self.pantallaVentaEntradas = pantallaVentaEntradas
@@ -94,10 +97,28 @@ class GestorVentaEntradas():
         tarifasVigentes = self.sedeActual.getTarifasVigentes(self.fechaHoraActual)
         return tarifasVigentes, montoAdicional
 
-    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tipo_visita, tipo_entrada, guia):
-        duracion = self.calcularDuracionEstimada(tipo_visita)
+    def tomarSeleccionTipoVisitaYTipoEntradaYSinGuia(self, tarifaSeleccionada, guia):
+        duracion = self.calcularDuracionEstimada(tarifaSeleccionada.tipo_visita)
+        
+        self.tipoVisita = self.obtenerIdVisita(tarifaSeleccionada.tipo_visita)
+        self.tipoEntrada = self.obtenerIdEntrada(tarifaSeleccionada.tipo_entrada)
+        self.tarifaSeleccionada = tarifaSeleccionada
         self.hayGuia = guia
         return duracion
+    
+    def obtenerIdVisita(self, tipo_visita):
+        visitas = CapaConexion.obtenerNombreVisita()
+        for visita in visitas:
+            visObj = TipoVisita(visita[1], visita[0])
+            if visObj.nombre == tipo_visita:
+                return visObj.tipoVisita
+
+    def obtenerIdEntrada(self, tipo_entrada):
+        entradas = CapaConexion.obtenerTiposEntradas()
+        for entrada in entradas:
+            entradaObj = TipoEntrada(entrada[1],entrada[0])
+            if entradaObj.nombre == tipo_entrada:
+                return entradaObj.tipoEntrada
 
     def calcularDuracionEstimada(self, tipo_visita):
         fecha = self.fechaHoraActual
@@ -115,6 +136,7 @@ class GestorVentaEntradas():
         estadoConfirmado = self.buscarEstadoConfirmada()
         validacion = self.validarCantidadDeEntradasMenorCapaMaxima(cantidad, estadoConfirmado)
         if validacion:
+            self.calcularMontoTotalAPagar(cantidad)
             self.cantidadEntradasEmitir = cantidad
         return validacion
 
@@ -159,15 +181,18 @@ class GestorVentaEntradas():
         else:
             return False        
 
-    def calcularMontoTotalAPagar(self, tarifa_seleccionada, cantidad_seleccionada, hayGuia):
+    def calcularMontoTotalAPagar(self, cantidad_seleccionada):
         #definimos el monto inicial en base a los datos pasados por parametro
+        
         montoAdicional = 0
-        monto = tarifa_seleccionada.monto * cantidad_seleccionada
-        if hayGuia == True:
+        monto = self.tarifaSeleccionada.monto * cantidad_seleccionada
+    
+        if self.hayGuia == True:
             # si se define una entrada con guia, se le suma al monto total su adicional
             montoAdicional = self.sedeActual.getAdicionalPorGuia()
             monto = monto + montoAdicional
-        return monto
+
+        self.montoTotalAPagar = monto
 
     def tomarConfirmacionVenta(self):
         #por cada una de las entradas lo ejecura
@@ -182,7 +207,7 @@ class GestorVentaEntradas():
             numeroEntrada = self.generarNumeroEntrada()
             # Guarda en el atributo del gestor el ultimo numero de entrada generado y recupero los datos del gestor
             self.numeroEntrada = numeroEntrada
-            nombreSede = self.sedeActual
+            nombreSede = self.sedeActual.nombre
             empleado = self.empleado
             fechayHora = self.fechaHoraActual.strftime('%Y-%m-%d %H:%M:%S')
             fechayHora = fechayHora.split(" ")

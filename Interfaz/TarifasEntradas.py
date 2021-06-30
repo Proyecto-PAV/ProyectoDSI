@@ -49,7 +49,7 @@ class Ui_TarifaEntradas(object):
             tarifasVigentes, adicionalPorGuia = self.pantallaVentaEntradas.tomarOpcionRegistrarVentaEntradas()
             montoTotal = float(monto) + adicionalPorGuia
             if self.SP_cantidad.isHidden():
-                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, True)
+                self.pantallaVentaEntradas.tomarDatosEntrada(row, True)
                 self.SP_cantidad.show()
             else:
                 valor_spin = self.SP_cantidad.value()
@@ -66,7 +66,7 @@ class Ui_TarifaEntradas(object):
 
         elif self.RB_sin_guia.isChecked():
             if self.SP_cantidad.isHidden():
-                self.pantallaVentaEntradas.tomarDatosEntrada(tipo_visita, tipo_entrada, False)
+                self.pantallaVentaEntradas.tomarDatosEntrada(row, False)
                 self.SP_cantidad.show()
             else:
                 valor_spin = self.SP_cantidad.value()
